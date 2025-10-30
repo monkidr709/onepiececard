@@ -26,14 +26,32 @@
 				</div>
 			</div>
 			<div class="choiceleader-image-grid">
-				
+				<div class="choiceleader-image-card" th:each="leaderImage : ${leaderImages}" th:data-color="${leaderImage.cardColor}">
+					<a href="javascript:void(0);" th:onclick="'choiceLeaderModal(' + ${leaderImage.id} + ')'">
+						<img th:src="@{/card/list/file/{id}(id=${leaderImage.id})}" th:alt="${leaderImage.cardName}">
+					</a>
+				</div>
 			</div>
+		</div>
+		
+		<!-- モーダルダイアログ -->
+		<div id="leaderModal" class="choiceleader-modal">
+			
 		</div>
 	</main>
 	
 	<script>
+		//リーダーを色で検索する関数
 		function searchLeader(color) {
-			
+			const cards = document.querySelectorAll('.choiceleader-image-card');
+			cards.forEach(card => {
+				const leaderCardColor = card.dataset.color;
+				if (leaderCardColor && leaderCardColor.includes(color)) {
+					card.style.display = 'block';
+				} else {
+					card.style.display = 'none';
+				}
+			});
 		}
 		
 		document.getElementById('searchLeader').addEventListener('click', function(event) {
@@ -41,7 +59,21 @@
 				const color = event.target.value;
 				searchLeader(color);
 			}
-		})
+		});
+		
+		function choiceLeaderModal(leaderCardId) {
+			//Ajaxでカード詳細を取得
+			fetch('/card/list/file/' + leaderCardId)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('No Image');
+					}
+					return response.json();
+				})
+				.then(card => {
+					
+				})
+		}
 	</script>
 </body>
 

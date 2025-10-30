@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import jp.co.sss.onepiececardviewer.form.CardListForm;
 import jp.co.sss.onepiececardviewer.service.CardListService;
 import jp.co.sss.onepiececardviewer.service.CreateDeckService;
 
@@ -28,8 +27,7 @@ public class ChoiceLeaderController {
 		if (username == null) {
 			return "redirect:/login";
 		}
-		model.addAttribute("LeaderImages", createDeckService.getCardListByCardTypeLeader());
-		model.addAttribute("cardListForm", new CardListForm());
+		model.addAttribute("leaderImages", createDeckService.getCardListByCardTypeLeader());
 		return "html/choiceLeader";
 	}
 

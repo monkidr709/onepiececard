@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+/* メインコンテンツエリア */
+main {
+	display: flex;
+	min-height: 100vh;
+}
+
+/* リーダー選択コンテナ */
+.choiceleader-container {
+	margin-left: 260px;
+	padding: 2rem;
+	padding-top: 120px;
+	width: calc(100% - 260px);
+	min-height: 100vh;
+	background-color: #f5f5f5;
+}
+
+.choiceleader-container h1 {
+	font-size: 2rem;
+	color: #8e2639;
+	margin-bottom: 2rem;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* 検索エリア */
+.choiceleader-search {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2rem;
+}
+
+.choiceleader-search-leader {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.choiceleader-search-leader button {
+	padding: 0.8rem 1.5rem;
+	font-size: 1rem;
+	font-weight: bold;
+	border: 2px solid #8e2639;
+	border-radius: 8px;
+	background-color: white;
+	color: #8e2639;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	min-width: 80px;
+}
+
+.choiceleader-search-leader button:hover {
+	background-color: #8e2639;
+	color: white;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.choiceleader-search-leader button:active {
+	transform: translateY(0);
+}
+
+/* カードグリッド */
+.choiceleader-image-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 1.5rem;
+	padding: 1rem;
+}
+
+.choiceleader-image-card {
+	background-color: white;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.choiceleader-image-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.choiceleader-image-card a {
+	display: block;
+	text-decoration: none;
+}
+
+.choiceleader-image-card img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	.choiceleader-container {
+		margin-left: 200px;
+		width: calc(100% - 200px);
+		padding: 1.5rem;
+		padding-top: 100px;
+	}
+
+	.choiceleader-container h1 {
+		font-size: 1.8rem;
+	}
+
+	.choiceleader-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: 1rem;
+	}
+
+	.choiceleader-search-leader button {
+		padding: 0.7rem 1.2rem;
+		font-size: 0.95rem;
+		min-width: 70px;
+	}
+}
+
+@media (max-width: 480px) {
+	.choiceleader-container {
+		margin-left: 0;
+		width: 100%;
+		padding: 1rem;
+		padding-top: 80px;
+	}
+
+	.choiceleader-container h1 {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.choiceleader-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+		gap: 0.8rem;
+		padding: 0.5rem;
+	}
+
+	.choiceleader-search-leader {
+		gap: 0.5rem;
+	}
+
+	.choiceleader-search-leader button {
+		padding: 0.6rem 1rem;
+		font-size: 0.9rem;
+		min-width: 60px;
+	}
+}
