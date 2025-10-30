@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>デッキ作成</title>
+	<link rel="stylesheet" th:href="@{/css/choiceLeader.css}">
+	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/sidebar.css}">
+</head>
+
+<body>
+	<header th:replace="~{html/common/header :: layout-header}"></header>
+	<main>
+		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
+		<div class="choiceleader-container">
+			<h1>リーダー選択</h1>
+			<div class="choiceleader-search">
+				<div id="searchLeader" class="choiceleader-search-leader">
+					<button type="button" value="赤">赤</button>
+					<button type="button" value="緑">緑</button>
+					<button type="button" value="青">青</button>
+					<button type="button" value="紫">紫</button>
+					<button type="button" value="黒">黒</button>
+					<button type="button" value="黄">黄</button>
+				</div>
+			</div>
+			<div class="choiceleader-image-grid">
+				
+			</div>
+		</div>
+	</main>
+	
+	<script>
+		function searchLeader(color) {
+			
+		}
+		
+		document.getElementById('searchLeader').addEventListener('click', function(event) {
+			if (event.target.tagName === 'BUTTON') {
+				const color = event.target.value;
+				searchLeader(color);
+			}
+		})
+	</script>
+</body>
+
+</html>

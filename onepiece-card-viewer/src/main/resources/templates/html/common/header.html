@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<header th:fragment="layout-header">
+		<div class="header-container">
+			<div class="header-title">
+				<h1><a th:href="@{/home}">OnePieceCard</a></h1>
+			</div>
+			<div class="header-user">
+				<p>ようこそ、<span th:text="${session.username}"></span>さん</p>
+			</div>
+			<div class="header-logout">
+				<a th:href="@{/logout}" class="logout-button">ログアウト</a>
+			</div>
+		</div>
+	</header>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	margin: 0;
+	padding: 20px;
+}
+
+/* 見出し */
+h2 {
+	text-align: center;
+	color: #333;
+	margin-bottom: 30px;
+}
+
+/* ログインフォーム */
+form {
+	max-width: 400px;
+	margin: 50px auto;
+	padding: 30px;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+/* 入力フィールドのコンテナ */
+form>div {
+	margin-bottom: 15px;
+}
+
+/* ラベル */
+label {
+	display: block;
+	margin-bottom: 5px;
+	color: #333;
+}
+
+/* 入力フィールド */
+input[type="text"],
+input[type="password"] {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+/* ボタン */
+button[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+button[type="submit"]:hover {
+	background-color: #0056b3;
+}
+
+/* エラーメッセージ */
+div[style*="color: red"] {
+	margin-top: 15px;
+	padding: 10px;
+	background-color: #ffe6e6;
+	border: 1px solid #ffcccc;
+	border-radius: 3px;
+}
+
+div[style*="color: red"] p {
+	margin: 0;
+	color: #cc0000 !important;
+}

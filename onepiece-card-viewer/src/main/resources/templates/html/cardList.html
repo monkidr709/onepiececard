@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>カードリスト</title>
+	<link rel="stylesheet" th:href="@{/css/cardList.css}">
+	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/sidebar.css}">
+</head>
+
+<body>
+	<header th:replace="~{html/common/header :: layout-header}"></header>
+	<main>
+		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
+		<div class="cardlist-container">
+			<h1>カードリスト</h1>
+			<div class="cardlist-search">
+				<h2>カード検索</h2>
+				<!-- 詳細検索トグルボタン -->
+				<div class="cardlist-search-toggle">
+					<button type="button" class="cardlist-search-toggle-btn" onclick="toggleDetailSearch()">
+						詳細検索
+					</button>
+				</div>
+				<form th:action="@{/card/list/search}" th:object="${cardListForm}" method="post" novalidate>
+					<div id="detailSearchArea" class="cardlist-search-details">
+						<div class="cardlist-search-name">
+							<label>名前:</label>
+							<input type="text" th:field="*{cardName}" />
+						</div>
+						<div class="cardlist-search-color">
+							<label>色:</label>
+							<input type="checkbox" th:field="*{cardColor}" th:value="赤" />赤
+							<input type="checkbox" th:field="*{cardColor}" th:value="緑" />緑
+							<input type="checkbox" th:field="*{cardColor}" th:value="青" />青
+							<input type="checkbox" th:field="*{cardColor}" th:value="紫" />紫
+							<input type="checkbox" th:field="*{cardColor}" th:value="黒" />黒
+							<input type="checkbox" th:field="*{cardColor}" th:value="黄" />黄
+						</div>
+						<div class="cardlist-search-type">
+							<label>種類:</label>
+							<input type="checkbox" th:field="*{cardType}" th:value="リーダー" />リーダー
+							<input type="checkbox" th:field="*{cardType}" th:value="キャラ" />キャラ
+							<input type="checkbox" th:field="*{cardType}" th:value="イベント" />イベント
+							<input type="checkbox" th:field="*{cardType}" th:value="ステージ" />ステージ
+						</div>
+						<div class="cardlist-search-pack">
+							<label>カードが収録されているパック:</label>
+							<select th:field="*{cardPack}">
+								<option value=""></option>
+								<option th:value="ST01">ST01</option>
+								<option th:value="ST02">ST02</option>
+								<option th:value="ST03">ST03</option>
+								<option th:value="ST04">ST04</option>
+							</select>
+						</div>
+						<div class="cardlist-search-block-icon">
+							<label>ブロックアイコン:</label>
+							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="1" />1
+							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="2" />2
+							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="3" />3
+							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="4" />4
+						</div>
+						<div class="cardlist-search-rarity">
+							<label>レアリティ:</label>
+							<input type="checkbox" th:field="*{cardRarity}" th:value="L" />L
+							<input type="checkbox" th:field="*{cardRarity}" th:value="C" />C
+							<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />UC
+							<input type="checkbox" th:field="*{cardRarity}" th:value="R" />R
+							<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />SR
+							<input type="checkbox" th:field="*{cardRarity}" th:value="SCR" />SCR
+						</div>
+						<div class="cardlist-search-cost-or-life">
+							<label>コストもしくはライフ:</label>
+							<select th:field="*{cardCostOrLife}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+								<option th:value="5">5</option>
+								<option th:value="6">6</option>
+								<option th:value="7">7</option>
+								<option th:value="8">8</option>
+								<option th:value="9">9</option>
+								<option th:value="10">10</option>
+							</select>
+						</div>
+						<div class="cardlist-search-power">
+							<label>パワー:</label>
+							<select th:field="*{cardPowerMore}">
+								<option value=""></option>
+								<option th:value="-1">0</option>
+								<option th:value="999">1000</option>
+								<option th:value="1999">2000</option>
+								<option th:value="2999">3000</option>
+								<option th:value="3999">4000</option>
+								<option th:value="4999">5000</option>
+								<option th:value="5999">6000</option>
+								<option th:value="6999">7000</option>
+								<option th:value="7999">8000</option>
+								<option th:value="8999">9000</option>
+								<option th:value="9999">10000</option>
+								<option th:value="10999">11000</option>
+								<option th:value="11999">12000</option>
+								<option th:value="12999">13000</option>
+							</select>
+							<label>～</label>
+							<select th:field="*{cardPowerUnder}">
+								<option value=""></option>
+								<option th:value="1">0</option>
+								<option th:value="1001">1000</option>
+								<option th:value="2001">2000</option>
+								<option th:value="3001">3000</option>
+								<option th:value="4001">4000</option>
+								<option th:value="5001">5000</option>
+								<option th:value="6001">6000</option>
+								<option th:value="7001">7000</option>
+								<option th:value="8001">8000</option>
+								<option th:value="9001">9000</option>
+								<option th:value="10001">10000</option>
+								<option th:value="11001">11000</option>
+								<option th:value="12001">12000</option>
+								<option th:value="13001">13000</option>
+							</select>
+						</div>
+						<div class="cardlist-search-features">
+							<label>属性:</label>
+							<input type="checkbox" th:field="*{cardFeatures}" th:value="打" />打
+							<input type="checkbox" th:field="*{cardFeatures}" th:value="射" />射
+							<input type="checkbox" th:field="*{cardFeatures}" th:value="特" />特
+							<input type="checkbox" th:field="*{cardFeatures}" th:value="知" />知
+							<input type="checkbox" th:field="*{cardFeatures}" th:value="斬" />斬
+						</div>
+						<div class="cardlist-search-attribute">
+							<label>特徴:</label>
+							<select th:field="*{cardAttribute}">
+								<option value=""></option>
+								<option th:value="超新星">超新星</option>
+								<option th:value="麦わらの一味">麦わらの一味</option>
+								<option th:value="動物">動物</option>
+								<option th:value="アラバスタ王国">アラバスタ王国</option>
+								<option th:value="魚人族">魚人族</option>
+								<option th:value="キッド海賊団">キッド海賊団</option>
+								<option th:value="ファイアタンク海賊団">ファイアタンク海賊団</option>
+								<option th:value="破戒僧海賊団">破戒僧海賊団</option>
+								<option th:value="海軍">海軍</option>
+								<option th:value="ボニー海賊団">ボニー海賊団</option>
+								<option th:value="オンエア海賊団">オンエア海賊団</option>
+								<option th:value="ハートの海賊団">ハートの海賊団</option>
+								<option th:value="ホーキンス海賊団">ホーキンス海賊団</option>
+								<option th:value="ミンク族">ミンク族</option>
+								<option th:value="ドレーク海賊団">ドレーク海賊団</option>
+								<option th:value="王下七武海">王下七武海</option>
+								<option th:value="B・W">B・W</option>
+								<option th:value="スリラーバーク海賊団">スリラーバーク海賊団</option>
+								<option th:value="タイヨウの海賊団">タイヨウの海賊団</option>
+								<option th:value="ドンキホーテ海賊団">ドンキホーテ海賊団</option>
+								<option th:value="革命軍">革命軍</option>
+								<option th:value="バギーズ・デリバリー">バギーズ・デリバリー</option>
+								<option th:value="九蛇海賊団">九蛇海賊団</option>
+								<option th:value="黒ひげ海賊団">黒ひげ海賊団</option>
+								<option th:value="四皇">四皇</option>
+								<option th:value="百獣海賊団">百獣海賊団</option>
+								<option th:value="SMILE">SMILE</option>
+							</select>
+						</div>
+						<div class="cardlist-search-counter">
+							<label>カウンター値:</label>
+							<input type="checkbox" th:field="*{cardCounter}" th:value="0" />カウンターなし
+							<input type="checkbox" th:field="*{cardCounter}" th:value="1000" />1000
+							<input type="checkbox" th:field="*{cardCounter}" th:value="2000" />2000
+						</div>
+						<div class="cardlist-search-text">
+							<label>テキスト効果:</label>
+							<input type="text" th:field="*{cardText}" required />
+						</div>
+						<div class="cardlist-search-trigger">
+							<label>トリガー:</label>
+							<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
+							<label>トリガーのテキスト効果:</label>
+							<input type="text" th:field="*{cardTriggerText}" required />
+						</div>
+						<div class="cardlist-search-others">
+							<label>登場時:</label>
+							<input type="checkbox" th:field="*{cardAppearance}" th:value="1" />
+							<label>起動メイン:</label>
+							<input type="checkbox" th:field="*{cardLaunchMain}" th:value="1" />
+							<label>アタック時:</label>
+							<input type="checkbox" th:field="*{cardAttack}" th:value="1" />
+							<label>KO時:</label>
+							<input type="checkbox" th:field="*{cardKO}" th:value="1" />
+							<label>ブロック時:</label>
+							<input type="checkbox" th:field="*{cardBlock}" th:value="1" />
+							<label>自分のターン中:</label>
+							<input type="checkbox" th:field="*{cardDuringYourTurn}" th:value="1" />
+							<label>相手のターン中:</label>
+							<input type="checkbox" th:field="*{cardDuringOpponentTurn}" th:value="1" />
+							<label>自分のターン終了時:</label>
+							<input type="checkbox" th:field="*{cardYourTurnEnd}" th:value="1" />
+							<label>相手のアタック時:</label>
+							<input type="checkbox" th:field="*{cardOpponentAttack}" th:value="1" />
+							<label>メイン効果:</label>
+							<input type="checkbox" th:field="*{cardMain}" th:value="1" />
+							<label>イベントカウンター:</label>
+							<input type="checkbox" th:field="*{cardEventCounter}" th:value="1" />
+							<label>ターン1回:</label>
+							<input type="checkbox" th:field="*{cardOneTurn}" th:value="1" />
+							<label>ドン!!×n:</label>
+							<input type="checkbox" th:field="*{cardDonHang}" th:value="1" />
+							<label>ドン!!-n:</label>
+							<input type="checkbox" th:field="*{cardDonMinus}" th:value="1" />
+							<label>ブロッカー:</label>
+							<input type="checkbox" th:field="*{cardBlocker}" th:value="1" />
+							<label>速攻:</label>
+							<input type="checkbox" th:field="*{cardHaste}" th:value="1" />
+							<label>ダブルアタック:</label>
+							<input type="checkbox" th:field="*{cardDoubleAttack}" th:value="1" />
+							<label>バニッシュ:</label>
+							<input type="checkbox" th:field="*{cardVanish}" th:value="1" />
+						</div>
+						<div>
+							<button type="submit">検索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="cardlist-image-grid">
+				<div class="cardlist-image-card" th:each="image : ${images}">
+					<a href="javascript:void(0);" th:onclick="'openCardModal(' + ${image.id} + ')'">
+						<img th:src="@{/card/list/file/{id}(id=${image.id})}" th:alt="${image.cardName}">
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- モーダルダイアログ -->
+		<div id="cardModal" class="cardlist-modal">
+			<div class="cardlist-modal-content">
+				<span class="cardlist-modal-close" onclick="closeCardModal()">&times;</span>
+				<div class="cardlist-modal-body">
+					<div class="cardlist-modal-image">
+						<img id="modalImage" src="" alt="カード画像">
+					</div>
+					<div class="cardlist-modal-details">
+						<div class="cardlist-overlay-cardname">
+							<h1><span id="modalCardName"></span></h1>
+							<p><span id="modalCardNumber"></span></p>
+						</div>
+						<div class="cardlist-overlay-others">
+							<p>色:<span id="modalCardColor"></span></p>
+							<p>種類:<span id="modalCardType"></span></p>
+							<p>コストまたはライフ:<span id="modalCardCostOrLife"></span></p>
+							<p>パワー:<span id="modalCardPower"></span></p>
+							<p>カウンター:<span id="modalCardCounter"></span></p>
+							<p>特徴:<span id="modalCardAttribute"></span></p>
+							<p>属性:<span id="modalCardFeatures"></span></p>
+							<p>テキスト:<span id="modalCardText"></span></p>
+							<div id="modalTriggerSection" style="display: none;">
+								<p>トリガー:<span id="modalCardTriggerText"></span></p>
+							</div>
+							<p>入手情報:<span id="modalCardPack"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<script>
+		function toggleDetailSearch() {
+			const detailArea = document.getElementById('detailSearchArea');
+			const button = document.querySelector('.cardlist-search-toggle-btn');
+			
+			if (detailArea.classList.contains('active')) {
+				detailArea.classList.remove('active');
+				button.textContent = '詳細検索';
+			} else {
+				detailArea.classList.add('active');
+				button.textContent = '詳細検索を閉じる';
+			}
+		}
+		
+		//モーダルを開く関数
+		function openCardModal(cardId) {
+			//Ajaxでカード詳細を取得
+			fetch('/card/list/detail/' + cardId)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('No Image');
+					}
+					return response.json();
+				})
+				.then(card => {
+					//モーダルに情報を設定
+					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
+					document.getElementById('modalCardName').textContent = card.cardName || '';
+					document.getElementById('modalCardNumber').textContent = card.cardNumber || '';
+					document.getElementById('modalCardColor').textContent = card.cardColor || '';
+					document.getElementById('modalCardType').textContent = card.cardType || '';
+					document.getElementById('modalCardCostOrLife').textContent = card.cardCostOrLife || '';
+					document.getElementById('modalCardPower').textContent = card.cardPower || '';
+					document.getElementById('modalCardCounter').textContent = card.cardCounter || '';
+					document.getElementById('modalCardAttribute').textContent = card.cardAttribute || '';
+					document.getElementById('modalCardFeatures').textContent = card.cardFeatures || '';
+					document.getElementById('modalCardText').textContent = card.cardText || '';
+					document.getElementById('modalCardPack').textContent = card.cardPack || '';
+					
+					//トリガーがある場合のみ表示
+					const triggerSection = document.getElementById('modalTriggerSection');
+					if (card.cardTrigger) {
+						document.getElementById('modalCardTriggerText').textContent = card.cardTriggerText || '';
+						triggerSection.style.display = 'block';
+					} else {
+						triggerSection.style.display = 'none';
+					}
+					
+					//モーダルを表示
+					document.getElementById('cardModal').classList.add('active');
+					
+				})
+				.catch(error =>{
+					console.error('エラー:', error);
+					alert('カード情報の取得に失敗しました');
+				});
+		}
+		
+		//モーダルを閉じる関数
+		function closeCardModal() {
+			document.getElementById('cardModal').classList.remove('active');
+		}
+		
+		//モーダルの背景をクリックしたら閉じる
+		window.onclick = function(event) {
+			const modal = document.getElementById('cardModal');
+			if (event.target === modal) {
+				closeCardModal();
+			}
+		}
+		
+		//ESCキーでモーダルを閉じる
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeCardModal();
+			}
+		});
+	</script>
+</body>
+
+</html>

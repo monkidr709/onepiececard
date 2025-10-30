@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/* サイドバー全体のスタイル */
+aside {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 260px;
+	height: 100vh;
+	background: linear-gradient(180deg, #8e2639 0%, #a8344d 100%);
+	box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 40;
+	overflow: hidden;
+}
+
+.sidebar-container {
+	padding: 1.5rem 1rem;
+	padding-top: 130px;
+	height: 100%;
+	overflow-y: auto;
+}
+
+/* タイトル */
+.sidebar-title {
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-title h1 {
+	margin: 0;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* メニューボタンコンテナ */
+.sidebar-menu-button {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+/* メニューアイテム */
+.sidebar-menu-item {
+	width: 100%;
+}
+
+.sidebar-menu-item a {
+	display: block;
+	width: 100%;
+	padding: 0.9rem 1.2rem;
+	background-color: rgba(255, 255, 255, 0.15);
+	color: white;
+	text-decoration: none;
+	font-size: 1.05rem;
+	font-weight: 600;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+	text-align: center;
+	border: 2px solid transparent;
+	box-sizing: border-box;
+}
+
+.sidebar-menu-item a:visited {
+	color: white;
+}
+
+.sidebar-menu-item a:hover {
+	background-color: rgba(255, 255, 255, 0.25);
+	transform: translateX(5px);
+	border-color: rgba(255, 255, 255, 0.5);
+	color: white;
+}
+
+.sidebar-menu-item a:active {
+	transform: translateX(3px);
+	color: white;
+}
+
+/* 管理者設定ボタン */
+.sidebar-admin-button {
+	background-color: rgba(255, 215, 0, 0.2) !important;
+	border-color: #ffd700 !important;
+}
+
+.sidebar-admin-button:hover {
+	background-color: rgba(255, 215, 0, 0.3) !important;
+}
+
+/* スクロールバーのスタイル */
+.sidebar-container::-webkit-scrollbar {
+	width: 8px;
+}
+
+.sidebar-container::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	aside {
+		width: 200px;
+		padding-top: 140px;
+	}
+
+	.sidebar-title h1 {
+		font-size: 1.5rem;
+	}
+
+	.sidebar-menu-item a {
+		font-size: 1rem;
+		padding: 0.8rem 1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	aside {
+		width: 100%;
+		height: auto;
+		position: static;
+		padding-top: 0;
+	}
+
+	.sidebar-container {
+		padding: 1rem;
+	}
+
+	.sidebar-title {
+		margin-bottom: 1rem;
+	}
+}

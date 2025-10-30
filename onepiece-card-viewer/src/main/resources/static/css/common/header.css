@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/* ヘッダー全体のスタイル */
+header {
+	margin: 0;
+	position: relative;
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	padding: 1.5rem 2rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	z-index: 100;
+}
+
+/* ヘッダー内のリンク色を固定 */
+header a {
+	color: white;
+	text-decoration: none;
+}
+
+header a:visited,
+header a:hover,
+header a:active,
+header a:focus {
+	color: white;
+}
+
+.header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+/* タイトル */
+.header-title {
+	flex-shrink: 0;
+}
+
+.header-title h1 {
+	margin: 0;
+	font-size: 2.5rem;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	color: white;
+}
+
+/* ユーザー情報 */
+.header-user {
+	flex-grow: 1;
+	text-align: right;
+}
+
+.header-user p {
+	margin: 0;
+	font-size: 1.1rem;
+	color: white;
+}
+
+.header-user p span {
+	font-weight: bold;
+	color: #ffd700;
+}
+
+/* ログアウトボタンエリア */
+.header-logout {
+	flex-shrink: 0;
+}
+
+/* ログアウトボタン */
+.logout-button {
+	display: inline-block;
+	background-color: rgba(255, 255, 255, 0.2);
+	color: white;
+	border: 2px solid white;
+	padding: 0.6rem 1.5rem;
+	font-size: 0.95rem;
+	font-weight: bold;
+	border-radius: 25px;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+	background-color: white;
+	color: #8e2639;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logout-button:active {
+	transform: translateY(0);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	.header-container {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.header-user {
+		text-align: center;
+	}
+
+	.header-title h1 {
+		font-size: 2rem;
+	}
+
+	.header-user p {
+		font-size: 1.1rem;
+	}
+}
