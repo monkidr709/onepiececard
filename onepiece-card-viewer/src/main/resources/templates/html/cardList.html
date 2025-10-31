@@ -53,7 +53,6 @@
 								<option th:value="ST02">ST02</option>
 								<option th:value="ST03">ST03</option>
 								<option th:value="ST04">ST04</option>
-								<option th:value="OP01">OP01</option>
 							</select>
 						</div>
 						<div class="cardlist-search-block-icon">
@@ -76,7 +75,6 @@
 							<label>コストもしくはライフ:</label>
 							<select th:field="*{cardCostOrLife}">
 								<option value=""></option>
-								<option th:value="0">0</option>
 								<option th:value="1">1</option>
 								<option th:value="2">2</option>
 								<option th:value="3">3</option>
@@ -166,22 +164,6 @@
 								<option th:value="四皇">四皇</option>
 								<option th:value="百獣海賊団">百獣海賊団</option>
 								<option th:value="SMILE">SMILE</option>
-								<option th:value="FILM">FILM</option>
-								<option th:value="ワノ国">ワノ国</option>
-								<option th:value="八宝水軍">八宝水軍</option>
-								<option th:value="巨人族">巨人族</option>
-								<option th:value="新巨兵海賊団">新巨兵海賊団</option>
-								<option th:value="バルトクラブ">バルトクラブ</option>
-								<option th:value="白ひげ海賊団">白ひげ海賊団</option>
-								<option th:value="元白ひげ海賊団">元白ひげ海賊団</option>
-								<option th:value="美しき海賊団">美しき海賊団</option>
-								<option th:value="光月家">光月家</option>
-								<option th:value="赤鞘九人男">赤鞘九人男</option>
-								<option th:value="生物兵器">生物兵器</option>
-								<option th:value="パンクハザード">FILM</option>
-								<option th:value="ドレスローザー">ドレスローザ</option>
-								<option th:value="黒炭家">黒炭家</option>
-								<option th:value="赤髪海賊団">赤髪海賊団</option>
 							</select>
 						</div>
 						<div class="cardlist-search-counter">
@@ -259,7 +241,7 @@
 				<span class="cardlist-modal-close" onclick="closeCardModal()">&times;</span>
 				<div class="cardlist-modal-body">
 					<div class="cardlist-modal-image">
-						<img id="modalImage" src="" alt="NoImage">
+						<img id="modalImage" src="" alt="カード画像">
 					</div>
 					<div class="cardlist-modal-details">
 						<div class="cardlist-overlay-cardname">
@@ -287,7 +269,6 @@
 	</main>
 	
 	<script>
-		//詳細検索を開く関数
 		function toggleDetailSearch() {
 			const detailArea = document.getElementById('detailSearchArea');
 			const button = document.querySelector('.cardlist-search-toggle-btn');

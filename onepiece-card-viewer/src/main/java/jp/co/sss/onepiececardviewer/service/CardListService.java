@@ -21,7 +21,7 @@ public class CardListService {
 	
 	//全件検索 (Id昇順)
 	public List<CardList> getAllCardList(){
-		return cardListRepository.findAllByOrderByCardNumberAsc();
+		return cardListRepository.findAllByOrderByIdAsc();
 	}
 	
 	//主キー検索
