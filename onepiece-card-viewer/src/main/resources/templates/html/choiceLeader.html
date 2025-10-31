@@ -36,7 +36,22 @@
 		
 		<!-- モーダルダイアログ -->
 		<div id="leaderModal" class="choiceleader-modal">
-			
+			<div class="choiceleader-modal-content">
+				<span class="choiceleader-modal-close" onclick="closeLeaderModal()"></span>
+				<div class="choiceleader-modal-body">
+					<div class="choiceleader-modal-check">
+						<p>このリーダーでよろしいですか。</p>
+					</div>
+					<div class="choiceleader-modal-image">
+						<img id="modalImage" src="" alt="NoImage">
+					</div>
+					<form id="modalForm" action="" th:object="${cardListForm}" method="get" novalidate>
+						<div class="choiceleader-modal-button">
+							<button id="modalButton" type="submit" name="id" value="">デッキを作成</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</main>
 	
@@ -63,7 +78,7 @@
 		
 		function choiceLeaderModal(leaderCardId) {
 			//Ajaxでカード詳細を取得
-			fetch('/card/list/file/' + leaderCardId)
+			fetch('/card/list/detail/' + leaderCardId)
 				.then(response => {
 					if (!response.ok) {
 						throw new Error('No Image');
@@ -71,9 +86,39 @@
 					return response.json();
 				})
 				.then(card => {
+					//モーダルに情報を設定
+					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
+					document.getElementById('modalForm').action = '/create/deck/' +card.id;
+					document.getElementById('modalButton').value = card.id;
 					
+					//モーダルを表示
+					document.getElementById('leaderModal').classList.add('active');
 				})
+				.catch(error => {
+					console.error('エラー:', error);
+					alert('リーダー情報の取得に失敗しました');
+				});
 		}
+		
+		//モーダルを閉じる関数
+		function closeLeaderModal() {
+			document.getElementById('leaderModal').classList.remove('active');
+		}
+		
+		//モーダルの背景をクリックしたら閉じる
+		window.onclick = function(event) {
+			const modal = document.getElementById('leaderModal');
+			if (event.target === modal) {
+				closeLeaderModal();
+			}
+		}
+		
+		//ESCキーでモーダルを閉じる
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeLeaderModal();
+			}
+		});
 	</script>
 </body>
 

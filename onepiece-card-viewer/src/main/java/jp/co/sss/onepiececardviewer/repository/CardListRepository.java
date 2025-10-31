@@ -9,8 +9,10 @@ import jp.co.sss.onepiececardviewer.entity.CardList;
 
 public interface CardListRepository extends JpaRepository<CardList, Integer>, JpaSpecificationExecutor<CardList> {
 	
-	List<CardList> findAllByOrderByIdAsc();
+	List<CardList> findAllByOrderByCardNumberAsc();
 	
 	List<CardList> findByCardType(String cardType);
+	
+	List<CardList> findByCardColorAndCardType(String cardColor, String cardType);
 
 }
