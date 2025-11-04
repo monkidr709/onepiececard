@@ -28,7 +28,7 @@ public class ChoiceLeaderController {
 		if (username == null) {
 			return "redirect:/login";
 		}
-		model.addAttribute("LeaderImages", createDeckService.getCardListByCardTypeLeader());
+		model.addAttribute("leaderImages", createDeckService.getCardListByCardTypeLeader());
 		model.addAttribute("cardListForm", new CardListForm());
 		return "html/choiceLeader";
 	}

@@ -17,6 +17,7 @@
 			<h1>リーダー選択</h1>
 			<div class="choiceleader-search">
 				<div id="searchLeader" class="choiceleader-search-leader">
+					<button type="button" value="">全</button>
 					<button type="button" value="赤">赤</button>
 					<button type="button" value="緑">緑</button>
 					<button type="button" value="青">青</button>
@@ -26,14 +27,45 @@
 				</div>
 			</div>
 			<div class="choiceleader-image-grid">
-				
+				<div class="choiceleader-image-card" th:each="leaderImage : ${leaderImages}" th:data-color="${leaderImage.cardColor}">
+					<a href="javascript:void(0);" th:onclick="'openLeaderCardModal(' + ${leaderImage.id} + ')'">
+						<img th:src="@{/card/list/file/{id}(id=${leaderImage.id})}" th:alt="${leaderImage.cardName}">
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- モーダルダイアログ -->
+		<div id="leaderCardModal" class="choiceleader-modal">
+			<div class="choiceleader-container">
+				<span class="choiceleader-modal-close" onclick="closeLeaderCardModal()">&times;</span>
+				<div class="choiceleader-modal-body">
+					<div class="choiceleader-modal-confirmation">
+						<p>このリーダーでよろしいですか。</p>
+					</div>
+					<div class="choiceleader-modal-image">
+						<img id="modalImage" src="" alt="NoImage">
+					</div>
+					<div class="choiceleader-modal-button">
+						
+					</div>
+				</div>
 			</div>
 		</div>
 	</main>
 	
 	<script>
 		function searchLeader(color) {
+			const leaderCards = document.querySelectorAll('.choiceleader-image-card');
 			
+			leaderCards.forEach(card => {
+				const leaderCardColor = card.dataset.color;
+				if (color === '' || leaderCardColor.includes(color)) {
+					card.style.display = 'block';
+				} else {
+					card.style.display = 'none';
+				}
+			})
 		}
 		
 		document.getElementById('searchLeader').addEventListener('click', function(event) {
@@ -42,6 +74,22 @@
 				searchLeader(color);
 			}
 		})
+		
+		//モーダルを開く関数
+		function openLeaderCardModal(cardId) {
+			//Ajaxでカード詳細を取得
+			fetch('/card/list/detail/' + cardId)
+				.then(response => {
+					if (!restonse.ok) {
+						throw new Error('No Image');
+					}
+					return response.json();
+				})
+				.then(card => {
+					//モーダルに情報を設定
+					
+				})
+		}
 	</script>
 </body>
 

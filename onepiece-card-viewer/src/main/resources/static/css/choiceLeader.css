@@ -240,12 +240,12 @@ main {
 }
 
 /* 確認メッセージ */
-.choiceleader-modal-check {
+.choiceleader-modal-confirmation {
 	width: 100%;
 	text-align: center;
 }
 
-.choiceleader-modal-check p {
+.choiceleader-modal-confirmation p {
 	font-size: 1.2rem;
 	font-weight: bold;
 	color: #333;
@@ -306,7 +306,7 @@ main {
 		width: 95%;
 	}
 
-	.choiceleader-modal-check p {
+	.choiceleader-modal-confirmation p {
 		font-size: 1rem;
 	}
 
