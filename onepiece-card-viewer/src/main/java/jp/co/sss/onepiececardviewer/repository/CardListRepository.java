@@ -12,5 +12,7 @@ public interface CardListRepository extends JpaRepository<CardList, Integer>, Jp
 	List<CardList> findAllByOrderByIdAsc();
 	
 	List<CardList> findByCardType(String cardType);
+	
+	List<CardList> findByCardColorAndCardType(String cardColor, String cardType);
 
 }
