@@ -69,7 +69,7 @@
 							<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />UC
 							<input type="checkbox" th:field="*{cardRarity}" th:value="R" />R
 							<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />SR
-							<input type="checkbox" th:field="*{cardRarity}" th:value="SCR" />SCR
+							<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />SEC
 						</div>
 						<div class="cardlist-search-cost-or-life">
 							<label>コストもしくはライフ:</label>
@@ -344,7 +344,7 @@
 			if (event.key === 'Escape') {
 				closeCardModal();
 			}
-		});
+		})
 	</script>
 </body>
 

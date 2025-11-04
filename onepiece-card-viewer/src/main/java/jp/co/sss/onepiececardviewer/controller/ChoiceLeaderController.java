@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jp.co.sss.onepiececardviewer.form.CardListForm;
-import jp.co.sss.onepiececardviewer.service.CardListService;
 import jp.co.sss.onepiececardviewer.service.CreateDeckService;
 
 @Controller
@@ -16,9 +15,6 @@ public class ChoiceLeaderController {
 	
 	@Autowired
 	private CreateDeckService createDeckService;
-	
-	@Autowired
-	private CardListService cardListService;
 	
 	//リーダー選択画面へ遷移
 	@GetMapping("/choice/leader")

@@ -37,7 +37,7 @@
 		
 		<!-- モーダルダイアログ -->
 		<div id="leaderCardModal" class="choiceleader-modal">
-			<div class="choiceleader-container">
+			<div class="choiceleader-modal-content">
 				<span class="choiceleader-modal-close" onclick="closeLeaderCardModal()">&times;</span>
 				<div class="choiceleader-modal-body">
 					<div class="choiceleader-modal-confirmation">
@@ -47,7 +47,9 @@
 						<img id="modalImage" src="" alt="NoImage">
 					</div>
 					<div class="choiceleader-modal-button">
-						
+						<form id="modalForm" action="">
+							<button type="submit">作成</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -57,7 +59,6 @@
 	<script>
 		function searchLeader(color) {
 			const leaderCards = document.querySelectorAll('.choiceleader-image-card');
-			
 			leaderCards.forEach(card => {
 				const leaderCardColor = card.dataset.color;
 				if (color === '' || leaderCardColor.includes(color)) {
@@ -80,16 +81,44 @@
 			//Ajaxでカード詳細を取得
 			fetch('/card/list/detail/' + cardId)
 				.then(response => {
-					if (!restonse.ok) {
+					if (!response.ok) {
 						throw new Error('No Image');
 					}
 					return response.json();
 				})
 				.then(card => {
 					//モーダルに情報を設定
+					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
+					document.getElementById('modalForm').action = '/create/deck/' + card.id;
 					
+					//モーダルを表示
+					document.getElementById('leaderCardModal').classList.add('active');
 				})
+				.catch(error =>{
+					console.error('エラー:', error);
+					alert('カード情報の取得に失敗しました');
+				});
 		}
+		
+		//モーダルを閉じる関数
+		function closeLeaderCardModal() {
+			document.getElementById('leaderCardModal').classList.remove('active');
+		}
+		
+		//モーダルの背景をクリックしたら閉じる
+		window.onclick = function(event) {
+			const modal = document.getElementById('leaderCardModal');
+			if (event.target === modal) {
+				closeLeaderCardModal();
+			}
+		}
+		
+		//ESCキーでモーダルを閉じる
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeLeaderCardModal();
+			}
+		})
 	</script>
 </body>
 
