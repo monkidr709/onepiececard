@@ -57,6 +57,7 @@
 	</main>
 	
 	<script>
+		//色でリーダーを検索する関数
 		function searchLeader(color) {
 			const leaderCards = document.querySelectorAll('.choiceleader-image-card');
 			leaderCards.forEach(card => {
@@ -69,6 +70,7 @@
 			})
 		}
 		
+		//ボタンをクリックしたら色でリーダー検索する
 		document.getElementById('searchLeader').addEventListener('click', function(event) {
 			if (event.target.tagName === 'BUTTON') {
 				const color = event.target.value;

@@ -1,1 +1,476 @@
 @charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+	margin-left: 260px;
+	padding-top: 0;
+	min-height: 100vh;
+}
+
+/* メインコンテナ */
+.createDeck-container {
+	display: grid;
+	grid-template-columns: 1fr 550px;
+	grid-template-rows: auto auto 1fr;
+	gap: 1.5rem;
+	padding: 0.5rem 2rem 2rem 2rem;
+	height: 100vh;
+	padding-top: 105px;
+}
+
+.createDeck-container>h1 {
+	grid-column: 1 / -1;
+	font-size: 2rem;
+	color: #8e2639;
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 検索エリア */
+.createDeck-search {
+	grid-column: 1;
+	grid-row: 2;
+	background: white;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	overflow: visible;
+	margin: 0;
+}
+
+.createDeck-search h2 {
+	font-size: 1.3rem;
+	color: #8e2639;
+	margin-bottom: 1rem;
+}
+
+/* 詳細検索トグル */
+.createDeck-search-toggle {
+	margin-bottom: 1rem;
+}
+
+.createDeck-search-toggle-btn {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 0.7rem 1.5rem;
+	border-radius: 8px;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-search-toggle-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 詳細検索エリア */
+.createDeck-search-details {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+}
+
+.createDeck-search-details.active {
+	max-height: 3000px;
+	overflow-y: auto;
+	padding-right: 0.5rem;
+}
+
+.createDeck-search-details>div {
+	margin-bottom: 1rem;
+	padding: 0.8rem;
+	background: #f9f9f9;
+	border-radius: 8px;
+}
+
+.createDeck-search-details label {
+	display: inline-block;
+	font-weight: bold;
+	color: #333;
+	margin-right: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.createDeck-search-details input[type="text"],
+.createDeck-search-details select {
+	padding: 0.5rem;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 0.95rem;
+	width: 100%;
+	max-width: 300px;
+}
+
+.createDeck-search-details input[type="checkbox"] {
+	margin-right: 0.3rem;
+	margin-left: 0.5rem;
+	cursor: pointer;
+}
+
+.createDeck-search-details button[type="submit"] {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 0.8rem 2rem;
+	border-radius: 8px;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	margin-top: 1rem;
+	transition: all 0.3s ease;
+}
+
+.createDeck-search-details button[type="submit"]:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* カードリストエリア */
+.createDeck-image-grid {
+	grid-column: 1;
+	grid-row: 3;
+	background: white;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	max-height: calc(100vh - 400px);
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 1.2rem;
+	align-content: start;
+	margin: 0;
+}
+
+.createDeck-image-card {
+	position: relative;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	border-radius: 8px;
+	overflow: visible;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	height: auto;
+}
+
+.createDeck-image-card a {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.createDeck-image-card:hover {
+	transform: scale(1.08);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+	z-index: 100;
+}
+
+.createDeck-image-card img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	display: block;
+	border-radius: 8px;
+}
+
+/* デッキ表示エリア */
+.createDeck-field {
+	grid-column: 2;
+	grid-row: 2 / 4;
+	background: white;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	max-height: calc(100vh - 125px);
+	margin: 0;
+}
+
+.createDeck-image-leaderCard {
+	margin-bottom: 1.5rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 2px solid #ddd;
+}
+
+.createDeck-image-leaderCard img {
+	width: 100%;
+	max-width: 250px;
+	height: auto;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: block;
+	margin: 0 auto;
+}
+
+.createDeck-display-image-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 0.8rem;
+}
+
+.createDeck-display-image-card {
+	width: 100%;
+	height: auto;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.createDeck-display-image-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* モーダル */
+.createDeck-modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	backdrop-filter: blur(4px);
+}
+
+.createDeck-modal.active {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.createDeck-modal-content {
+	background: white;
+	border-radius: 16px;
+	padding: 2rem;
+	max-width: 500px;
+	width: 90%;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	position: relative;
+	animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+	from {
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.createDeck-modal-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #999;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.createDeck-modal-close:hover {
+	color: #333;
+}
+
+.createDeck-modal-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.createDeck-modal-text p {
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+}
+
+.createDeck-modal-image img {
+	max-width: 300px;
+	width: 100%;
+	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-modal-cardName p {
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #8e2639;
+	margin: 0;
+	text-align: center;
+}
+
+.createDeck-modal-numberOfCards {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.createDeck-counter {
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #8e2639;
+	min-width: 60px;
+	text-align: center;
+}
+
+.createDeck-button-down,
+.createDeck-button-up {
+	width: 50px;
+	height: 50px;
+	font-size: 1.5rem;
+	font-weight: bold;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-button-down {
+	background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+	color: white;
+}
+
+.createDeck-button-up {
+	background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+	color: white;
+}
+
+.createDeck-button-down:hover,
+.createDeck-button-up:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.createDeck-button-addition {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 0.9rem 2.5rem;
+	font-size: 1.1rem;
+	font-weight: bold;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-button-addition:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* スクロールバーのスタイル */
+.createDeck-search-details::-webkit-scrollbar,
+.createDeck-image-grid::-webkit-scrollbar,
+.createDeck-field::-webkit-scrollbar {
+	width: 8px;
+}
+
+.createDeck-search-details::-webkit-scrollbar-track,
+.createDeck-image-grid::-webkit-scrollbar-track,
+.createDeck-field::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+.createDeck-search-details::-webkit-scrollbar-thumb,
+.createDeck-image-grid::-webkit-scrollbar-thumb,
+.createDeck-field::-webkit-scrollbar-thumb {
+	background: #8e2639;
+	border-radius: 10px;
+}
+
+.createDeck-search-details::-webkit-scrollbar-thumb:hover,
+.createDeck-image-grid::-webkit-scrollbar-thumb:hover,
+.createDeck-field::-webkit-scrollbar-thumb:hover {
+	background: #a8344d;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1200px) {
+	.createDeck-container {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto auto auto;
+		padding: 1rem;
+	}
+
+	.createDeck-search {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.createDeck-image-grid {
+		grid-column: 1;
+		grid-row: 3;
+		grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	}
+
+	.createDeck-field {
+		grid-column: 1;
+		grid-row: 4;
+	}
+}
+
+@media (max-width: 768px) {
+	main {
+		margin-left: 0;
+		padding-top: 80px;
+	}
+
+	.createDeck-container {
+		padding: 0.5rem;
+	}
+
+	.createDeck-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+		gap: 0.8rem;
+	}
+
+	.createDeck-display-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+	}
+}
+
+@media (max-width: 480px) {
+	.createDeck-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		gap: 0.5rem;
+	}
+
+	.createDeck-modal-content {
+		padding: 1.5rem;
+	}
+
+	.createDeck-modal-image img {
+		max-width: 250px;
+	}
+}
