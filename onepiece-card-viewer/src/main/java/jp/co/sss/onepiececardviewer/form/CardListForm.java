@@ -1,45 +1,262 @@
 package jp.co.sss.onepiececardviewer.form;
 
+import java.util.List;
+
 public class CardListForm {
 	private Integer id;
+	
 	private String cardNumber;
-	private String cardName;
+	
+	private List<String> cardName;
+	
 	private String imageFilePath;
-	private String cardColor;
-	private String cardType;
-	private String cardPack;
-	private String cardBlockIcon;
-	private String cardRarity;
-	private String cardCostOrLife;
-	private String cardPowerMore;
-	private String cardPowerUnder;
-	private String cardFeatures;
-	private String cardAttribute;
-	private String cardCounter;
-	private String cardText;
+	
+	private List<String> cardColor;
+	
+	private List<String> cardType;
+	
+	private List<String> cardPack;
+	
+	private String minCardBlockIcon;
+	
+	private String maxCardBlockIcon;
+	
+	private List<String> cardRarity;
+	
+	private String minCardCostOrLife;
+	
+	private String maxCardCostOrLife;
+	
+	private String minCardPower;
+	
+	private String maxCardPower;
+	
+	private List<String> cardFeatures;
+	
+	private List<String> cardAttribute;
+	
+	private List<String> cardCounter;
+	
+	private List<String> cardText;
+	
 	private boolean cardTrigger;
-	private String cardTriggerText;
+	
+	private List<String> cardTriggerText;
+	
 	private boolean cardAppearance;
+	
 	private boolean cardLaunchMain;
+	
 	private boolean cardAttack;
+	
 	private boolean cardKO;
+	
 	private boolean cardBlock;
+	
 	private boolean cardDuringYourTurn;
+	
 	private boolean cardDuringOpponentTurn;
+	
 	private boolean cardYourTurnEnd;
+	
 	private boolean cardOpponentAttack;
+	
 	private boolean cardMain;
+	
 	private boolean cardEventCounter;
+	
 	private boolean cardOneTurn;
+	
 	private boolean cardDonHang;
+	
 	private boolean cardDonUse;
+	
 	private boolean cardDonMinus;
+	
 	private boolean cardBlocker;
+	
 	private boolean cardHaste;
+	
 	private boolean cardDoubleAttack;
+	
 	private boolean cardVanish;
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public List<String> getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(List<String> cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getImageFilePath() {
+		return imageFilePath;
+	}
+
+	public void setImageFilePath(String imageFilePath) {
+		this.imageFilePath = imageFilePath;
+	}
+
+	public List<String> getCardColor() {
+		return cardColor;
+	}
+
+	public void setCardColor(List<String> cardColor) {
+		this.cardColor = cardColor;
+	}
+
+	public List<String> getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(List<String> cardType) {
+		this.cardType = cardType;
+	}
+
+	public List<String> getCardPack() {
+		return cardPack;
+	}
+
+	public void setCardPack(List<String> cardPack) {
+		this.cardPack = cardPack;
+	}
+
+	public String getMinCardBlockIcon() {
+		return minCardBlockIcon;
+	}
+
+	public void setMinCardBlockIcon(String minCardBlockIcon) {
+		this.minCardBlockIcon = minCardBlockIcon;
+	}
+
+	public String getMaxCardBlockIcon() {
+		return maxCardBlockIcon;
+	}
+
+	public void setMaxCardBlockIcon(String maxCardBlockIcon) {
+		this.maxCardBlockIcon = maxCardBlockIcon;
+	}
+
+	public List<String> getCardRarity() {
+		return cardRarity;
+	}
+
+	public void setCardRarity(List<String> cardRarity) {
+		this.cardRarity = cardRarity;
+	}
+
+	public String getMinCardCostOrLife() {
+		return minCardCostOrLife;
+	}
+
+	public void setMinCardCostOrLife(String minCardCostOrLife) {
+		this.minCardCostOrLife = minCardCostOrLife;
+	}
+
+	public String getMaxCardCostOrLife() {
+		return maxCardCostOrLife;
+	}
+
+	public void setMaxCardCostOrLife(String maxCardCostOrLife) {
+		this.maxCardCostOrLife = maxCardCostOrLife;
+	}
+
+	public String getMinCardPower() {
+		return minCardPower;
+	}
+
+	public void setMinCardPower(String minCardPower) {
+		this.minCardPower = minCardPower;
+	}
+
+	public String getMaxCardPower() {
+		return maxCardPower;
+	}
+
+	public void setMaxCardPower(String maxCardPower) {
+		this.maxCardPower = maxCardPower;
+	}
+
+	public List<String> getCardFeatures() {
+		return cardFeatures;
+	}
+
+	public void setCardFeatures(List<String> cardFeatures) {
+		this.cardFeatures = cardFeatures;
+	}
+
+	public List<String> getCardAttribute() {
+		return cardAttribute;
+	}
+
+	public void setCardAttribute(List<String> cardAttribute) {
+		this.cardAttribute = cardAttribute;
+	}
+
+	public List<String> getCardCounter() {
+		return cardCounter;
+	}
+
+	public void setCardCounter(List<String> cardCounter) {
+		this.cardCounter = cardCounter;
+	}
+
+	public List<String> getCardText() {
+		return cardText;
+	}
+
+	public void setCardText(List<String> cardText) {
+		this.cardText = cardText;
+	}
+
+	public boolean isCardTrigger() {
+		return cardTrigger;
+	}
+
+	public void setCardTrigger(boolean cardTrigger) {
+		this.cardTrigger = cardTrigger;
+	}
+
+	public List<String> getCardTriggerText() {
+		return cardTriggerText;
+	}
+
+	public void setCardTriggerText(List<String> cardTriggerText) {
+		this.cardTriggerText = cardTriggerText;
+	}
+
+	public boolean isCardAppearance() {
+		return cardAppearance;
+	}
+
+	public void setCardAppearance(boolean cardAppearance) {
+		this.cardAppearance = cardAppearance;
+	}
+
+	public boolean isCardLaunchMain() {
+		return cardLaunchMain;
+	}
+
+	public void setCardLaunchMain(boolean cardLaunchMain) {
+		this.cardLaunchMain = cardLaunchMain;
+	}
+
 	public boolean isCardAttack() {
 		return cardAttack;
 	}
@@ -64,182 +281,6 @@ public class CardListForm {
 		this.cardBlock = cardBlock;
 	}
 
-	public boolean isCardOpponentAttack() {
-		return cardOpponentAttack;
-	}
-
-	public void setCardOpponentAttack(boolean cardOpponentAttack) {
-		this.cardOpponentAttack = cardOpponentAttack;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getCardNumber() {
-		return cardNumber;
-	}
-
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-
-	public String getCardName() {
-		return cardName;
-	}
-
-	public void setCardName(String cardName) {
-		this.cardName = cardName;
-	}
-
-	public String getImageFilePath() {
-		return imageFilePath;
-	}
-
-	public void setImageFilePath(String imageFilePath) {
-		this.imageFilePath = imageFilePath;
-	}
-
-	public String getCardColor() {
-		return cardColor;
-	}
-
-	public void setCardColor(String cardColor) {
-		this.cardColor = cardColor;
-	}
-
-	public String getCardType() {
-		return cardType;
-	}
-
-	public void setCardType(String cardType) {
-		this.cardType = cardType;
-	}
-
-	public String getCardPack() {
-		return cardPack;
-	}
-
-	public void setCardPack(String cardPack) {
-		this.cardPack = cardPack;
-	}
-
-	public String getCardBlockIcon() {
-		return cardBlockIcon;
-	}
-
-	public void setCardBlockIcon(String cardBlockIcon) {
-		this.cardBlockIcon = cardBlockIcon;
-	}
-
-	public String getCardRarity() {
-		return cardRarity;
-	}
-
-	public void setCardRarity(String cardRarity) {
-		this.cardRarity = cardRarity;
-	}
-
-	public String getCardCostOrLife() {
-		return cardCostOrLife;
-	}
-
-	public void setCardCostOrLife(String cardCostOrLife) {
-		this.cardCostOrLife = cardCostOrLife;
-	}
-
-//	public String getCardPower() {
-//		return cardPower;
-//	}
-//
-//	public void setCardPower(String cardPower) {
-//		this.cardPower = cardPower;
-//	}
-
-	public String getCardPowerMore() {
-		return cardPowerMore;
-	}
-
-	public void setCardPowerMore(String cardPowerMore) {
-		this.cardPowerMore = cardPowerMore;
-	}
-
-	public String getCardPowerUnder() {
-		return cardPowerUnder;
-	}
-
-	public void setCardPowerUnder(String cardPowerUnder) {
-		this.cardPowerUnder = cardPowerUnder;
-	}
-
-	public String getCardFeatures() {
-		return cardFeatures;
-	}
-
-	public void setCardFeatures(String cardFeatures) {
-		this.cardFeatures = cardFeatures;
-	}
-
-	public String getCardAttribute() {
-		return cardAttribute;
-	}
-
-	public void setCardAttribute(String cardAttribute) {
-		this.cardAttribute = cardAttribute;
-	}
-
-	public String getCardCounter() {
-		return cardCounter;
-	}
-
-	public void setCardCounter(String cardCounter) {
-		this.cardCounter = cardCounter;
-	}
-
-	public String getCardText() {
-		return cardText;
-	}
-
-	public void setCardText(String cardText) {
-		this.cardText = cardText;
-	}
-
-	public boolean isCardTrigger() {
-		return cardTrigger;
-	}
-
-	public void setCardTrigger(boolean cardTrigger) {
-		this.cardTrigger = cardTrigger;
-	}
-
-	public String getCardTriggerText() {
-		return cardTriggerText;
-	}
-
-	public void setCardTriggerText(String cardTriggerText) {
-		this.cardTriggerText = cardTriggerText;
-	}
-
-	public boolean isCardAppearance() {
-		return cardAppearance;
-	}
-
-	public void setCardAppearance(boolean cardAppearance) {
-		this.cardAppearance = cardAppearance;
-	}
-
-	public boolean isCardLaunchMain() {
-		return cardLaunchMain;
-	}
-
-	public void setCardLaunchMain(boolean cardLaunchMain) {
-		this.cardLaunchMain = cardLaunchMain;
-	}
-
 	public boolean isCardDuringYourTurn() {
 		return cardDuringYourTurn;
 	}
@@ -262,6 +303,14 @@ public class CardListForm {
 
 	public void setCardYourTurnEnd(boolean cardYourTurnEnd) {
 		this.cardYourTurnEnd = cardYourTurnEnd;
+	}
+
+	public boolean isCardOpponentAttack() {
+		return cardOpponentAttack;
+	}
+
+	public void setCardOpponentAttack(boolean cardOpponentAttack) {
+		this.cardOpponentAttack = cardOpponentAttack;
 	}
 
 	public boolean isCardMain() {

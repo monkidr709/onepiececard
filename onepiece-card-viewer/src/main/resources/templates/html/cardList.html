@@ -57,10 +57,21 @@
 						</div>
 						<div class="cardlist-search-block-icon">
 							<label>ブロックアイコン:</label>
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="1" />1
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="2" />2
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="3" />3
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="4" />4
+							<select th:field="*{minCardBlockIcon}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+							</select>
+							<label>～</label>
+							<select th:field="*{maxCardBlockIcon}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+							</select>
 						</div>
 						<div class="cardlist-search-rarity">
 							<label>レアリティ:</label>
@@ -72,8 +83,22 @@
 							<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />SEC
 						</div>
 						<div class="cardlist-search-cost-or-life">
-							<label>コストもしくはライフ:</label>
-							<select th:field="*{cardCostOrLife}">
+							<label>コストまたはライフ:</label>
+							<select th:field="*{minCardCostOrLife}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+								<option th:value="5">5</option>
+								<option th:value="6">6</option>
+								<option th:value="7">7</option>
+								<option th:value="8">8</option>
+								<option th:value="9">9</option>
+								<option th:value="10">10</option>
+							</select>
+							<label>～</label>
+							<select th:field="*{maxCardCostOrLife}">
 								<option value=""></option>
 								<option th:value="1">1</option>
 								<option th:value="2">2</option>
@@ -89,40 +114,40 @@
 						</div>
 						<div class="cardlist-search-power">
 							<label>パワー:</label>
-							<select th:field="*{cardPowerMore}">
+							<select th:field="*{minCardPower}">
 								<option value=""></option>
-								<option th:value="-1">0</option>
-								<option th:value="999">1000</option>
-								<option th:value="1999">2000</option>
-								<option th:value="2999">3000</option>
-								<option th:value="3999">4000</option>
-								<option th:value="4999">5000</option>
-								<option th:value="5999">6000</option>
-								<option th:value="6999">7000</option>
-								<option th:value="7999">8000</option>
-								<option th:value="8999">9000</option>
-								<option th:value="9999">10000</option>
-								<option th:value="10999">11000</option>
-								<option th:value="11999">12000</option>
-								<option th:value="12999">13000</option>
+								<option th:value="0">0</option>
+								<option th:value="1000">1000</option>
+								<option th:value="2000">2000</option>
+								<option th:value="3000">3000</option>
+								<option th:value="4000">4000</option>
+								<option th:value="5000">5000</option>
+								<option th:value="6000">6000</option>
+								<option th:value="7000">7000</option>
+								<option th:value="8000">8000</option>
+								<option th:value="9000">9000</option>
+								<option th:value="10000">10000</option>
+								<option th:value="11000">11000</option>
+								<option th:value="12000">12000</option>
+								<option th:value="13000">13000</option>
 							</select>
 							<label>～</label>
-							<select th:field="*{cardPowerUnder}">
+							<select th:field="*{maxCardPower}">
 								<option value=""></option>
-								<option th:value="1">0</option>
-								<option th:value="1001">1000</option>
-								<option th:value="2001">2000</option>
-								<option th:value="3001">3000</option>
-								<option th:value="4001">4000</option>
-								<option th:value="5001">5000</option>
-								<option th:value="6001">6000</option>
-								<option th:value="7001">7000</option>
-								<option th:value="8001">8000</option>
-								<option th:value="9001">9000</option>
-								<option th:value="10001">10000</option>
-								<option th:value="11001">11000</option>
-								<option th:value="12001">12000</option>
-								<option th:value="13001">13000</option>
+								<option th:value="0">0</option>
+								<option th:value="1000">1000</option>
+								<option th:value="2000">2000</option>
+								<option th:value="3000">3000</option>
+								<option th:value="4000">4000</option>
+								<option th:value="5000">5000</option>
+								<option th:value="6000">6000</option>
+								<option th:value="7000">7000</option>
+								<option th:value="8000">8000</option>
+								<option th:value="9000">9000</option>
+								<option th:value="10000">10000</option>
+								<option th:value="11000">11000</option>
+								<option th:value="12000">12000</option>
+								<option th:value="13000">13000</option>
 							</select>
 						</div>
 						<div class="cardlist-search-features">
@@ -174,13 +199,13 @@
 						</div>
 						<div class="cardlist-search-text">
 							<label>テキスト効果:</label>
-							<input type="text" th:field="*{cardText}" required />
+							<input type="text" th:field="*{cardText}" />
 						</div>
 						<div class="cardlist-search-trigger">
 							<label>トリガー:</label>
 							<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
 							<label>トリガーのテキスト効果:</label>
-							<input type="text" th:field="*{cardTriggerText}" required />
+							<input type="text" th:field="*{cardTriggerText}" />
 						</div>
 						<div class="cardlist-search-others">
 							<label>登場時:</label>

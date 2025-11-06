@@ -30,18 +30,8 @@ public class CardListService {
 	}
 	
 	//動的な複数の列による条件検索
-	public List<CardList> cardListSearch (List<CardListSearchCriteria> criteriaList) {
-		if (criteriaList == null || criteriaList.isEmpty()) {
-			return cardListRepository.findAll(Sort.by("id").ascending());
-		}
-		
-		Specification<CardList> spec = null;
-		
-		for (CardListSearchCriteria criteria : criteriaList) {
-			Specification<CardList> newSpec = new CardListGenericSpecification<>(criteria);
-			spec = (spec == null) ? newSpec : spec.and(newSpec);
-		}
-		
+	public List<CardList> cardListSearch(CardListSearchCriteria criteria) {
+		Specification<CardList> spec = CardListGenericSpecification.buildSpecification(criteria);
 		return cardListRepository.findAll(spec, Sort.by("id").ascending());
 	}
 
