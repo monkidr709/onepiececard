@@ -15,7 +15,7 @@
 		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
 		<div class="createDeck-container">
 			<h1>カードリスト</h1>
-			<div class="createDeck-search">
+			<div class="createDeck-search" th:each="leaderCard : ${leaderCard}">
 				<h2>カード検索</h2>
 				<!-- 詳細検索トグルボタン -->
 				<div class="createDeck-search-toggle">
@@ -23,13 +23,20 @@
 						詳細検索
 					</button>
 				</div>
-				<form th:action="@{/card/list/search}" th:object="${cardListForm}" method="post" novalidate>
+				<form th:action="@{/create/deck/search/{id}(id=${leaderCard.id})}" th:object="${cardListForm}" method="post" novalidate>
 					<div id="detailSearchArea" class="createDeck-search-details">
 						<div class="createDeck-search-name">
 							<label>名前:</label>
 							<input type="text" th:field="*{cardName}" />
 						</div>
 						<div class="createDeck-search-color">
+							<label>色:</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '赤')}"><input type="checkbox" th:field="*{cardColor}" th:value="赤" />赤</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '緑')}"><input type="checkbox" th:field="*{cardColor}" th:value="緑" />緑</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '青')}"><input type="checkbox" th:field="*{cardColor}" th:value="青" />青</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '紫')}"><input type="checkbox" th:field="*{cardColor}" th:value="紫" />紫</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '黒')}"><input type="checkbox" th:field="*{cardColor}" th:value="黒" />黒</label>
+							<label th:if="${#lists.contains(leaderCard.cardColor, '黄')}"><input type="checkbox" th:field="*{cardColor}" th:value="黄" />黄</label>
 						</div>
 						<div class="createDeck-search-type">
 							<label>種類:</label>
@@ -49,14 +56,24 @@
 						</div>
 						<div class="createDeck-search-block-icon">
 							<label>ブロックアイコン:</label>
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="1" />1
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="2" />2
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="3" />3
-							<input type="checkbox" th:field="*{cardBlockIcon}" th:value="4" />4
+							<select th:field="*{minCardBlockIcon}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+							</select>
+							<label>～</label>
+							<select th:field="*{maxCardBlockIcon}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+							</select>
 						</div>
 						<div class="createDeck-search-rarity">
 							<label>レアリティ:</label>
-							<input type="checkbox" th:field="*{cardRarity}" th:value="L" />L
 							<input type="checkbox" th:field="*{cardRarity}" th:value="C" />C
 							<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />UC
 							<input type="checkbox" th:field="*{cardRarity}" th:value="R" />R
@@ -64,8 +81,22 @@
 							<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />SEC
 						</div>
 						<div class="createDeck-search-cost-or-life">
-							<label>コストもしくはライフ:</label>
-							<select th:field="*{cardCostOrLife}">
+							<label>コストまたはライフ:</label>
+							<select th:field="*{minCardCostOrLife}">
+								<option value=""></option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+								<option th:value="5">5</option>
+								<option th:value="6">6</option>
+								<option th:value="7">7</option>
+								<option th:value="8">8</option>
+								<option th:value="9">9</option>
+								<option th:value="10">10</option>
+							</select>
+							<label>～</label>
+							<select th:field="*{maxCardCostOrLife}">
 								<option value=""></option>
 								<option th:value="1">1</option>
 								<option th:value="2">2</option>
@@ -81,40 +112,40 @@
 						</div>
 						<div class="createDeck-search-power">
 							<label>パワー:</label>
-							<select th:field="*{cardPowerMore}">
+							<select th:field="*{minCardPower}">
 								<option value=""></option>
-								<option th:value="-1">0</option>
-								<option th:value="999">1000</option>
-								<option th:value="1999">2000</option>
-								<option th:value="2999">3000</option>
-								<option th:value="3999">4000</option>
-								<option th:value="4999">5000</option>
-								<option th:value="5999">6000</option>
-								<option th:value="6999">7000</option>
-								<option th:value="7999">8000</option>
-								<option th:value="8999">9000</option>
-								<option th:value="9999">10000</option>
-								<option th:value="10999">11000</option>
-								<option th:value="11999">12000</option>
-								<option th:value="12999">13000</option>
+								<option th:value="0">0</option>
+								<option th:value="1000">1000</option>
+								<option th:value="2000">2000</option>
+								<option th:value="3000">3000</option>
+								<option th:value="4000">4000</option>
+								<option th:value="5000">5000</option>
+								<option th:value="6000">6000</option>
+								<option th:value="7000">7000</option>
+								<option th:value="8000">8000</option>
+								<option th:value="9000">9000</option>
+								<option th:value="10000">10000</option>
+								<option th:value="11000">11000</option>
+								<option th:value="12000">12000</option>
+								<option th:value="13000">13000</option>
 							</select>
 							<label>～</label>
-							<select th:field="*{cardPowerUnder}">
+							<select th:field="*{maxCardPower}">
 								<option value=""></option>
-								<option th:value="1">0</option>
-								<option th:value="1001">1000</option>
-								<option th:value="2001">2000</option>
-								<option th:value="3001">3000</option>
-								<option th:value="4001">4000</option>
-								<option th:value="5001">5000</option>
-								<option th:value="6001">6000</option>
-								<option th:value="7001">7000</option>
-								<option th:value="8001">8000</option>
-								<option th:value="9001">9000</option>
-								<option th:value="10001">10000</option>
-								<option th:value="11001">11000</option>
-								<option th:value="12001">12000</option>
-								<option th:value="13001">13000</option>
+								<option th:value="0">0</option>
+								<option th:value="1000">1000</option>
+								<option th:value="2000">2000</option>
+								<option th:value="3000">3000</option>
+								<option th:value="4000">4000</option>
+								<option th:value="5000">5000</option>
+								<option th:value="6000">6000</option>
+								<option th:value="7000">7000</option>
+								<option th:value="8000">8000</option>
+								<option th:value="9000">9000</option>
+								<option th:value="10000">10000</option>
+								<option th:value="11000">11000</option>
+								<option th:value="12000">12000</option>
+								<option th:value="13000">13000</option>
 							</select>
 						</div>
 						<div class="createDeck-search-features">
@@ -166,13 +197,13 @@
 						</div>
 						<div class="createDeck-search-text">
 							<label>テキスト効果:</label>
-							<input type="text" th:field="*{cardText}" required />
+							<input type="text" th:field="*{cardText}" />
 						</div>
 						<div class="createDeck-search-trigger">
 							<label>トリガー:</label>
 							<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
 							<label>トリガーのテキスト効果:</label>
-							<input type="text" th:field="*{cardTriggerText}" required />
+							<input type="text" th:field="*{cardTriggerText}" />
 						</div>
 						<div class="createDeck-search-others">
 							<label>登場時:</label>
@@ -221,7 +252,7 @@
 			<!-- カードリスト -->
 			<div class="createDeck-image-grid">
 				<div class="createDeck-image-card" th:each="cardListForCreateDeck : ${cardListForCreateDecks}">
-					<a href="javascript:void(0);" th:onclick="'openCardModal(' + ${cardListForCreateDeck.id} + ')'">
+					<a href="javascript:void(0);" th:onclick="'openCardModal(' + ${cardListForCreateDeck.id} + ', 1)'">
 						<img th:src="@{/card/list/file/{id}(id=${cardListForCreateDeck.id})}" th:alt="${cardListForCreateDeck.cardName}">
 					</a>
 				</div>
@@ -254,11 +285,16 @@
 					<div class="createDeck-modal-numberOfCards">
 						<div id="counter" class="createDeck-counter">0</div>
 						<div>
-							<button class="createDeck-button-down" onclick="decrease()">-</button>
-							<button class="createDeck-button-up" onclick="increase()">+</button>
+							<button id="buttonDown" class="createDeck-button-down" onclick="decrease()">-</button>
+							<button id="buttonUp" class="createDeck-button-up" onclick="">+</button>
 						</div>
 					</div>
-					<button id="addition" class="createDeck-button-addition" data-id="">追加</button>
+					<label id="additionLabel" style="display: none;">
+						<button id="addition" class="createDeck-button-addition" data-type="" data-cost="" data-id="">追加</button>
+					</label>
+					<label id="changeLabel" style="display: none;">
+						<button id="change" class="createDeck-button-addition" data-type="" data-cost="" data-id="">変更</button>
+					</label>
 				</div>
 			</div>
 		</div>
@@ -292,7 +328,16 @@
 		}
 		
 		//カウンタの数字を増やす関数
-		function increase() {
+		function increase(cardId) {
+			const currentTotal = document.querySelectorAll(`#displayDeck img[data-id="${cardId}"]`).length;
+			if (count < MAX - currentTotal) {
+				count++;
+				updateCount();
+			}
+		}
+		
+		//カウンタの数字を増やす関数2
+		function increase2() {
 			if (count < MAX) {
 				count++;
 				updateCount();
@@ -304,12 +349,8 @@
 			document.getElementById('counter').textContent = count;
 		}
 		
-		//デッキにカードを追加する
-		document.getElementById('addition').addEventListener('click', function() {
-			const displayDeck = document.getElementById('displayDeck');
-			const addition = document.getElementById('addition');
-			const id = addition.dataset.id;
-			
+		//id=displayDeck内にimgタグを指定した数だけ追加する関数
+		function additionImage(count, id, type, cost) {
 			if (count === 0) {
 				closeCardModal();
 				return;
@@ -318,27 +359,129 @@
 			for (let i = 0; i < count; i++) {
 				const a = document.createElement('a');
 				a.href = 'javascript:void(0);';
+				a.setAttribute('data-id', id);
 				a.addEventListener('click', function() {
-					openCardModal(id);
+					openCardModal(id, 2);
 				});
 				
 				const img = document.createElement('img');
+				img.id = 'modalDeckImage';
 				img.src = '/card/list/file/' + id;
 				img.alt = 'NoImage';
 				img.className = 'createDeck-display-image-card';
+				img.setAttribute('data-type', type);
+				img.setAttribute('data-cost', cost);
+				img.setAttribute('data-id', id);
 				
 				a.appendChild(img);
 				displayDeck.appendChild(a);
 			}
+		}
+		
+		//id=displayDeck内にimgタグを指定した数だけ削除する関数
+		function deleteImage(count, currentTotal, id) {
+			if (count === currentTotal) {
+				closeCardModal();
+				return;
+			}
+			
+			for (let i = 0; i < currentTotal - count; i++) {
+				const a = document.querySelector(`#displayDeck a[data-id="${id}"]`);
+				if (a) {
+					a.remove();
+				}
+			}
+		}
+		
+		//デッキ内のカード画像を並び替える関数
+		function sortDeckImage(container, images) {
+			images.sort((a, b) => {
+				//第一条件:cardType
+				const typeA = parseInt(a.dataset.type) || 0;
+				const typeB = parseInt(b.dataset.type) || 0;
+				if (typeA !== typeB) {
+					return typeA - typeB;
+				}
+				
+				//第二条件:cardCostOrLife
+				const costA = parseInt(a.dataset.cost) || 0;
+				const costB = parseInt(b.dataset.cost) || 0;
+				if (costA !== costB) {
+					return costA - costB;
+				}
+				
+				//第三条件:id
+				const idA = parseInt(a.dataset.id) || 0;
+				const idB = parseInt(b.dataset.id) || 0;
+				return idA - idB;
+			});
+
+			// ソートした順序でDOMを再配
+			images.forEach(img => {
+				const parent = img.parentElement;  // a要素
+			  	container.appendChild(parent);
+			});
+		}
+		
+		//デッキにカードを追加する
+		document.getElementById('addition').addEventListener('click', function() {
+			const displayDeck = document.getElementById('displayDeck');
+			const addition = document.getElementById('addition');
+			const type = addition.dataset.type;
+			const cost = addition.dataset.cost;
+			const id = addition.dataset.id;
+			
+			additionImage(count, id, type, cost);
+			
+			const container = document.querySelector('#displayDeck');
+			const images = Array.from(container.querySelectorAll('img'));
+			
+			sortDeckImage(container, images);
+			
+			count = 0;
+			updateCount();
+			closeCardModal();
+		})
+		
+		//デッキ内のカード枚数を変更する
+		document.getElementById('change').addEventListener('click', function() {
+			const displayDeck = document.getElementById('displayDeck');
+			const addition = document.getElementById('change');
+			const type = addition.dataset.type;
+			const cost = addition.dataset.cost;
+			const id = addition.dataset.id;
+			const currentTotal = document.querySelectorAll(`#displayDeck img[data-id="${id}"]`).length;
+			
+			if (count - currentTotal > 0) {
+				additionImage(count - currentTotal, id, type, cost);
+				
+				const container = document.querySelector('#displayDeck');
+				const images = Array.from(container.querySelectorAll('img'));
+				
+				sortDeckImage(container, images);
+			} else if (count - currentTotal < 0) {
+				deleteImage(count, currentTotal, id)
+			} else {
+				count = 0;
+				updateCount();
+				closeCardModal();
+			}
+			
 			count = 0;
 			updateCount();
 			closeCardModal();
 		})
 		
 		//モーダルを開く関数
-		function openCardModal(cardId) {
-			count = 0;
+		function openCardModal(cardId, number) {
+			// デッキ内の画像をクリックした場合は、現在の枚数をcountに設定
+			if (number === 2) {
+				count = document.querySelectorAll(`#displayDeck img[data-id="${cardId}"]`).length;
+			} else {
+				count = 0;
+			}
 			updateCount();
+			
 			//Ajaxでカード詳細を取得
 			fetch('/card/list/detail/' + cardId)
 				.then(response => {
@@ -351,7 +494,31 @@
 					//モーダルに情報を設定
 					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
 					document.getElementById('modalCardName').textContent = card.cardName || '';
+					
+					// dataType変数を定義
+					let dataType;
+					if (card.cardType === 'キャラ') {
+					    dataType = '1';
+					} else if (card.cardType === 'イベント') {
+					    dataType = '2';
+					} else {
+					    dataType = '3';
+					}
+					document.getElementById('addition').setAttribute('data-type', dataType);
+					document.getElementById('addition').setAttribute('data-cost', card.cardCostOrLife);
 					document.getElementById('addition').setAttribute('data-id', card.id);
+					document.getElementById('change').setAttribute('data-type', dataType);
+					document.getElementById('change').setAttribute('data-cost', card.cardCostOrLife);
+					document.getElementById('change').setAttribute('data-id', card.id);
+					if (number === 1) {
+						document.getElementById('additionLabel').style.display = 'block';
+						document.getElementById('changeLabel').style.display = 'none';
+						document.getElementById('buttonUp').onclick = function() { increase(card.id) };
+					} else {
+						document.getElementById('additionLabel').style.display = 'none';
+						document.getElementById('changeLabel').style.display = 'block';
+						document.getElementById('buttonUp').onclick = function() { increase2() };
+					}
 					
 					//モーダルを表示
 					document.getElementById('cardModal').classList.add('active');

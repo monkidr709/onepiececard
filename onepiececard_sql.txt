@@ -23,10 +23,10 @@ create table cards (
 	card_color VARCHAR(50) not null, --カードの色
 	card_type VARCHAR(50) not null, --カードの種類
 	card_pack VARCHAR(50) not null, --カードが収録されているパックやスターターデッキなど
-	card_block_icon VARCHAR(50) not null, --カードのブロックアイコン
+	card_block_icon INTEGER not null, --カードのブロックアイコン
 	card_rarity VARCHAR(50) not null, --カードのレアリティ
-	card_cost_or_life VARCHAR(50) not null, --カードのコストまたはライフ
-	card_power VARCHAR(50), --カードのパワー
+	card_cost_or_life INTEGER not null, --カードのコストまたはライフ
+	card_power INTEGER, --カードのパワー
 	card_features VARCHAR(50), --カードの属性
 	
 	card_attribute VARCHAR(50) not null, --カードの特徴

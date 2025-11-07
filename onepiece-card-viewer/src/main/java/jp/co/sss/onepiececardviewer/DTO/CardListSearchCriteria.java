@@ -16,19 +16,19 @@ public class CardListSearchCriteria {
 	
 	private List<String> cardPack;
 	
-	private String minCardBlockIcon;
+	private Integer minCardBlockIcon;
 	
-	private String maxCardBlockIcon;
+	private Integer maxCardBlockIcon;
 	
 	private List<String> cardRarity;
 	
-	private String minCardCostOrLife;
+	private Integer minCardCostOrLife;
 	
-	private String maxCardCostOrLife;
+	private Integer maxCardCostOrLife;
 	
-	private String minCardPower;
+	private Integer minCardPower;
 	
-	private String maxCardPower;
+	private Integer maxCardPower;
 	
 	private List<String> cardFeatures;
 	
@@ -128,19 +128,19 @@ public class CardListSearchCriteria {
 		this.cardPack = cardPack;
 	}
 
-	public String getMinCardBlockIcon() {
+	public Integer getMinCardBlockIcon() {
 		return minCardBlockIcon;
 	}
 
-	public void setMinCardBlockIcon(String minCardBlockIcon) {
+	public void setMinCardBlockIcon(Integer minCardBlockIcon) {
 		this.minCardBlockIcon = minCardBlockIcon;
 	}
 
-	public String getMaxCardBlockIcon() {
+	public Integer getMaxCardBlockIcon() {
 		return maxCardBlockIcon;
 	}
 
-	public void setMaxCardBlockIcon(String maxCardBlockIcon) {
+	public void setMaxCardBlockIcon(Integer maxCardBlockIcon) {
 		this.maxCardBlockIcon = maxCardBlockIcon;
 	}
 
@@ -152,35 +152,35 @@ public class CardListSearchCriteria {
 		this.cardRarity = cardRarity;
 	}
 
-	public String getMinCardCostOrLife() {
+	public Integer getMinCardCostOrLife() {
 		return minCardCostOrLife;
 	}
 
-	public void setMinCardCostOrLife(String minCardCostOrLife) {
+	public void setMinCardCostOrLife(Integer minCardCostOrLife) {
 		this.minCardCostOrLife = minCardCostOrLife;
 	}
 
-	public String getMaxCardCostOrLife() {
+	public Integer getMaxCardCostOrLife() {
 		return maxCardCostOrLife;
 	}
 
-	public void setMaxCardCostOrLife(String maxCardCostOrLife) {
+	public void setMaxCardCostOrLife(Integer maxCardCostOrLife) {
 		this.maxCardCostOrLife = maxCardCostOrLife;
 	}
 
-	public String getMinCardPower() {
+	public Integer getMinCardPower() {
 		return minCardPower;
 	}
 
-	public void setMinCardPower(String minCardPower) {
+	public void setMinCardPower(Integer minCardPower) {
 		this.minCardPower = minCardPower;
 	}
 
-	public String getMaxCardPower() {
+	public Integer getMaxCardPower() {
 		return maxCardPower;
 	}
 
-	public void setMaxCardPower(String maxCardPower) {
+	public void setMaxCardPower(Integer maxCardPower) {
 		this.maxCardPower = maxCardPower;
 	}
 

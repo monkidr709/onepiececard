@@ -34,16 +34,16 @@ public class CardList {
 	private String cardPack;
 	
 	@Column (name = "card_block_icon")
-	private String cardBlockIcon;
+	private Integer cardBlockIcon;
 	
 	@Column (name = "card_rarity")
 	private String cardRarity;
 	
 	@Column (name = "card_cost_or_life")
-	private String cardCostOrLife;
+	private Integer cardCostOrLife;
 	
 	@Column (name = "card_power")
-	private String cardPower;
+	private Integer cardPower;
 	
 	@Column (name = "card_features")
 	private String cardFeatures;
@@ -176,11 +176,11 @@ public class CardList {
 		this.cardPack = cardPack;
 	}
 
-	public String getCardBlockIcon() {
+	public Integer getCardBlockIcon() {
 		return cardBlockIcon;
 	}
 
-	public void setCardBlockIcon(String cardBlockIcon) {
+	public void setCardBlockIcon(Integer cardBlockIcon) {
 		this.cardBlockIcon = cardBlockIcon;
 	}
 
@@ -192,19 +192,19 @@ public class CardList {
 		this.cardRarity = cardRarity;
 	}
 
-	public String getCardCostOrLife() {
+	public Integer getCardCostOrLife() {
 		return cardCostOrLife;
 	}
 
-	public void setCardCostOrLife(String cardCostOrLife) {
+	public void setCardCostOrLife(Integer cardCostOrLife) {
 		this.cardCostOrLife = cardCostOrLife;
 	}
 
-	public String getCardPower() {
+	public Integer getCardPower() {
 		return cardPower;
 	}
 
-	public void setCardPower(String cardPower) {
+	public void setCardPower(Integer cardPower) {
 		this.cardPower = cardPower;
 	}
 

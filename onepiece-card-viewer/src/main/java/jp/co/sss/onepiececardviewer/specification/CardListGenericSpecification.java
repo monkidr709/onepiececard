@@ -109,26 +109,26 @@ public class CardListGenericSpecification {
 										   List<Predicate> predicates,
 										   CardListSearchCriteria criteria) {
 		//cardBlockIconの範囲検索
-		if (criteria.getMinCardBlockIcon() != null && !criteria.getMinCardBlockIcon().isEmpty()) {
+		if (criteria.getMinCardBlockIcon() != null) {
 			predicates.add(cb.greaterThanOrEqualTo(root.get("cardBlockIcon"), criteria.getMinCardBlockIcon()));
 		}
-		if (criteria.getMaxCardBlockIcon() != null && !criteria.getMaxCardBlockIcon().isEmpty()) {
+		if (criteria.getMaxCardBlockIcon() != null) {
 			predicates.add(cb.lessThanOrEqualTo(root.get("cardBlockIcon"), criteria.getMaxCardBlockIcon()));
 		}
 		
 		//cardCostOrLifeの範囲検索
-		if (criteria.getMinCardCostOrLife() != null && !criteria.getMinCardCostOrLife().isEmpty()) {
+		if (criteria.getMinCardCostOrLife() != null) {
 			predicates.add(cb.greaterThanOrEqualTo(root.get("cardCostOrLife"), criteria.getMinCardCostOrLife()));
 		}
-		if (criteria.getMaxCardCostOrLife() != null && !criteria.getMaxCardCostOrLife().isEmpty()) {
+		if (criteria.getMaxCardCostOrLife() != null) {
 			predicates.add(cb.lessThanOrEqualTo(root.get("cardCostOrLife"), criteria.getMaxCardCostOrLife()));
 		}
 		
 		//cardPowerの範囲検索
-		if (criteria.getMinCardPower() != null && !criteria.getMinCardPower().isEmpty()) {
+		if (criteria.getMinCardPower() != null) {
 			predicates.add(cb.greaterThanOrEqualTo(root.get("cardPower"), criteria.getMinCardPower()));
 		}
-		if (criteria.getMaxCardPower() != null && !criteria.getMaxCardPower().isEmpty()) {
+		if (criteria.getMaxCardPower() != null) {
 			predicates.add(cb.lessThanOrEqualTo(root.get("cardPower"), criteria.getMaxCardPower()));
 		}
 	}

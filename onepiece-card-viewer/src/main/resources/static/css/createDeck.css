@@ -22,7 +22,7 @@ main {
 /* メインコンテナ */
 .createDeck-container {
 	display: grid;
-	grid-template-columns: 1fr 550px;
+	grid-template-columns: 1fr 750px;
 	grid-template-rows: auto auto 1fr;
 	gap: 1.5rem;
 	padding: 0.5rem 2rem 2rem 2rem;
@@ -89,14 +89,14 @@ main {
 }
 
 .createDeck-search-details.active {
-	max-height: 3000px;
+	max-height: 500px;
 	overflow-y: auto;
 	padding-right: 0.5rem;
 }
 
 .createDeck-search-details>div {
-	margin-bottom: 1rem;
-	padding: 0.8rem;
+	margin-bottom: 0.6rem;
+	padding: 0.5rem;
 	background: #f9f9f9;
 	border-radius: 8px;
 }
@@ -106,17 +106,18 @@ main {
 	font-weight: bold;
 	color: #333;
 	margin-right: 0.5rem;
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
+	font-size: 0.9rem;
 }
 
 .createDeck-search-details input[type="text"],
 .createDeck-search-details select {
-	padding: 0.5rem;
+	padding: 0.4rem;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	font-size: 0.95rem;
+	font-size: 0.9rem;
 	width: 100%;
-	max-width: 300px;
+	max-width: 250px;
 }
 
 .createDeck-search-details input[type="checkbox"] {
@@ -129,12 +130,12 @@ main {
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	border: none;
-	padding: 0.8rem 2rem;
+	padding: 0.7rem 1.8rem;
 	border-radius: 8px;
 	font-size: 1rem;
 	font-weight: bold;
 	cursor: pointer;
-	margin-top: 1rem;
+	margin-top: 0.8rem;
 	transition: all 0.3s ease;
 }
 
@@ -154,8 +155,8 @@ main {
 	overflow-y: auto;
 	max-height: calc(100vh - 400px);
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: 1.2rem;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	gap: 0.8rem;
 	align-content: start;
 	margin: 0;
 }
@@ -212,7 +213,7 @@ main {
 
 .createDeck-image-leaderCard img {
 	width: 100%;
-	max-width: 250px;
+	max-width: 200px;
 	height: auto;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -222,7 +223,7 @@ main {
 
 .createDeck-display-image-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	gap: 0.8rem;
 }
 
@@ -431,7 +432,7 @@ main {
 	.createDeck-image-grid {
 		grid-column: 1;
 		grid-row: 3;
-		grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	}
 
 	.createDeck-field {
@@ -451,8 +452,8 @@ main {
 	}
 
 	.createDeck-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-		gap: 0.8rem;
+		grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+		gap: 0.6rem;
 	}
 
 	.createDeck-display-image-grid {
@@ -462,7 +463,7 @@ main {
 
 @media (max-width: 480px) {
 	.createDeck-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
 		gap: 0.5rem;
 	}
 
