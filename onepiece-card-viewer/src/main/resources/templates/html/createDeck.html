@@ -23,7 +23,10 @@
 						詳細検索
 					</button>
 				</div>
-				<form th:action="@{/create/deck/search/{id}(id=${leaderCard.id})}" th:object="${cardListForm}" method="post" novalidate>
+				<form th:action="@{/create/deck/search/{id}(id=${leaderCard.id})}" th:object="${cardListForm}" method="post" onsubmit="saveDeckToSession()" novalidate>
+					
+					<input type="hidden" id="deckDataField" name="deckData" value="" />
+					
 					<div id="detailSearchArea" class="createDeck-search-details">
 						<div class="createDeck-search-name">
 							<label>名前:</label>
@@ -259,11 +262,35 @@
 			</div>
 			<!-- デッキ表示 -->
 			<div class="createDeck-field">
-				<div class="createDeck-image-leaderCard" th:if="${leaderCard != null}">
-					<img th:src="@{/card/list/file/{id}(id=${leaderCard.id})}" th:alt="${leaderCard.cardName}">
+				<div class="createDeck-field-over">
+					<div class="createDeck-image-leaderCard" th:if="${leaderCard != null}">
+						<img th:src="@{/card/list/file/{id}(id=${leaderCard.id})}" th:alt="${leaderCard.cardName}">
+					</div>
+					<div class="createDeck-image-detail">
+						<label id="numberOfCardWarning" style="display: none;">
+							<p>デッキ枚数が超過しています。</p>
+						</label>
+						<p>デッキのカード枚数:<span id="numberOfCard">0</span>枚</p>
+						<p>キャラ:<span id="numberOfCharacter">0</span>枚</p>
+						<p>イベント:<span id="numberOfEvent">0</span>枚</p>
+						<p>ステージ:<span id="numberOfStage">0</span>枚</p>
+					</div>
 				</div>
-				<div id="displayDeck" class="createDeck-display-image-grid">
-					<!-- ここでカードの画像表示 -->
+				<div class="createDeck-field-under">
+					<div id="displayDeck" class="createDeck-display-image-grid">
+						
+						<!-- ここでカードの画像表示 -->
+						
+						<th:block th:if="${deckCards != null}" th:each="deckCard : ${deckCards}">
+							<a href="javascript:void(0);" th:attr="data-id=${deckCard.id}" th:onclick="'openCardModal(' + ${deckCard.id} + ', 2)'">
+								<img id="modalDeckImage" 
+									th:src="@{/card/list/file/{id}(id=${deckCard.id})}" 
+									alt="NoImage" 
+									class="createDeck-display-image-card"
+									th:attr="data-type=${deckCard.type},data-cost=${deckCard.cost},data-id=${deckCard.id}" />
+							</a>
+						</th:block>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -423,6 +450,43 @@
 			});
 		}
 		
+		// デッキ情報をセッションに保存するためにフォームに追加
+		function saveDeckToSession() {
+			const displayDeck = document.getElementById('displayDeck');
+			const images = displayDeck.querySelectorAll('img');
+			const deckData = [];
+			
+			images.forEach(img => {
+				deckData.push({
+					id: img.dataset.id,
+					type: img.dataset.type,
+					cost: img.dataset.cost
+				});
+			});
+			
+			document.getElementById('deckDataField').value = JSON.stringify(deckData);
+		}
+		
+		// デッキ枚数を更新する関数
+		function updateDeckCounts() {
+			const displayDeck = document.getElementById('displayDeck');
+			const imgCount = displayDeck.querySelectorAll('img').length;
+			const imgCountCharacter = displayDeck.querySelectorAll('img[data-type="1"]').length;
+			const imgCountEvent = displayDeck.querySelectorAll('img[data-type="2"]').length;
+			const imgCountStage = displayDeck.querySelectorAll('img[data-type="3"]').length;
+			
+			document.getElementById("numberOfCard").textContent = imgCount;
+			document.getElementById("numberOfCharacter").textContent = imgCountCharacter;
+			document.getElementById("numberOfEvent").textContent = imgCountEvent;
+			document.getElementById("numberOfStage").textContent = imgCountStage;
+			
+			if (imgCount > 50) {
+				document.getElementById('numberOfCardWarning').style.display = 'block';
+			} else {
+				document.getElementById('numberOfCardWarning').style.display = 'none';
+			}
+		}
+		
 		//デッキにカードを追加する
 		document.getElementById('addition').addEventListener('click', function() {
 			const displayDeck = document.getElementById('displayDeck');
@@ -441,6 +505,22 @@
 			count = 0;
 			updateCount();
 			closeCardModal();
+			
+			const imgCount = displayDeck.querySelectorAll('img').length;
+			const imgCountCharacter = displayDeck.querySelectorAll('img[data-type="1"]').length;
+			const imgCountEvent = displayDeck.querySelectorAll('img[data-type="2"]').length;
+			const imgCountStage = displayDeck.querySelectorAll('img[data-type="3"]').length;
+			
+			document.getElementById("numberOfCard").textContent = imgCount;
+			document.getElementById("numberOfCharacter").textContent = imgCountCharacter;
+			document.getElementById("numberOfEvent").textContent = imgCountEvent;
+			document.getElementById("numberOfStage").textContent = imgCountStage;
+			
+			if (imgCount > 50) {
+				document.getElementById('numberOfCardWarning').style.display = 'block';
+			} else {
+				document.getElementById('numberOfCardWarning').style.display = 'none';
+			}
 		})
 		
 		//デッキ内のカード枚数を変更する
@@ -470,6 +550,22 @@
 			count = 0;
 			updateCount();
 			closeCardModal();
+			
+			const imgCount = displayDeck.querySelectorAll('img').length;
+			const imgCountCharacter = displayDeck.querySelectorAll('img[data-type="1"]').length;
+			const imgCountEvent = displayDeck.querySelectorAll('img[data-type="2"]').length;
+			const imgCountStage = displayDeck.querySelectorAll('img[data-type="3"]').length;
+			
+			document.getElementById("numberOfCard").textContent = imgCount;
+			document.getElementById("numberOfCharacter").textContent = imgCountCharacter;
+			document.getElementById("numberOfEvent").textContent = imgCountEvent;
+			document.getElementById("numberOfStage").textContent = imgCountStage;
+			
+			if (imgCount > 50) {
+				document.getElementById('numberOfCardWarning').style.display = 'block';
+			} else {
+				document.getElementById('numberOfCardWarning').style.display = 'none';
+			}
 		})
 		
 		//モーダルを開く関数
@@ -551,6 +647,11 @@
 				closeCardModal();
 			}
 		})
+		
+		// ページ読み込み時にデッキ枚数を更新
+		window.addEventListener('DOMContentLoaded', function() {
+			updateDeckCounts();
+		});
 	</script>
 </body>
 

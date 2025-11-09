@@ -203,28 +203,94 @@ main {
 	overflow-y: auto;
 	max-height: calc(100vh - 125px);
 	margin: 0;
+	display: flex;
+	flex-direction: column;
 }
 
-.createDeck-image-leaderCard {
-	margin-bottom: 1.5rem;
+/* リーダーカードと枚数表示の固定コンテナ */
+.createDeck-field-over {
+	display: grid;
+	grid-template-columns: 150px 1fr;
+	gap: 1.5rem;
+	position: sticky;
+	top: 0;
+	background: white;
+	z-index: 10;
 	padding-bottom: 1.5rem;
-	border-bottom: 2px solid #ddd;
+	margin-bottom: 1rem;
+	border-bottom: 2px solid #e0e0e0;
+}
+
+/* リーダーカード */
+.createDeck-image-leaderCard {
+	grid-column: 1;
 }
 
 .createDeck-image-leaderCard img {
 	width: 100%;
-	max-width: 200px;
 	height: auto;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* デッキ枚数表示エリア */
+.createDeck-image-detail {
+	grid-column: 2;
+	padding: 1rem;
+	background: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	align-self: start;
+}
+
+.createDeck-image-detail p {
+	margin: 0.5rem 0;
+	font-size: 1rem;
+	color: #333;
+	font-weight: bold;
+}
+
+.createDeck-image-detail span {
+	color: #8e2639;
+	font-size: 1.1rem;
+	margin-left: 0.5rem;
+}
+
+/* 警告文 */
+#numberOfCardWarning {
+	background: #fff3cd;
+	border: 2px solid #ffc107;
+	border-radius: 8px;
+	padding: 0.8rem;
+	margin-bottom: 1rem;
 	display: block;
-	margin: 0 auto;
+}
+
+#numberOfCardWarning p {
+	color: #856404;
+	font-weight: bold;
+	font-size: 1rem;
+	margin: 0;
+	text-align: center;
+}
+
+/* デッキカード表示エリアのラッパー */
+.createDeck-field-under {
+	flex: 1;
+	overflow-y: auto;
 }
 
 .createDeck-display-image-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-	gap: 0.8rem;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 0.6rem;
+	align-items: start;
+}
+
+.createDeck-display-image-grid a {
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
 .createDeck-display-image-card {
@@ -234,6 +300,8 @@ main {
 	cursor: pointer;
 	transition: transform 0.2s ease;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: block;
+	object-fit: contain;
 }
 
 .createDeck-display-image-card:hover {
