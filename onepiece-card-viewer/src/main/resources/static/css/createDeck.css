@@ -241,6 +241,9 @@ main {
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	align-self: start;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .createDeck-image-detail p {
@@ -274,6 +277,32 @@ main {
 	text-align: center;
 }
 
+/* デッキ保存ボタン */
+.createDeck-keep-deck {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: 0.5rem;
+}
+
+.createDeck-keep-deck-button {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 0.9rem 2rem;
+	font-size: 1.1rem;
+	font-weight: bold;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-keep-deck-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* デッキカード表示エリアのラッパー */
 .createDeck-field-under {
 	flex: 1;
@@ -282,7 +311,7 @@ main {
 
 .createDeck-display-image-grid {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	gap: 0.6rem;
 	align-items: start;
 }
@@ -309,7 +338,7 @@ main {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* モーダル */
+/* カード選択モーダル */
 .createDeck-modal {
 	display: none;
 	position: fixed;
@@ -457,30 +486,161 @@ main {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* デッキ保存確認モーダル */
+.createDeck-keep-deck-modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	backdrop-filter: blur(4px);
+}
+
+.createDeck-keep-deck-modal.active {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.createDeck-keep-deck-modal-content {
+	background: white;
+	border-radius: 16px;
+	padding: 2rem;
+	max-width: 1200px;
+	width: 95%;
+	max-height: 95vh;
+	overflow-y: auto;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	position: relative;
+	animation: modalSlideIn 0.3s ease;
+}
+
+.createDeck-keep-deck-modal-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #999;
+	cursor: pointer;
+	transition: color 0.2s ease;
+	z-index: 10;
+}
+
+.createDeck-keep-deck-modal-close:hover {
+	color: #333;
+}
+
+.createDeck-keep-deck-modal-body {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.createDeck-keep-deck-modal-text {
+	text-align: center;
+}
+
+.createDeck-keep-deck-modal-text p {
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+}
+
+.createDeck-keep-deck-modal-warning-text {
+	background: #fff3cd;
+	border: 2px solid #ffc107;
+	border-radius: 8px;
+	padding: 1rem;
+	text-align: center;
+}
+
+.createDeck-keep-deck-modal-warning-text p {
+	color: #856404;
+	font-weight: bold;
+	font-size: 1.1rem;
+	margin: 0;
+}
+
+.createDeck-keep-deck-modal-image {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	gap: 0.8rem;
+	padding: 1rem;
+	background: #f9f9f9;
+	border-radius: 8px;
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+.createDeck-keep-deck-modal-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	object-fit: contain;
+}
+
+.createDeck-keep-deck-modal-button {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+}
+
+.createDeck-keep-deck-modal-button button {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 1rem 3rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-keep-deck-modal-button button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* スクロールバーのスタイル */
 .createDeck-search-details::-webkit-scrollbar,
 .createDeck-image-grid::-webkit-scrollbar,
-.createDeck-field::-webkit-scrollbar {
+.createDeck-field::-webkit-scrollbar,
+.createDeck-keep-deck-modal-content::-webkit-scrollbar,
+.createDeck-keep-deck-modal-image::-webkit-scrollbar {
 	width: 8px;
 }
 
 .createDeck-search-details::-webkit-scrollbar-track,
 .createDeck-image-grid::-webkit-scrollbar-track,
-.createDeck-field::-webkit-scrollbar-track {
+.createDeck-field::-webkit-scrollbar-track,
+.createDeck-keep-deck-modal-content::-webkit-scrollbar-track,
+.createDeck-keep-deck-modal-image::-webkit-scrollbar-track {
 	background: #f1f1f1;
 	border-radius: 10px;
 }
 
 .createDeck-search-details::-webkit-scrollbar-thumb,
 .createDeck-image-grid::-webkit-scrollbar-thumb,
-.createDeck-field::-webkit-scrollbar-thumb {
+.createDeck-field::-webkit-scrollbar-thumb,
+.createDeck-keep-deck-modal-content::-webkit-scrollbar-thumb,
+.createDeck-keep-deck-modal-image::-webkit-scrollbar-thumb {
 	background: #8e2639;
 	border-radius: 10px;
 }
 
 .createDeck-search-details::-webkit-scrollbar-thumb:hover,
 .createDeck-image-grid::-webkit-scrollbar-thumb:hover,
-.createDeck-field::-webkit-scrollbar-thumb:hover {
+.createDeck-field::-webkit-scrollbar-thumb:hover,
+.createDeck-keep-deck-modal-content::-webkit-scrollbar-thumb:hover,
+.createDeck-keep-deck-modal-image::-webkit-scrollbar-thumb:hover {
 	background: #a8344d;
 }
 
@@ -506,6 +666,11 @@ main {
 	.createDeck-field {
 		grid-column: 1;
 		grid-row: 4;
+		max-width: 100%;
+	}
+
+	.createDeck-display-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	}
 }
 
@@ -525,7 +690,16 @@ main {
 	}
 
 	.createDeck-display-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+	}
+
+	.createDeck-keep-deck-modal-image {
+		grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+	}
+	
+	.createDeck-field-over {
+		grid-template-columns: 120px 1fr;
+		gap: 1rem;
 	}
 }
 
@@ -535,11 +709,29 @@ main {
 		gap: 0.5rem;
 	}
 
+	.createDeck-display-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+	}
+
 	.createDeck-modal-content {
 		padding: 1.5rem;
 	}
 
 	.createDeck-modal-image img {
 		max-width: 250px;
+	}
+
+	.createDeck-keep-deck-modal-content {
+		padding: 1.5rem;
+		max-width: 95%;
+	}
+
+	.createDeck-keep-deck-modal-image {
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+	}
+	
+	.createDeck-field-over {
+		grid-template-columns: 100px 1fr;
+		gap: 0.8rem;
 	}
 }
