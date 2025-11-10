@@ -43,6 +43,7 @@ public class AuthenticationController {
 		if (getFindByUsernameAndPassword.isPresent()) {
 			//認証成功
 			User user = getFindByUsernameAndPassword.get();
+			session.setAttribute("userid", user.getId());
 			session.setAttribute("username", user.getUsername());
 			session.setAttribute("role", user.getRole());
 			//セッションタイムアウトを設定 (3600秒)

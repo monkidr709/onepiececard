@@ -17,7 +17,7 @@ public class CreateDeckService {
 	
 	//cardTypeがリーダーであるものの抽出
 	public List<CardList> getCardListByCardTypeLeader() {
-		return cardListRepository.findByCardType("リーダー");
+		return cardListRepository.findByCardTypeOrderByIdAsc("リーダー");
 	}
 	
 	//リーダーの色を返す

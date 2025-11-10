@@ -24,9 +24,7 @@
 					</button>
 				</div>
 				<form th:action="@{/create/deck/search/{id}(id=${leaderCard.id})}" th:object="${cardListForm}" method="post" onsubmit="saveDeckToSession()" novalidate>
-					
-					<input type="hidden" id="deckDataField" name="deckData" value="" />
-					
+					<input type="hidden" id="searchDeckDataField" name="deckData" value="" />
 					<div id="detailSearchArea" class="createDeck-search-details">
 						<div class="createDeck-search-name">
 							<label>名前:</label>
@@ -255,8 +253,8 @@
 			<!-- カードリスト -->
 			<div class="createDeck-image-grid">
 				<div class="createDeck-image-card" th:each="cardListForCreateDeck : ${cardListForCreateDecks}">
-					<a href="javascript:void(0);" th:onclick="'openCardModal(' + ${cardListForCreateDeck.id} + ', 1)'">
-						<img th:src="@{/card/list/file/{id}(id=${cardListForCreateDeck.id})}" th:alt="${cardListForCreateDeck.cardName}">
+					<a href="javascript:void(0);" th:data-card-id="${cardListForCreateDeck.id}" onclick="openCardModal(this.dataset.cardId, 1)">
+					    <img th:src="@{/card/list/file/{id}(id=${cardListForCreateDeck.id})}" th:alt="${cardListForCreateDeck.cardName}">
 					</a>
 				</div>
 			</div>
@@ -275,6 +273,9 @@
 						<p>イベント:<span id="numberOfEvent">0</span>枚</p>
 						<p>ステージ:<span id="numberOfStage">0</span>枚</p>
 					</div>
+					<div class="createDeck-keep-deck">
+						<button id="openDeckModal" class="createDeck-keep-deck-button">確認/保存</button>
+					</div>
 				</div>
 				<div class="createDeck-field-under">
 					<div id="displayDeck" class="createDeck-display-image-grid">
@@ -282,7 +283,7 @@
 						<!-- ここでカードの画像表示 -->
 						
 						<th:block th:if="${deckCards != null}" th:each="deckCard : ${deckCards}">
-							<a href="javascript:void(0);" th:attr="data-id=${deckCard.id}" th:onclick="'openCardModal(' + ${deckCard.id} + ', 2)'">
+							<a href="javascript:void(0);" th:attr="data-id=${deckCard.id}" onclick="openCardModal(this.dataset.id, 2)">
 								<img id="modalDeckImage" 
 									th:src="@{/card/list/file/{id}(id=${deckCard.id})}" 
 									alt="NoImage" 
@@ -295,7 +296,7 @@
 			</div>
 		</div>
 		
-		<!-- モーダルダイアログ -->
+		<!-- カードモーダルダイアログ -->
 		<div id="cardModal" class="createDeck-modal">
 			<div class="createDeck-modal-content">
 				<span class="createDeck-modal-close" onclick="closeCardModal()">&times;</span>
@@ -322,6 +323,34 @@
 					<label id="changeLabel" style="display: none;">
 						<button id="change" class="createDeck-button-addition" data-type="" data-cost="" data-id="">変更</button>
 					</label>
+				</div>
+			</div>
+		</div>
+		
+		<!-- デッキモーダルダイアログ -->
+		<div id="deckModal" class="createDeck-keep-deck-modal">
+			<div class="createDeck-keep-deck-modal-content">
+				<span class="createDeck-keep-deck-modal-close" onclick="closeDeckModal()">&times;</span>
+				<div class="createDeck-keep-deck-modal-body">
+					<form th:action="@{/keep/deck}" th:object="${keepDeckForm}" method="post" onsubmit="saveDeckToSession()" novalidate>
+						<input type="hidden" id="keepDeckDataField" name="deckData" value="" />
+						<div class="createDeck-keep-deck-modal-text">
+							<p>このデッキを保存しますか。</p>
+						</div>
+						<div id="modalDeckWarning" class="createDeck-keep-deck-modal-warning-text">
+							
+							<!-- ここで警告文表示 -->
+							
+						</div>
+						<div id="modalDeck" class="createDeck-keep-deck-modal-image">
+							
+							<!-- ここでカードの画像表示 -->
+							
+						</div>
+						<div class="createDeck-keep-deck-modal-button">
+							<button type="submit">保存</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -450,7 +479,7 @@
 			});
 		}
 		
-		// デッキ情報をセッションに保存するためにフォームに追加
+		// デッキ情報をフォームに追加する関数
 		function saveDeckToSession() {
 			const displayDeck = document.getElementById('displayDeck');
 			const images = displayDeck.querySelectorAll('img');
@@ -464,7 +493,14 @@
 				});
 			});
 			
-			document.getElementById('deckDataField').value = JSON.stringify(deckData);
+			const jsonData = JSON.stringify(deckData);
+			
+			// 両方のフィールドに設定
+			const searchField = document.getElementById('searchDeckDataField');
+			const keepField = document.getElementById('keepDeckDataField');
+			
+			if (searchField) searchField.value = jsonData;
+			if (keepField) keepField.value = jsonData;
 		}
 		
 		// デッキ枚数を更新する関数
@@ -568,7 +604,7 @@
 			}
 		})
 		
-		//モーダルを開く関数
+		//カードモーダルを開く関数
 		function openCardModal(cardId, number) {
 			// デッキ内の画像をクリックした場合は、現在の枚数をcountに設定
 			if (number === 2) {
@@ -626,18 +662,59 @@
 				});
 		}
 		
-		//モーダルを閉じる関数
+		//デッキモーダルを開く
+		document.getElementById('openDeckModal').addEventListener('click', () => {
+			const images = displayDeck.querySelectorAll('img');
+			const imgCount = displayDeck.querySelectorAll('img').length;
+			
+			// モーダル内をクリア
+			modalDeck.innerHTML = '';
+			modalDeckWarning.innerHTML = '';
+			
+			// imgをコピーしてモーダルに追加
+			images.forEach(image => {
+				const clonedImg = image.cloneNode(true); // 画像を複製
+				modalDeck.appendChild(clonedImg);
+			});
+			
+			if (imgCount > 50) {
+				const p = document.createElement('p');
+				p.textContent = 'カード枚数が超過しています。'
+				
+				modalDeckWarning.appendChild(p);
+			} else if (imgCount < 50) {
+				const p = document.createElement('p');
+				p.textContent = 'カード枚数が不足しています。'
+				
+				modalDeckWarning.appendChild(p);
+			};
+			
+			// モーダルを表示
+			document.getElementById('deckModal').classList.add('active');
+		})
+		
+		//カードモーダルを閉じる関数
 		function closeCardModal() {
 			document.getElementById('cardModal').classList.remove('active');
 			count = 0;
 			updateCount();
 		}
 		
+		//デッキモーダルを閉じる関数
+		function closeDeckModal() {
+			document.getElementById('deckModal').classList.remove('active');
+		}
+		
 		//モーダルの背景をクリックしたら閉じる
 		window.onclick = function(event) {
-			const modal = document.getElementById('cardModal');
-			if (event.target === modal) {
+			const cardModal = document.getElementById('cardModal');
+			const deckModal = document.getElementById('deckModal');
+			
+			if (event.target === cardModal) {
 				closeCardModal();
+			}
+			if (event.target === deckModal) {
+				closeDeckModal();
 			}
 		}
 		
@@ -645,6 +722,7 @@
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Escape') {
 				closeCardModal();
+				closeDeckModal()
 			}
 		})
 		
