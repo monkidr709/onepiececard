@@ -19,9 +19,7 @@
 				<h2>カード検索</h2>
 				<!-- 詳細検索トグルボタン -->
 				<div class="cardlist-search-toggle">
-					<button type="button" class="cardlist-search-toggle-btn" onclick="toggleDetailSearch()">
-						詳細検索
-					</button>
+					<button type="button" class="cardlist-search-toggle-btn" onclick="toggleDetailSearch()">詳細検索</button>
 				</div>
 				<form th:action="@{/card/list/search}" th:object="${cardListForm}" method="post" novalidate>
 					<div id="detailSearchArea" class="cardlist-search-details">
