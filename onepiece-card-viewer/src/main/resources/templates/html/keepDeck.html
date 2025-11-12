@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>保存</title>
+	<link rel="stylesheet" th:href="@{/css/keepDeck.css}">
+</head>
+
+<body>
+	<main>
+		<div class="keepDeck-container">
+			<h1>デッキ保存</h1>
+			<div class="keepDeck-input" th:each="leaderCard : ${leaderCard}">
+				<form th:action="@{/keep/deck/{id}(id=${leaderCard.id})}" th:object="${keepDeckForm}" method="post" onsubmit="saveDeckToSession()">
+					<input type="hidden" id="keepDeckData" name="deckData" value=""/>
+					<div class="keepDeck-deckName">
+						<label>デッキ名:</label>
+						<input type="text" th:field="*{deckName}" />
+					</div>
+					<div class="keepDeck-publishDeck">
+						<input type="radio" th:field="*{publishDeck}" th:value="1" id="publish-public" />
+						<label for="publish-public">公開</label>
+						<input type="radio" th:field="*{publishDeck}" th:value="0" id="publish-private" />
+						<label for="publish-private">非公開</label>
+					</div>
+					<div id="displayDeck" class="keepDeck-image-grid">
+						<div class="keepDeck-image-card" th:each="deckCard : ${deckCards}">
+							<a href="javascript:void(0);" th:data-card-id="${deckCard.id}" th:onclick="openCardModal(this.dataset.cardId)">
+								<img th:src="@{/card/list/file/{id}(id=${deckCard.id})}" th:alt="NoImage"
+										th:attr="data-type=${deckCard.type},data-cost=${deckCard.cost},data-id=${deckCard.id}">
+							</a>
+						</div>
+					</div>
+					<div class="keepDeck-keep-button">
+						<button type="submit">保存</button>
+					</div>
+				</form>
+				<form th:action="@{/create/deck/{id}(id=${leaderCard.id})}" method="post" onsubmit="saveDeckToSession()">
+					<input type="hidden" id="cancelKeepingDeckData" name="deckData" value=""/>
+					<div class="keepDeck-cancel-button">
+						<button type="submit">キャンセル</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<!-- カードモーダルダイアログ -->
+		<div id="cardModal" class="keepDeck-card-modal">
+			<div class="keepDeck-card-modal-content">
+				<span class="keepDeck-card-modal-close" onclick="closeCardModal()">&times;</span>
+				<div class="keepDeck-card-modal-body">
+					<div class="keepDeck-card-modal-image">
+						<img id="modalCardImage" src="" alt="NoImage">
+					</div>
+					<div class="keepDeck-card-modal-name">
+						<p><span id="modalCardName"></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<script>
+		// デッキ情報をフォームに追加する関数
+		function saveDeckToSession() {
+			const displayDeck = document.getElementById('displayDeck');
+			const images = displayDeck.querySelectorAll('img');
+			const deckData = [];
+			
+			images.forEach(img => {
+				deckData.push({
+					id: img.dataset.id,
+					type: img.dataset.type,
+					cost: img.dataset.cost
+				});
+			});
+			
+			document.getElementById('keepDeckData').value = JSON.stringify(deckData);
+			document.getElementById('cancelKeepingDeckData').value = JSON.stringify(deckData);
+		}
+		
+		function openCardModal(cardId) {
+			//Ajaxでカード詳細を取得
+			fetch('/card/list/detail/' + cardId)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('No Image');
+					}
+					return response.json();
+				})
+				.then(card => {
+					//モーダルに情報を設定
+					document.getElementById('modalCardImage').src = '/card/list/file/' + card.id;
+					document.getElementById('modalCardName').textContent = card.cardName || '';
+				})
+				.catch(error =>{
+					console.error('エラー:', error);
+					alert('カード情報の取得に失敗しました');
+				});
+			
+			// モーダルを表示
+			document.getElementById('cardModal').classList.add('active');
+		}
+		
+		//カードモーダルを閉じる関数
+		function closeCardModal() {
+			document.getElementById('cardModal').classList.remove('active');
+		}
+		
+		//モーダルの背景をクリックしたら閉じる
+		window.onclick = function(event) {
+			const cardModal = document.getElementById('cardModal');
+			if (event.target === cardModal) {
+				closeCardModal();
+			}
+		}
+		
+		//ESCキーでモーダルを閉じる
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeCardModal();
+			}
+		})
+	</script>
+</body>
+
+</html>

@@ -276,8 +276,10 @@ main {
 .createDeck-keep-deck {
 	grid-column: 3;
 	display: flex;
-	justify-content: flex-end;
-	align-items: flex-start;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	gap: 0.5rem;
 }
 
 .createDeck-keep-deck-button {
@@ -294,6 +296,29 @@ main {
 }
 
 .createDeck-keep-deck-button:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.createDeck-keep-deck form {
+	width: 100%;
+}
+
+.createDeck-keep-deck form button {
+	width: 100%;
+	background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+	color: white;
+	border: none;
+	padding: 0.7rem 1.5rem;
+	font-size: 1rem;
+	font-weight: bold;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.createDeck-keep-deck form button:hover {
 	transform: translateY(-1px);
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -355,8 +380,8 @@ main {
 .createDeck-modal-content {
 	background: white;
 	border-radius: 12px;
-	padding: 1.5rem;
-	max-width: 450px;
+	padding: 2rem;
+	max-width: 500px;
 	width: 90%;
 	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	position: relative;
@@ -394,18 +419,18 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1rem;
+	gap: 1.5rem;
 }
 
 .createDeck-modal-text p {
-	font-size: 1.1rem;
+	font-size: 1.4rem;
 	font-weight: bold;
 	color: #333;
 	margin: 0;
 }
 
 .createDeck-modal-image img {
-	max-width: 250px;
+	max-width: 350px;
 	width: 100%;
 	height: auto;
 	border-radius: 10px;
@@ -413,7 +438,7 @@ main {
 }
 
 .createDeck-modal-cardName p {
-	font-size: 1rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	color: #8e2639;
 	margin: 0;
@@ -423,22 +448,22 @@ main {
 .createDeck-modal-numberOfCards {
 	display: flex;
 	align-items: center;
-	gap: 1.2rem;
+	gap: 1.5rem;
 }
 
 .createDeck-counter {
-	font-size: 2.2rem;
+	font-size: 2.5rem;
 	font-weight: bold;
 	color: #8e2639;
-	min-width: 50px;
+	min-width: 60px;
 	text-align: center;
 }
 
 .createDeck-button-down,
 .createDeck-button-up {
-	width: 45px;
-	height: 45px;
-	font-size: 1.4rem;
+	width: 50px;
+	height: 50px;
+	font-size: 1.6rem;
 	font-weight: bold;
 	border: none;
 	border-radius: 50%;
@@ -467,8 +492,8 @@ main {
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	border: none;
-	padding: 0.8rem 2rem;
-	font-size: 1rem;
+	padding: 1rem 2.5rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	border-radius: 6px;
 	cursor: pointer;
@@ -504,13 +529,15 @@ main {
 	background: white;
 	border-radius: 12px;
 	padding: 1.5rem;
-	max-width: 800px;
+	max-width: 900px;
 	width: 90%;
 	max-height: 85vh;
-	overflow-y: auto;
+	overflow: hidden;
 	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	position: relative;
 	animation: modalSlideIn 0.3s ease;
+	display: flex;
+	flex-direction: column;
 }
 
 .createDeck-keep-deck-modal-close {
@@ -533,6 +560,8 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+	flex: 1;
+	overflow: hidden;
 }
 
 .createDeck-keep-deck-modal-text {
@@ -571,20 +600,44 @@ main {
 	margin: 0;
 }
 
+/* リーダーとデッキカードのコンテナ */
+.createDeck-keep-deck-modal-cards-container {
+	display: flex;
+	gap: 1rem;
+	flex: 1;
+	overflow: hidden;
+	min-height: 0;
+}
+
+.createDeck-keep-deck-modal-leader-image {
+	flex-shrink: 0;
+	width: 180px;
+}
+
+.createDeck-keep-deck-modal-leader-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	object-fit: contain;
+}
+
 .createDeck-keep-deck-modal-image {
+	flex: 1;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-	gap: 0.5rem;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	gap: 0.4rem;
 	padding: 0.8rem;
 	background: #f9f9f9;
 	border-radius: 6px;
-	max-height: none;
-	overflow-y: visible;
+	overflow: hidden;
+	align-content: start;
 }
 
 .createDeck-keep-deck-modal-image img {
 	width: 100%;
-	height: auto;
+	height: 100%;
 	border-radius: 4px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	object-fit: contain;

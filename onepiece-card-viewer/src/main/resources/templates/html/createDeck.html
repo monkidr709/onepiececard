@@ -267,8 +267,11 @@
 						<p>イベント:<span id="numberOfEvent">0</span>枚</p>
 						<p>ステージ:<span id="numberOfStage">0</span>枚</p>
 					</div>
-					<div class="createDeck-keep-deck">
+					<div class="createDeck-keep-deck" th:if="${leaderCard != null}">
 						<button id="openDeckModal" class="createDeck-keep-deck-button">確認/保存</button>
+						<form th:action="@{/cancel/deck/creation/{id}(id=${leaderCard.id})}">
+							<button type="submit">キャンセル</button>
+						</form>
 					</div>
 				</div>
 				<div class="createDeck-field-under">
@@ -326,7 +329,7 @@
 			<div class="createDeck-keep-deck-modal-content">
 				<span class="createDeck-keep-deck-modal-close" onclick="closeDeckModal()">&times;</span>
 				<div class="createDeck-keep-deck-modal-body" th:if="${leaderCard != null}">
-					<form th:action="@{/keep/deck/{id}(id=${leaderCard.id})}" th:object="${keepDeckForm}" method="post" onsubmit="saveDeckToSession()" novalidate>
+					<form th:action="@{/confirm/deck/{id}(id=${leaderCard.id})}" method="post" onsubmit="saveDeckToSession()" novalidate>
 						<input type="hidden" id="keepDeckDataField" name="deckData" value="" />
 						<div class="createDeck-keep-deck-modal-text">
 							<p>このデッキを保存しますか。</p>
@@ -336,15 +339,17 @@
 							<!-- ここで警告文表示 -->
 							
 						</div>
-						<div id="modalDeckLeader" class="createDeck-keep-deck-modal-leader-image">
-							
-							<!-- ここでリーダーカード表示 -->
-							
-						</div>
-						<div id="modalDeck" class="createDeck-keep-deck-modal-image">
-							
-							<!-- ここでカードの画像表示 -->
-							
+						<div class="createDeck-keep-deck-modal-cards-container">
+						    <div id="modalDeckLeader" class="createDeck-keep-deck-modal-leader-image">
+								
+								<!-- ここでリーダーカード表示 -->
+								
+							</div>
+							<div id="modalDeck" class="createDeck-keep-deck-modal-image">
+								
+								<!-- ここでカードの画像表示 -->
+								
+						 	</div>
 						</div>
 						<div class="createDeck-keep-deck-modal-button">
 							<button type="submit">保存</button>

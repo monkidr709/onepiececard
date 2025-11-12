@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,12 +36,25 @@ public class CreateDeckController {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	@GetMapping("/create/deck/{id}")
-	public String createDeck(HttpSession session, Model model, @PathVariable Integer id) {
+	@PostMapping("/create/deck/{id}")
+	public String createDeck(HttpSession session, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
 		//セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
+		}
+		
+		// デッキデータをセッションに保存
+		if (deckData != null && !deckData.isEmpty()) {
+			try {
+				List<Map<String, Object>> deckCards = objectMapper.readValue(
+					deckData, 
+					new TypeReference<List<Map<String, Object>>>(){}
+				);
+				model.addAttribute("deckCards", deckCards);
+			} catch (Exception e) {
+				System.err.println("デッキデータのパースに失敗しました: " + e.getMessage());
+			}
 		}
 		
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
