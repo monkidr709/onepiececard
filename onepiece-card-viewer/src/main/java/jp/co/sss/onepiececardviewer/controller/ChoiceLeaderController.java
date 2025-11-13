@@ -33,6 +33,7 @@ public class ChoiceLeaderController {
 	//デッキ作成のキャンセル
 	@GetMapping("/cancel/deck/creation/{id}")
 	public String cancelDeckCreation(HttpSession session, @PathVariable Integer id) {
+		//セッションに保存したデッキデータを削除
 		if (session != null && session.getAttribute("deckCards_" + id) != null) {
 			session.removeAttribute("deckCards_" + id);
 		}

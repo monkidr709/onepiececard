@@ -132,6 +132,40 @@ main {
 	margin-left: 5px;
 }
 
+/* ===== リーダーカード画像グリッド ===== */
+.keepDeck-leader-image-grid {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	background-color: #fafafa;
+	border-radius: 8px;
+	border: 2px solid #e0e0e0;
+	margin-bottom: 20px;
+}
+
+.keepDeck-image-leader-card {
+	position: relative;
+}
+
+.keepDeck-image-leader-card a {
+	display: block;
+	text-decoration: none;
+}
+
+.keepDeck-image-leader-card img {
+	width: 150px;
+	height: auto;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	transition: transform 0.2s, box-shadow 0.2s;
+	cursor: pointer;
+}
+
+.keepDeck-image-leader-card img:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* ===== カード画像グリッド ===== */
 .keepDeck-image-grid {
 	display: grid;
@@ -331,6 +365,14 @@ main {
 		padding: 15px;
 	}
 
+	.keepDeck-leader-image-grid {
+		padding: 15px;
+	}
+
+	.keepDeck-image-leader-card img {
+		width: 130px;
+	}
+
 	.keepDeck-deckName {
 		flex-direction: column;
 		align-items: flex-start;
@@ -356,6 +398,10 @@ main {
 	.keepDeck-image-grid {
 		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
 		gap: 8px;
+	}
+
+	.keepDeck-image-leader-card img {
+		width: 110px;
 	}
 
 	.keepDeck-card-modal-body {

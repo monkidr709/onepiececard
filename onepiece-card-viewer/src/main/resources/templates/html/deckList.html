@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>デッキ一覧</title>
+	<link rel="stylesheet" th:href="@{/css/deckList.css}">
+	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/sidebar.css}">
+</head>
+
+<body>
+	<header th:replace="~{html/common/header :: layout-header}"></header>
+	<main>
+		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
+		<div class="decklist-container">
+			<h1>デッキ一覧</h1>
+			<div class="decklist-list" th:each="deckList : ${deckLists}">
+				<a href="javascript:void(0);" onclick="openDeckModal()">
+					<div class="decklist-list-detail">
+						<div class="decklist-list-image-leader">
+							<img th:src="@{/card/list/file/{id}(id=${deckList.leaderCardId})}" alt="NoImage">
+						</div>
+						<div class="decklist-list-deck-name">
+							<p><span th:text="${deckList.deckName}"></span></p>
+						</div>
+						<div class="decklist-list-deck-created-at">
+							
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

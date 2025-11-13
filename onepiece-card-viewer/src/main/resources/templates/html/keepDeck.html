@@ -24,6 +24,13 @@
 						<input type="radio" th:field="*{publishDeck}" th:value="0" id="publish-private" />
 						<label for="publish-private">非公開</label>
 					</div>
+					<div class="keepDeck-leader-image-grid">
+						<div class="keepDeck-image-leader-card" th:if="leaderCard">
+							<a href="javascript:void(0);" th:data-card-id="${leaderCard.id}" th:onclick="openCardModal(this.dataset.cardId)">
+								<img th:src="@{/card/list/file/{id}(id=${leaderCard.id})}" th:alt="NoImage">
+							</a>
+						</div>
+					</div>
 					<div id="displayDeck" class="keepDeck-image-grid">
 						<div class="keepDeck-image-card" th:each="deckCard : ${deckCards}">
 							<a href="javascript:void(0);" th:data-card-id="${deckCard.id}" th:onclick="openCardModal(this.dataset.cardId)">

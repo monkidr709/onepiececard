@@ -42,6 +42,7 @@ public class CardListController {
 		if (username == null) {
 			return "redirect:/login";
 		}
+		
 		model.addAttribute("images", cardListService.getAllCardList());
 		model.addAttribute("cardListForm", new CardListForm());
 		return "html/cardList";
