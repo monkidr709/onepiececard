@@ -1,1 +1,384 @@
 @charset "UTF-8";
+
+/* メインコンテンツのレイアウト */
+main {
+	display: flex;
+	min-height: 100vh;
+	background-color: #f5f5f5;
+}
+
+/* デッキ一覧コンテナ */
+.decklist-container {
+	margin-left: 260px;
+	/* サイドバーの幅 */
+	padding: 2rem;
+	width: calc(100% - 260px);
+	min-height: 100vh;
+}
+
+.decklist-container h1 {
+	margin: 0 0 2rem 0;
+	font-size: 2.5rem;
+	color: #333;
+	text-align: center;
+	padding-bottom: 1rem;
+	border-bottom: 3px solid #8e2639;
+}
+
+/* デッキリストアイテム */
+.decklist-list {
+	margin-bottom: 1.5rem;
+	transition: transform 0.3s ease;
+}
+
+.decklist-list:hover {
+	transform: translateY(-5px);
+}
+
+.decklist-list a {
+	text-decoration: none;
+	display: block;
+}
+
+/* デッキリスト詳細 */
+.decklist-list-detail {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	background-color: white;
+	padding: 1.5rem;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.decklist-list-detail:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* リーダーカード画像 */
+.decklist-list-image-leader {
+	flex-shrink: 0;
+	width: 120px;
+	height: 168px;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.decklist-list-image-leader img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* デッキ名 */
+.decklist-list-deck-name {
+	flex-grow: 1;
+}
+
+.decklist-list-deck-name p {
+	margin: 0;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #333;
+}
+
+/* 作成日 */
+.decklist-list-deck-created-at p {
+	margin: 0;
+	font-size: 1rem;
+	color: #666;
+}
+
+/* モーダル */
+.decklist-modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(5px);
+}
+
+.decklist-modal.active {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* モーダルコンテンツ */
+.decklist-modal-content {
+	position: relative;
+	background-color: white;
+	padding: 2rem;
+	border-radius: 16px;
+	max-width: 1200px;
+	width: 90%;
+	max-height: 95vh;
+	overflow-y: auto;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+	animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-50px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* モーダル閉じるボタン */
+.decklist-modal-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #666;
+	cursor: pointer;
+	transition: color 0.3s ease;
+	z-index: 10;
+}
+
+.decklist-modal-close:hover {
+	color: #8e2639;
+}
+
+/* モーダルボディ */
+.decklist-modal-body {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+/* モーダル内デッキ名 */
+.decklist-modal-deck-name {
+	text-align: center;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid #8e2639;
+}
+
+.decklist-modal-deck-name p {
+	margin: 0;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+}
+
+/* モーダル内作成日 */
+.decklist-modal-deck-created-date {
+	text-align: center;
+}
+
+.decklist-modal-deck-created-date p {
+	margin: 0;
+	font-size: 1rem;
+	color: #666;
+}
+
+/* モーダル内リーダー画像 */
+.decklist-modal-deck-image-leader {
+	display: flex;
+	justify-content: center;
+	margin: 0.5rem 0;
+}
+
+.decklist-modal-deck-image-leader img {
+	width: 160px;
+	height: 224px;
+	object-fit: cover;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* モーダル内デッキカード画像エリア */
+.decklist-modal-deck-image-cards {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	gap: 0.5rem;
+	padding: 0.8rem;
+	background-color: #f9f9f9;
+	border-radius: 12px;
+}
+
+.decklist-modal-deck-image-card {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 5/7;
+	object-fit: cover;
+	border-radius: 4px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	transition: transform 0.3s ease;
+	cursor: pointer;
+}
+
+.decklist-modal-deck-image-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* モーダル内変更ボタンエリア */
+.decklist-modal-deck-change {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.decklist-modal-deck-change form {
+	width: 100%;
+	max-width: 300px;
+}
+
+.decklist-modal-deck-change button {
+	width: 100%;
+	padding: 1rem 2rem;
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	border-radius: 25px;
+	font-size: 1.1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(142, 38, 57, 0.3);
+}
+
+.decklist-modal-deck-change button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(142, 38, 57, 0.4);
+}
+
+.decklist-modal-deck-change button:active {
+	transform: translateY(0);
+}
+
+/* スクロールバーのスタイル */
+.decklist-modal-content::-webkit-scrollbar {
+	width: 8px;
+}
+
+.decklist-modal-content::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+.decklist-modal-content::-webkit-scrollbar-thumb {
+	background: #8e2639;
+	border-radius: 10px;
+}
+
+.decklist-modal-content::-webkit-scrollbar-thumb:hover {
+	background: #a8344d;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1400px) {
+	.decklist-modal-content {
+		max-width: 1000px;
+	}
+
+	.decklist-modal-deck-image-cards {
+		grid-template-columns: repeat(10, 1fr);
+	}
+}
+
+@media (max-width: 1200px) {
+	.decklist-modal-content {
+		max-width: 900px;
+	}
+}
+
+@media (max-width: 768px) {
+	.decklist-container {
+		margin-left: 200px;
+		width: calc(100% - 200px);
+		padding: 1.5rem;
+	}
+
+	.decklist-container h1 {
+		font-size: 2rem;
+	}
+
+	.decklist-list-detail {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.decklist-list-image-leader {
+		width: 100px;
+		height: 140px;
+	}
+
+	.decklist-list-deck-name p {
+		font-size: 1.3rem;
+	}
+
+	.decklist-modal-content {
+		padding: 1.5rem;
+		max-width: 95%;
+	}
+
+	.decklist-modal-deck-name p {
+		font-size: 1.5rem;
+	}
+
+	.decklist-modal-deck-image-leader img {
+		width: 130px;
+		height: 182px;
+	}
+
+	.decklist-modal-deck-image-cards {
+		grid-template-columns: repeat(8, 1fr);
+		gap: 0.4rem;
+		padding: 0.6rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.decklist-container {
+		margin-left: 0;
+		width: 100%;
+		padding: 1rem;
+	}
+
+	.decklist-container h1 {
+		font-size: 1.8rem;
+	}
+
+	.decklist-list-image-leader {
+		width: 80px;
+		height: 112px;
+	}
+
+	.decklist-list-deck-name p {
+		font-size: 1.1rem;
+	}
+
+	.decklist-modal-content {
+		padding: 1rem;
+	}
+
+	.decklist-modal-deck-name p {
+		font-size: 1.3rem;
+	}
+
+	.decklist-modal-deck-image-leader img {
+		width: 100px;
+		height: 140px;
+	}
+
+	.decklist-modal-deck-image-cards {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.3rem;
+		padding: 0.5rem;
+	}
+}

@@ -72,29 +72,59 @@ public class KeepDeckController {
 	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id, @RequestParam(required = false) String deckData, RedirectAttributes redirectAttributes) {
 		String username = (String) session.getAttribute("username");
 		Integer userId = (Integer) session.getAttribute("userId");
+		Boolean changeDeck = (Boolean) session.getAttribute("changeDeck");
+		Integer deckId = (Integer) session.getAttribute("deckId");
+		
 		//セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
 		}
 		
-		// デッキデータを登録
-		try {
-			List<Map<String, Object>> deckCards = objectMapper.readValue(
-					deckData, 
-					new TypeReference<List<Map<String, Object>>>(){}
-			);
-			
-			List<Integer> deckCardId = deckCards.stream()
-					.map(m -> Integer.valueOf(m.get("id").toString()))
-					.collect(Collectors.toList());
-			
-			keepDeckService.keepDeck(userId, form.getDeckName(), form.isPublishDeck(), id, deckCardId);
-		} catch (Exception e) {
-			System.err.println("デッキデータの登録に失敗しました: " + e.getMessage());
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("error", "デッキの保存に失敗しました");
+		if (changeDeck != null && changeDeck.booleanValue()) {
+			// デッキデータの更新
+			try {
+				List<Map<String, Object>> deckCards = objectMapper.readValue(
+						deckData, 
+						new TypeReference<List<Map<String, Object>>>(){}
+				);
+				
+				List<Integer> deckCardId = deckCards.stream()
+						.map(m -> Integer.valueOf(m.get("id").toString()))
+						.collect(Collectors.toList());
+				
+				keepDeckService.changeDeck(deckId, form.getDeckName(), form.isPublishDeck(), deckCardId);
+			} catch (Exception e) {
+				System.err.println("デッキデータの更新に失敗しました: " + e.getMessage());
+				e.printStackTrace();
+				redirectAttributes.addFlashAttribute("error", "デッキの更新に失敗しました");
+			}
+		} else {
+			// デッキデータを登録
+			try {
+				List<Map<String, Object>> deckCards = objectMapper.readValue(
+						deckData, 
+						new TypeReference<List<Map<String, Object>>>(){}
+				);
+				
+				List<Integer> deckCardId = deckCards.stream()
+						.map(m -> Integer.valueOf(m.get("id").toString()))
+						.collect(Collectors.toList());
+				
+				keepDeckService.keepDeck(userId, form.getDeckName(), form.isPublishDeck(), id, deckCardId);
+			} catch (Exception e) {
+				System.err.println("デッキデータの登録に失敗しました: " + e.getMessage());
+				e.printStackTrace();
+				redirectAttributes.addFlashAttribute("error", "デッキの保存に失敗しました");
+			}
 		}
 		
+		// セッションに保存したデッキデータを削除
+		if (session != null && session.getAttribute("changeDeck") != null) {
+			session.removeAttribute("changeDeck");
+		}
+		if (session != null && session.getAttribute("deckId") != null) {
+			session.removeAttribute("deckId");
+		}
 		return "redirect:/deck/list";
 	}
 

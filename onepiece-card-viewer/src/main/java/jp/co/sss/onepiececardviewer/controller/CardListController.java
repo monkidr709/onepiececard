@@ -34,11 +34,11 @@ public class CardListController {
 	@Autowired
 	private CardListService cardListService;
 	
-	//カードリスト画面へ遷移
+	// カードリスト画面へ遷移
 	@GetMapping
 	public String cardList(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
-		//セッションタイムアウト
+		// セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
 		}
@@ -48,25 +48,25 @@ public class CardListController {
 		return "html/cardList";
 	}
 	
-	//画像ファイルを返すエンドファイル
+	// 画像ファイルを返すエンドファイル
 	@GetMapping("/file/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> getImageFile(@PathVariable Integer id) {
 		try {
-			//ID検索
+			// ID検索
 			Optional<CardList> getCardListById = cardListService.getCardListById(id);
 			CardList image = getCardListById.get();
 			
-			//IDに対応するimageFilePathをファイルパスに変換し、読み込む
+			// IDに対応するimageFilePathをファイルパスに変換し、読み込む
 			Path filePath = Paths.get(image.getImageFilePath());
 			Resource resource = new UrlResource(filePath.toUri());
 			
-			//ファイルの存在と読み込み権限の確認
+			// ファイルの存在と読み込み権限の確認
 			if (!resource.exists() || !resource.isReadable()) {
 				throw new RuntimeException("ファイルが読み込めません");
 			}
 			
-			//ファイルのContent-Typeを判定
+			// ファイルのContent-Typeを判定
 			String contentType = Files.probeContentType(filePath);
 			if (contentType == null) {
 				contentType = "application/octet-stream";
@@ -81,11 +81,11 @@ public class CardListController {
 		}
 	}
 	
-	//動的な複数の列による条件検索
+	// 動的な複数の列による条件検索
 	@PostMapping("/search")
 	public String searchCards(HttpSession session, CardListForm form, Model model) {
 		String username = (String) session.getAttribute("username");
-		//セッションタイムアウト
+		// セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
 		}
@@ -132,7 +132,7 @@ public class CardListController {
 		return "html/cardList";
 	}
 	
-	//モーダル表示
+	// モーダル表示
 	@GetMapping("/detail/{id}")
 	@ResponseBody
 	public ResponseEntity<CardList> CardDatail(@PathVariable Integer id) {

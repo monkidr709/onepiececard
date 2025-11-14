@@ -16,7 +16,10 @@
 		<div class="decklist-container">
 			<h1>デッキ一覧</h1>
 			<div class="decklist-list" th:each="deckList : ${deckLists}">
-				<a href="javascript:void(0);" onclick="openDeckModal()">
+				<a href="javascript:void(0);" 
+					th:attr="data-leader-card-id=${deckList.leaderCardId},data-deck-card-ids=${#strings.arrayJoin(deckList.deckCardId, ',')},
+							data-deck-name=${deckList.deckName},data-deck-created-date=${deckList.createdDate},data-deck-id=${deckList.id}"
+							onclick="openDeckModal(this.dataset.leaderCardId, this.dataset.deckCardIds, this.dataset.deckName, this.dataset.deckCreatedDate, this.dataset.deckId)">
 					<div class="decklist-list-detail">
 						<div class="decklist-list-image-leader">
 							<img th:src="@{/card/list/file/{id}(id=${deckList.leaderCardId})}" alt="NoImage">
@@ -25,13 +28,160 @@
 							<p><span th:text="${deckList.deckName}"></span></p>
 						</div>
 						<div class="decklist-list-deck-created-at">
-							
+							<p><span th:text="${deckList.createdDate}"></span></p>
 						</div>
 					</div>
 				</a>
 			</div>
 		</div>
+		
+		<!-- デッキモーダルダイアログ -->
+		<div id="deckModal" class="decklist-modal">
+			<div class="decklist-modal-content">
+				<span class="decklist-modal-close" onclick="closeCardModal()">&times;</span>
+				<div class="decklist-modal-body">
+					<div class="decklist-modal-deck-name">
+						<p><span id="modalDeckName"></span></p>
+					</div>
+					<div class="decklist-modal-deck-created-date">
+						<p><span id="modalDeckCreatedDate"></span></p>
+					</div>
+					<div class="decklist-modal-deck-image-leader">
+						<img id="modalLeaderImage" src="" alt="NoImage">
+					</div>
+					<div id="modalDeckCardImage" class="decklist-modal-deck-image-cards">
+						<!-- ここにデッキ表示 -->
+					</div>
+					<div class="decklist-modal-deck-change">
+						<form id="modalForm" action="" method="post" novalidate>
+							<input type="hidden" id="changeDeckDataField" name="deckData" value="" />
+							<input type="hidden" id="changeDeckId" name="deckId" value="" />
+							<button type="submit">変更</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
+	
+	<script>
+		// 1枚のカード画像を追加する関数
+		function additionCardImage(id, type, cost) {
+			const modalDeckCardImage = document.getElementById('modalDeckCardImage');
+			
+			const img = document.createElement('img');
+			img.src = '/card/list/file/' + id;
+			img.alt = 'NoImage';
+			img.className = 'decklist-modal-deck-image-card';
+			img.setAttribute('data-type', type);
+			img.setAttribute('data-cost', cost);
+			img.setAttribute('data-id', id);
+			
+			modalDeckCardImage.appendChild(img);
+		}
+		
+		// デッキ情報をフォームに追加する関数
+		function saveDeckToSession() {
+			const modalDeckCardImage = document.getElementById('modalDeckCardImage');
+			const images = modalDeckCardImage.querySelectorAll('img');
+			const deckData = [];
+			
+			images.forEach(img => {
+				deckData.push({
+					id: img.dataset.id,
+					type: img.dataset.type,
+					cost: img.dataset.cost
+				});
+			});
+			
+			const jsonData = JSON.stringify(deckData);
+			
+			const changeField = document.getElementById('changeDeckDataField');
+			changeField.value = jsonData;
+		}
+		
+		// デッキモーダルを開く関数
+		async function openDeckModal(leaderCardId, deckCardIds, deckName, createdDate, deckId) {
+			try {
+				// デバッグ情報
+				console.log('=== デッキモーダルを開く ===');
+				console.log('leaderCardId:', leaderCardId);
+				console.log('deckCardIds:', deckCardIds);
+				console.log('deckCardIds type:', typeof deckCardIds);
+				
+				// 配列かどうかチェックして適切に処理
+				const deckCardIdsArray = Array.isArray(deckCardIds) 
+					? deckCardIds 
+					: deckCardIds.split(',').map(id => id.trim());
+				
+				console.log('deckCardIdsArray:', deckCardIdsArray);
+				console.log('配列の長さ:', deckCardIdsArray.length);
+				
+				// リーダーカードの詳細を取得
+				const leaderResponse = await fetch('/card/list/detail/' + leaderCardId);
+				if (!leaderResponse.ok) {
+					throw new Error('リーダーカード情報の取得に失敗しました');
+				}
+				const leaderCard = await leaderResponse.json();
+				
+				// モーダルに情報を設定
+				document.getElementById('modalDeckName').textContent = deckName || '';
+				document.getElementById('modalDeckCreatedDate').textContent = createdDate || '';
+				document.getElementById('modalLeaderImage').src = '/card/list/file/' + leaderCard.id;
+				document.getElementById('modalForm').action = '/change/deck/' + leaderCard.id;
+				document.getElementById('changeDeckId').value = deckId;
+				
+				// 各デッキカードの詳細を取得して表示
+				for (const deckCardId of deckCardIdsArray) {
+					const cardResponse = await fetch('/card/list/detail/' + deckCardId);
+					if (!cardResponse.ok) {
+						console.error('カードID ' + deckCardId + ' の取得に失敗しました');
+						continue;
+					}
+					const card = await cardResponse.json();
+					
+					// カード画像を追加
+					additionCardImage(card.id, card.cardType, card.cardCost);
+				}
+				
+				// モーダルを表示
+				document.getElementById('deckModal').classList.add('active');
+				
+			} catch (error) {
+				console.error('エラー:', error);
+				alert('カード情報の取得に失敗しました');
+			}
+		}
+		
+		// モーダルを閉じる関数
+		function closeCardModal() {
+			document.getElementById('deckModal').classList.remove('active');
+			// 画像をクリア
+			document.getElementById('modalDeckCardImage').innerHTML = '';
+		}
+		
+		// フォーム送信時の処理
+		document.getElementById('modalForm').addEventListener('submit', function(event) {
+			event.preventDefault();
+			saveDeckToSession();
+			this.submit();
+		});
+		
+		// モーダルの背景をクリックしたら閉じる
+		window.onclick = function(event) {
+			const modal = document.getElementById('deckModal');
+			if (event.target === modal) {
+				closeCardModal();
+			}
+		}
+		
+		// ESCキーでモーダルを閉じる
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeCardModal();
+			}
+		})
+	</script>
 </body>
 
 </html>

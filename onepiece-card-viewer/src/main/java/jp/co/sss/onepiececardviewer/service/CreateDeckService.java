@@ -15,12 +15,12 @@ public class CreateDeckService {
 	@Autowired
 	private CardListRepository cardListRepository;
 	
-	//cardTypeがリーダーであるものの抽出
+	// cardTypeがリーダーであるものの抽出
 	public List<CardList> getCardListByCardTypeLeader() {
 		return cardListRepository.findByCardTypeOrderByIdAsc("リーダー");
 	}
 	
-	//リーダーの色を返す
+	// リーダーの色を返す
 	public List<String> getLeaderCardColor(CardList leaderCard) {
 		String[] colors = {"赤", "緑", "青", "紫", "黒", "黄"};
 		List<String> leaderCardColors = new ArrayList<>();

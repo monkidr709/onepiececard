@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,10 +38,10 @@ public class CreateDeckController {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	@PostMapping("/create/deck/{id}")
+	@RequestMapping(value = "/create/deck/{id}", method = {RequestMethod.GET, RequestMethod.POST})
 	public String createDeck(HttpSession session, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
-		//セッションタイムアウト
+		// セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
 		}
@@ -74,7 +76,7 @@ public class CreateDeckController {
 	@PostMapping("/create/deck/search/{id}")
 	public String searchCardListForCreatedDeck(HttpSession session, CardListForm form, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
-		//セッションタイムアウト
+		// セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
 		}

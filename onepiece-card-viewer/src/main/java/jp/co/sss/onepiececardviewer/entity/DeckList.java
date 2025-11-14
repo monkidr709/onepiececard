@@ -1,5 +1,7 @@
 package jp.co.sss.onepiececardviewer.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +32,15 @@ public class DeckList {
 	@Column (name = "deck_card_id")
 	private Integer[] deckCardId;
 	
+	@Column (name = "created_date")
+	private LocalDate createdDate;
+	
 	@Column (name = "deleted")
 	private boolean deleted;
 	
+	@Column (name = "deleted_date")
+	private LocalDate deletedDate;
+
 	public Integer getId() {
 		return id;
 	}
@@ -81,12 +89,28 @@ public class DeckList {
 		this.deckCardId = deckCardId;
 	}
 
+	public LocalDate getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public boolean isDeleted() {
 		return deleted;
 	}
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public LocalDate getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(LocalDate deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 }

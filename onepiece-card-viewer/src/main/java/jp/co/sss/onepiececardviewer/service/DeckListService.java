@@ -14,9 +14,9 @@ public class DeckListService {
 	@Autowired
 	DeckListRepository deckListRepository;
 	
-	// 全件検索 (Id昇順)
-	public List<DeckList> getAllDeckList() {
-		return deckListRepository.findAllByOrderByIdAsc();
+	// userNameIdによる検索 (Id昇順)
+	public List<DeckList> getDeckList(Integer userId) {
+		return deckListRepository.findByUserNameIdOrderByIdAsc(userId);
 	}
 
 }

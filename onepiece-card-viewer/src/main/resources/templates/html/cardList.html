@@ -251,7 +251,7 @@
 			</div>
 			<div class="cardlist-image-grid">
 				<div class="cardlist-image-card" th:each="image : ${images}">
-					<a href="javascript:void(0);" th:onclick="'openCardModal(' + ${image.id} + ')'">
+					<a href="javascript:void(0);" th:attr="data-id=${image.id}" onclick="openCardModal(this.dataset.id)">
 						<img th:src="@{/card/list/file/{id}(id=${image.id})}" th:alt="${image.cardName}">
 					</a>
 				</div>
@@ -305,9 +305,9 @@
 			}
 		}
 		
-		//モーダルを開く関数
+		// モーダルを開く関数
 		function openCardModal(cardId) {
-			//Ajaxでカード詳細を取得
+			// Ajaxでカード詳細を取得
 			fetch('/card/list/detail/' + cardId)
 				.then(response => {
 					if (!response.ok) {
@@ -316,7 +316,7 @@
 					return response.json();
 				})
 				.then(card => {
-					//モーダルに情報を設定
+					// モーダルに情報を設定
 					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
 					document.getElementById('modalCardName').textContent = card.cardName || '';
 					document.getElementById('modalCardNumber').textContent = card.cardNumber || '';
@@ -330,7 +330,7 @@
 					document.getElementById('modalCardText').textContent = card.cardText || '';
 					document.getElementById('modalCardPack').textContent = card.cardPack || '';
 					
-					//トリガーがある場合のみ表示
+					// トリガーがある場合のみ表示
 					const triggerSection = document.getElementById('modalTriggerSection');
 					if (card.cardTrigger) {
 						document.getElementById('modalCardTriggerText').textContent = card.cardTriggerText || '';
@@ -339,7 +339,7 @@
 						triggerSection.style.display = 'none';
 					}
 					
-					//モーダルを表示
+					// モーダルを表示
 					document.getElementById('cardModal').classList.add('active');
 					
 				})
@@ -349,12 +349,12 @@
 				});
 		}
 		
-		//モーダルを閉じる関数
+		// モーダルを閉じる関数
 		function closeCardModal() {
 			document.getElementById('cardModal').classList.remove('active');
 		}
 		
-		//モーダルの背景をクリックしたら閉じる
+		// モーダルの背景をクリックしたら閉じる
 		window.onclick = function(event) {
 			const modal = document.getElementById('cardModal');
 			if (event.target === modal) {
@@ -362,7 +362,7 @@
 			}
 		}
 		
-		//ESCキーでモーダルを閉じる
+		// ESCキーでモーダルを閉じる
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Escape') {
 				closeCardModal();

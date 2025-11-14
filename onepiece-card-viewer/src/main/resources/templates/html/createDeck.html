@@ -361,7 +361,7 @@
 	</main>
 	
 	<script>
-		//詳細検索表示
+		// 詳細検索表示
 		function toggleDetailSearch() {
 			const detailArea = document.getElementById('detailSearchArea');
 			const button = document.querySelector('.createDeck-search-toggle-btn');
@@ -379,7 +379,7 @@
 		const MIN = 0;
 		const MAX = 4;
 		
-		//カウンタの数字を減らす関数
+		// カウンタの数字を減らす関数
 		function decrease() {
 			if (count > MIN) {
 				count--;
@@ -387,7 +387,7 @@
 			}
 		}
 		
-		//カウンタの数字を増やす関数
+		// カウンタの数字を増やす関数
 		function increase(cardId) {
 			const currentTotal = document.querySelectorAll(`#displayDeck img[data-id="${cardId}"]`).length;
 			if (count < MAX - currentTotal) {
@@ -396,7 +396,7 @@
 			}
 		}
 		
-		//カウンタの数字を増やす関数2
+		// カウンタの数字を増やす関数2
 		function increase2() {
 			if (count < MAX) {
 				count++;
@@ -404,12 +404,12 @@
 			}
 		}
 		
-		//カウンタの数字を更新する関数
+		// カウンタの数字を更新する関数
 		function updateCount() {
 			document.getElementById('counter').textContent = count;
 		}
 		
-		//id=displayDeck内にimgタグを指定した数だけ追加する関数
+		// id=displayDeck内にimgタグを指定した数だけ追加する関数
 		function additionImage(count, id, type, cost) {
 			if (count === 0) {
 				closeCardModal();
@@ -438,7 +438,7 @@
 			}
 		}
 		
-		//id=displayDeck内にimgタグを指定した数だけ削除する関数
+		// id=displayDeck内にimgタグを指定した数だけ削除する関数
 		function deleteImage(count, currentTotal, id) {
 			if (count === currentTotal) {
 				closeCardModal();
@@ -453,24 +453,24 @@
 			}
 		}
 		
-		//デッキ内のカード画像を並び替える関数
+		// デッキ内のカード画像を並び替える関数
 		function sortDeckImage(container, images) {
 			images.sort((a, b) => {
-				//第一条件:cardType
+				// 第一条件:cardType
 				const typeA = parseInt(a.dataset.type) || 0;
 				const typeB = parseInt(b.dataset.type) || 0;
 				if (typeA !== typeB) {
 					return typeA - typeB;
 				}
 				
-				//第二条件:cardCostOrLife
+				// 第二条件:cardCostOrLife
 				const costA = parseInt(a.dataset.cost) || 0;
 				const costB = parseInt(b.dataset.cost) || 0;
 				if (costA !== costB) {
 					return costA - costB;
 				}
 				
-				//第三条件:id
+				// 第三条件:id
 				const idA = parseInt(a.dataset.id) || 0;
 				const idB = parseInt(b.dataset.id) || 0;
 				return idA - idB;
@@ -527,7 +527,7 @@
 			}
 		}
 		
-		//デッキにカードを追加する
+		// デッキにカードを追加する
 		document.getElementById('addition').addEventListener('click', function() {
 			const displayDeck = document.getElementById('displayDeck');
 			const addition = document.getElementById('addition');
@@ -563,7 +563,7 @@
 			}
 		})
 		
-		//デッキ内のカード枚数を変更する
+		// デッキ内のカード枚数を変更する
 		document.getElementById('change').addEventListener('click', function() {
 			const displayDeck = document.getElementById('displayDeck');
 			const addition = document.getElementById('change');
@@ -608,7 +608,7 @@
 			}
 		})
 		
-		//カードモーダルを開く関数
+		// カードモーダルを開く関数
 		function openCardModal(cardId, number) {
 			// デッキ内の画像をクリックした場合は、現在の枚数をcountに設定
 			if (number === 2) {
@@ -618,7 +618,7 @@
 			}
 			updateCount();
 			
-			//Ajaxでカード詳細を取得
+			// Ajaxでカード詳細を取得
 			fetch('/card/list/detail/' + cardId)
 				.then(response => {
 					if (!response.ok) {
@@ -627,7 +627,7 @@
 					return response.json();
 				})
 				.then(card => {
-					//モーダルに情報を設定
+					// モーダルに情報を設定
 					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
 					document.getElementById('modalCardName').textContent = card.cardName || '';
 					
@@ -656,7 +656,7 @@
 						document.getElementById('buttonUp').onclick = function() { increase2() };
 					}
 					
-					//モーダルを表示
+					// モーダルを表示
 					document.getElementById('cardModal').classList.add('active');
 					
 				})
@@ -666,7 +666,7 @@
 				});
 		}
 		
-		//デッキモーダルを開く
+		// デッキモーダルを開く
 		document.getElementById('openDeckModal').addEventListener('click', () => {
 			const displayDeck = document.getElementById('displayDeck');
 			const displayLeader = document.getElementById('displayLeader');
@@ -709,19 +709,19 @@
 			document.getElementById('deckModal').classList.add('active');
 		})
 		
-		//カードモーダルを閉じる関数
+		// カードモーダルを閉じる関数
 		function closeCardModal() {
 			document.getElementById('cardModal').classList.remove('active');
 			count = 0;
 			updateCount();
 		}
 		
-		//デッキモーダルを閉じる関数
+		// デッキモーダルを閉じる関数
 		function closeDeckModal() {
 			document.getElementById('deckModal').classList.remove('active');
 		}
 		
-		//モーダルの背景をクリックしたら閉じる
+		// モーダルの背景をクリックしたら閉じる
 		window.onclick = function(event) {
 			const cardModal = document.getElementById('cardModal');
 			const deckModal = document.getElementById('deckModal');
@@ -734,7 +734,7 @@
 			}
 		}
 		
-		//ESCキーでモーダルを閉じる
+		// ESCキーでモーダルを閉じる
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Escape') {
 				closeCardModal();

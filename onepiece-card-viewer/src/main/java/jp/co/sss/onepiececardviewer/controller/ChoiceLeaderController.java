@@ -37,6 +37,12 @@ public class ChoiceLeaderController {
 		if (session != null && session.getAttribute("deckCards_" + id) != null) {
 			session.removeAttribute("deckCards_" + id);
 		}
+		if (session != null && session.getAttribute("changeDeck") != null) {
+			session.removeAttribute("changeDeck");
+		}
+		if (session != null && session.getAttribute("deckId") != null) {
+			session.removeAttribute("deckId");
+		}
 		
 		return "redirect:/choice/leader";
 	}
