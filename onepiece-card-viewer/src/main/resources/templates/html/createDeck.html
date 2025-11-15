@@ -478,8 +478,10 @@
 
 			// ソートした順序でDOMを再配
 			images.forEach(img => {
-				const parent = img.parentElement;  // a要素
-			  	container.appendChild(parent);
+				const parent = img.parentElement;
+				if (parent && parent.tagName === 'A') {
+					container.appendChild(parent);
+				}
 			});
 		}
 		
