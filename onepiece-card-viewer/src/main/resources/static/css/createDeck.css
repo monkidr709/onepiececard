@@ -23,21 +23,21 @@ main {
 /* メインコンテナ */
 .createDeck-container {
 	display: grid;
-	grid-template-columns: 1fr 800px;
-	grid-template-rows: 60px auto 1fr;
-	gap: 1rem;
-	padding: 1rem;
+	grid-template-columns: 1fr 750px;
+	grid-template-rows: 35px auto 1fr;
+	gap: 0.5rem;
+	padding: 0.5rem;
 	height: 100vh;
 	overflow: hidden;
 }
 
 .createDeck-container>h1 {
 	grid-column: 1 / -1;
-	font-size: 1.8rem;
+	font-size: 1.2rem;
 	color: #8e2639;
 	margin: 0;
 	padding: 0;
-	line-height: 60px;
+	line-height: 35px;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -46,8 +46,8 @@ main {
 	grid-column: 1;
 	grid-row: 2;
 	background: white;
-	border-radius: 10px;
-	padding: 1rem;
+	border-radius: 6px;
+	padding: 0.5rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	overflow: visible;
 	margin: 0;
@@ -55,23 +55,23 @@ main {
 }
 
 .createDeck-search h2 {
-	font-size: 1.1rem;
+	font-size: 0.85rem;
 	color: #8e2639;
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
 }
 
 /* 詳細検索トグル */
 .createDeck-search-toggle {
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
 }
 
 .createDeck-search-toggle-btn {
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	border: none;
-	padding: 0.5rem 1.2rem;
-	border-radius: 6px;
-	font-size: 0.9rem;
+	padding: 0.35rem 0.8rem;
+	border-radius: 4px;
+	font-size: 0.7rem;
 	font-weight: bold;
 	cursor: pointer;
 	transition: all 0.3s ease;
@@ -93,57 +93,258 @@ main {
 .createDeck-search-details.active {
 	max-height: 2000px;
 	overflow-y: auto;
-	padding-right: 0.5rem;
+	padding-right: 0.3rem;
 }
 
-.createDeck-search-details>div {
-	margin-bottom: 0.4rem;
-	padding: 0.4rem;
-	background: #f9f9f9;
-	border-radius: 6px;
-}
-
-.createDeck-search-details label {
-	display: inline-block;
-	font-weight: bold;
-	color: #333;
-	margin-right: 0.4rem;
-	margin-bottom: 0.2rem;
-	font-size: 0.85rem;
-}
-
-.createDeck-search-details input[type="text"],
-.createDeck-search-details select {
-	padding: 0.3rem;
-	border: 1px solid #ddd;
+/* セクションスタイル */
+.search-section {
+	background: #fafafa;
 	border-radius: 4px;
-	font-size: 0.85rem;
-	width: 100%;
-	max-width: 200px;
+	padding: 0.4rem;
+	margin-bottom: 0.35rem;
+	border-left: 3px solid #8e2639;
 }
 
-.createDeck-search-details input[type="checkbox"] {
+/* 検索行 */
+.search-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin-bottom: 0.3rem;
+}
+
+.search-row:last-child {
+	margin-bottom: 0;
+}
+
+/* 検索フィールド */
+.search-field {
+	flex: 1;
+	min-width: 180px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+.search-field.full-width {
+	flex: 1 1 100%;
+	min-width: 100%;
+}
+
+.search-field.half-width {
+	flex: 1 1 calc(50% - 0.2rem);
+	min-width: 180px;
+}
+
+.search-field.range-field {
+	flex: 1 1 100%;
+}
+
+.field-label {
+	font-weight: 600;
+	color: #444;
+	font-size: 0.68rem;
+	white-space: nowrap;
+	flex-shrink: 0;
+	min-width: 65px;
+}
+
+/* テキスト入力 */
+.search-field input[type="text"] {
+	padding: 0.3rem 0.5rem;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	font-size: 0.7rem;
+	transition: all 0.3s ease;
+	background-color: white;
+	flex: 1;
+}
+
+.search-field input[type="text"]:focus {
+	outline: none;
+	border-color: #8e2639;
+	box-shadow: 0 0 0 2px rgba(142, 38, 57, 0.1);
+}
+
+.search-field input[type="text"]::placeholder {
+	color: #aaa;
+	font-size: 0.68rem;
+}
+
+/* セレクトボックス */
+.search-field select {
+	padding: 0.3rem 0.5rem;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	font-size: 0.7rem;
+	background-color: white;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	appearance: none;
+	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%238e2639" d="M6 9L1 4h10z"/></svg>');
+	background-repeat: no-repeat;
+	background-position: right 5px center;
+	padding-right: 20px;
+	flex: 1;
+}
+
+.search-field select:focus {
+	outline: none;
+	border-color: #8e2639;
+	box-shadow: 0 0 0 2px rgba(142, 38, 57, 0.1);
+}
+
+/* 範囲入力 */
+.range-inputs {
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	flex: 1;
+}
+
+.range-inputs select {
+	flex: 1;
+}
+
+.range-separator {
+	color: #666;
+	font-weight: 500;
+	font-size: 0.7rem;
+	flex-shrink: 0;
+}
+
+/* チェックボックスグループ */
+.checkbox-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	flex: 1;
+}
+
+.checkbox-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+	gap: 0.25rem;
+	flex: 1;
+}
+
+.checkbox-label {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.2rem 0.35rem;
+	background-color: #f8f8f8;
+	border-radius: 3px;
+	transition: all 0.2s ease;
+	border: 1px solid transparent;
+}
+
+.checkbox-label:hover {
+	background-color: #fff0f2;
+	border-color: #ffd4dc;
+}
+
+.checkbox-label input[type="checkbox"] {
+	margin: 0;
 	margin-right: 0.2rem;
-	margin-left: 0.4rem;
 	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	accent-color: #8e2639;
+	flex-shrink: 0;
 }
 
-.createDeck-search-details button[type="submit"] {
-	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
-	color: white;
-	border: none;
-	padding: 0.5rem 1.5rem;
-	border-radius: 6px;
-	font-size: 0.9rem;
-	font-weight: bold;
+.checkbox-label input[type="checkbox"]:checked+.checkbox-text {
+	color: #8e2639;
+	font-weight: 600;
+}
+
+.checkbox-text {
+	font-size: 0.68rem;
+	color: #555;
+	transition: all 0.2s ease;
+}
+
+/* トリガーフィールド */
+.trigger-field {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.trigger-field .field-label {
+	margin-bottom: 0;
+	display: inline-flex;
+	align-items: center;
+	padding: 0.2rem 0.35rem;
+	background-color: #f8f8f8;
+	border-radius: 3px;
 	cursor: pointer;
-	margin-top: 0.5rem;
+	border: 1px solid transparent;
+	transition: all 0.2s ease;
+	min-width: auto;
+}
+
+.trigger-field .field-label:hover {
+	background-color: #fff0f2;
+	border-color: #ffd4dc;
+}
+
+.trigger-field input[type="checkbox"] {
+	margin: 0;
+	margin-right: 0.2rem;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	accent-color: #8e2639;
+}
+
+.trigger-text-input {
+	flex: 1;
+	padding: 0.3rem 0.5rem;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	font-size: 0.7rem;
 	transition: all 0.3s ease;
 }
 
-.createDeck-search-details button[type="submit"]:hover {
+.trigger-text-input:focus {
+	outline: none;
+	border-color: #8e2639;
+	box-shadow: 0 0 0 2px rgba(142, 38, 57, 0.1);
+}
+
+/* 検索ボタンエリア */
+.search-actions {
+	text-align: center;
+	margin-top: 0.4rem;
+	padding-top: 0.4rem;
+	border-top: 1px solid #f0f0f0;
+}
+
+.search-submit-btn {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	color: white;
+	border: none;
+	padding: 0.45rem 1.5rem;
+	font-size: 0.8rem;
+	font-weight: 700;
+	border-radius: 15px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 6px rgba(142, 38, 57, 0.3);
+}
+
+.search-submit-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 10px rgba(142, 38, 57, 0.4);
+	background: linear-gradient(135deg, #a8344d 0%, #c8405a 100%);
+}
+
+.search-submit-btn:active {
 	transform: translateY(-1px);
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* カードリストエリア */
@@ -151,13 +352,13 @@ main {
 	grid-column: 1;
 	grid-row: 3;
 	background: white;
-	border-radius: 10px;
-	padding: 1rem;
+	border-radius: 6px;
+	padding: 0.5rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	overflow-y: auto;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-	gap: 0.8rem;
+	grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+	gap: 0.4rem;
 	align-content: start;
 }
 
@@ -165,9 +366,9 @@ main {
 	position: relative;
 	cursor: pointer;
 	transition: transform 0.2s ease;
-	border-radius: 6px;
+	border-radius: 4px;
 	overflow: visible;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	width: 100%;
 	height: auto;
 }
@@ -180,7 +381,7 @@ main {
 
 .createDeck-image-card:hover {
 	transform: scale(1.05);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 	z-index: 100;
 }
 
@@ -189,7 +390,7 @@ main {
 	height: auto;
 	object-fit: contain;
 	display: block;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 
 /* デッキ表示エリア */
@@ -197,8 +398,8 @@ main {
 	grid-column: 2;
 	grid-row: 2 / 4;
 	background: white;
-	border-radius: 10px;
-	padding: 1rem;
+	border-radius: 6px;
+	padding: 0.5rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 	display: flex;
@@ -208,10 +409,10 @@ main {
 /* リーダーカードと枚数表示の固定コンテナ */
 .createDeck-field-over {
 	display: grid;
-	grid-template-columns: 140px 1fr auto;
-	gap: 1rem;
-	padding-bottom: 1rem;
-	margin-bottom: 0.8rem;
+	grid-template-columns: 110px 1fr auto;
+	gap: 0.5rem;
+	padding-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 	border-bottom: 2px solid #e0e0e0;
 	align-items: start;
 }
@@ -224,50 +425,50 @@ main {
 .createDeck-image-leaderCard img {
 	width: 100%;
 	height: auto;
-	border-radius: 6px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* デッキ枚数表示エリア */
 .createDeck-image-detail {
 	grid-column: 2;
-	padding: 0.8rem;
+	padding: 0.4rem;
 	background: #f9f9f9;
-	border-radius: 6px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	align-self: start;
 	display: flex;
 	flex-direction: column;
-	gap: 0.3rem;
+	gap: 0.2rem;
 }
 
 .createDeck-image-detail p {
-	margin: 0.3rem 0;
-	font-size: 0.9rem;
+	margin: 0.15rem 0;
+	font-size: 0.72rem;
 	color: #333;
 	font-weight: bold;
 }
 
 .createDeck-image-detail span {
 	color: #8e2639;
-	font-size: 1rem;
-	margin-left: 0.4rem;
+	font-size: 0.78rem;
+	margin-left: 0.3rem;
 }
 
 /* 警告文 */
 #numberOfCardWarning {
 	background: #fff3cd;
-	border: 2px solid #ffc107;
-	border-radius: 6px;
-	padding: 0.6rem;
-	margin-bottom: 0.8rem;
+	border: 1px solid #ffc107;
+	border-radius: 4px;
+	padding: 0.3rem;
+	margin-bottom: 0.4rem;
 	display: block;
 }
 
 #numberOfCardWarning p {
 	color: #856404;
 	font-weight: bold;
-	font-size: 0.9rem;
+	font-size: 0.68rem;
 	margin: 0;
 	text-align: center;
 }
@@ -279,25 +480,26 @@ main {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: stretch;
-	gap: 0.5rem;
+	gap: 0.3rem;
 }
 
 .createDeck-keep-deck-button {
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	border: none;
-	padding: 0.7rem 1.5rem;
-	font-size: 1rem;
+	padding: 0.45rem 0.9rem;
+	font-size: 0.75rem;
 	font-weight: bold;
-	border-radius: 6px;
+	border-radius: 4px;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	white-space: nowrap;
 }
 
 .createDeck-keep-deck-button:hover {
 	transform: translateY(-1px);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .createDeck-keep-deck form {
@@ -309,18 +511,18 @@ main {
 	background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
 	color: white;
 	border: none;
-	padding: 0.7rem 1.5rem;
-	font-size: 1rem;
+	padding: 0.45rem 0.9rem;
+	font-size: 0.75rem;
 	font-weight: bold;
-	border-radius: 6px;
+	border-radius: 4px;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .createDeck-keep-deck form button:hover {
 	transform: translateY(-1px);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* デッキカード表示エリアのラッパー */
@@ -331,8 +533,8 @@ main {
 
 .createDeck-display-image-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-	gap: 0.6rem;
+	grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+	gap: 0.4rem;
 	align-items: start;
 }
 
@@ -345,17 +547,17 @@ main {
 .createDeck-display-image-card {
 	width: 100%;
 	height: auto;
-	border-radius: 5px;
+	border-radius: 3px;
 	cursor: pointer;
 	transition: transform 0.2s ease;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	display: block;
 	object-fit: contain;
 }
 
 .createDeck-display-image-card:hover {
 	transform: scale(1.05);
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* カード選択モーダル */

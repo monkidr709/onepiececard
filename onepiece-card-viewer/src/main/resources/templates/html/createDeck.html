@@ -13,233 +13,415 @@
 			<h1>デッキ作成</h1>
 			<div class="createDeck-search" th:each="leaderCard : ${leaderCard}">
 				<h2>カード検索</h2>
-				<!-- 詳細検索トグルボタン -->
 				<div class="createDeck-search-toggle">
 					<button type="button" class="createDeck-search-toggle-btn" onclick="toggleDetailSearch()">詳細検索</button>
 				</div>
 				<form th:action="@{/create/deck/search/{id}(id=${leaderCard.id})}" th:object="${cardListForm}" method="post" onsubmit="saveDeckToSession()" novalidate>
 					<input type="hidden" id="searchDeckDataField" name="deckData" value="" />
 					<div id="detailSearchArea" class="createDeck-search-details">
-						<div class="createDeck-search-name">
-							<label>名前:</label>
-							<input type="text" th:field="*{cardName}" />
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">カード名</label>
+									<input type="text" th:field="*{cardName}" placeholder="カード名を入力" />
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">色</label>
+									<div class="checkbox-group">
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '赤')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="赤" />
+											<span class="checkbox-text">赤</span>
+										</label>
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '緑')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="緑" />
+											<span class="checkbox-text">緑</span>
+										</label>
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '青')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="青" />
+											<span class="checkbox-text">青</span>
+										</label>
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '紫')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="紫" />
+											<span class="checkbox-text">紫</span>
+										</label>
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '黒')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="黒" />
+											<span class="checkbox-text">黒</span>
+										</label>
+										<label class="checkbox-label" th:if="${#lists.contains(leaderCard.cardColor, '黄')}">
+											<input type="checkbox" th:field="*{cardColor}" th:value="黄" />
+											<span class="checkbox-text">黄</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">種類</label>
+									<div class="checkbox-group">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardType}" th:value="キャラ" />
+											<span class="checkbox-text">キャラ</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardType}" th:value="イベント" />
+											<span class="checkbox-text">イベント</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardType}" th:value="ステージ" />
+											<span class="checkbox-text">ステージ</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">レアリティ</label>
+									<div class="checkbox-group">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardRarity}" th:value="C" />
+											<span class="checkbox-text">C</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />
+											<span class="checkbox-text">UC</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardRarity}" th:value="R" />
+											<span class="checkbox-text">R</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />
+											<span class="checkbox-text">SR</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />
+											<span class="checkbox-text">SEC</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field half-width">
+									<label class="field-label">収録パック</label>
+									<select th:field="*{cardPack}">
+										<option value="">すべて</option>
+										<option th:value="ST01">ST01</option>
+										<option th:value="ST02">ST02</option>
+										<option th:value="ST03">ST03</option>
+										<option th:value="ST04">ST04</option>
+									</select>
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-color">
-							<label>色:</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '赤')}"><input type="checkbox" th:field="*{cardColor}" th:value="赤" />赤</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '緑')}"><input type="checkbox" th:field="*{cardColor}" th:value="緑" />緑</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '青')}"><input type="checkbox" th:field="*{cardColor}" th:value="青" />青</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '紫')}"><input type="checkbox" th:field="*{cardColor}" th:value="紫" />紫</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '黒')}"><input type="checkbox" th:field="*{cardColor}" th:value="黒" />黒</label>
-							<label th:if="${#lists.contains(leaderCard.cardColor, '黄')}"><input type="checkbox" th:field="*{cardColor}" th:value="黄" />黄</label>
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field range-field">
+									<label class="field-label">ブロックアイコン</label>
+									<div class="range-inputs">
+										<select th:field="*{minCardBlockIcon}">
+											<option value="">下限なし</option>
+											<option th:value="1">1</option>
+											<option th:value="2">2</option>
+											<option th:value="3">3</option>
+											<option th:value="4">4</option>
+										</select>
+										<span class="range-separator">〜</span>
+										<select th:field="*{maxCardBlockIcon}">
+											<option value="">上限なし</option>
+											<option th:value="1">1</option>
+											<option th:value="2">2</option>
+											<option th:value="3">3</option>
+											<option th:value="4">4</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field range-field">
+									<label class="field-label">コスト / ライフ</label>
+									<div class="range-inputs">
+										<select th:field="*{minCardCostOrLife}">
+											<option value="">下限なし</option>
+											<option th:value="1">1</option>
+											<option th:value="2">2</option>
+											<option th:value="3">3</option>
+											<option th:value="4">4</option>
+											<option th:value="5">5</option>
+											<option th:value="6">6</option>
+											<option th:value="7">7</option>
+											<option th:value="8">8</option>
+											<option th:value="9">9</option>
+											<option th:value="10">10</option>
+										</select>
+										<span class="range-separator">〜</span>
+										<select th:field="*{maxCardCostOrLife}">
+											<option value="">上限なし</option>
+											<option th:value="1">1</option>
+											<option th:value="2">2</option>
+											<option th:value="3">3</option>
+											<option th:value="4">4</option>
+											<option th:value="5">5</option>
+											<option th:value="6">6</option>
+											<option th:value="7">7</option>
+											<option th:value="8">8</option>
+											<option th:value="9">9</option>
+											<option th:value="10">10</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field range-field">
+									<label class="field-label">パワー</label>
+									<div class="range-inputs">
+										<select th:field="*{minCardPower}">
+											<option value="">下限なし</option>
+											<option th:value="0">0</option>
+											<option th:value="1000">1000</option>
+											<option th:value="2000">2000</option>
+											<option th:value="3000">3000</option>
+											<option th:value="4000">4000</option>
+											<option th:value="5000">5000</option>
+											<option th:value="6000">6000</option>
+											<option th:value="7000">7000</option>
+											<option th:value="8000">8000</option>
+											<option th:value="9000">9000</option>
+											<option th:value="10000">10000</option>
+											<option th:value="11000">11000</option>
+											<option th:value="12000">12000</option>
+											<option th:value="13000">13000</option>
+										</select>
+										<span class="range-separator">〜</span>
+										<select th:field="*{maxCardPower}">
+											<option value="">上限なし</option>
+											<option th:value="0">0</option>
+											<option th:value="1000">1000</option>
+											<option th:value="2000">2000</option>
+											<option th:value="3000">3000</option>
+											<option th:value="4000">4000</option>
+											<option th:value="5000">5000</option>
+											<option th:value="6000">6000</option>
+											<option th:value="7000">7000</option>
+											<option th:value="8000">8000</option>
+											<option th:value="9000">9000</option>
+											<option th:value="10000">10000</option>
+											<option th:value="11000">11000</option>
+											<option th:value="12000">12000</option>
+											<option th:value="13000">13000</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">カウンター値</label>
+									<div class="checkbox-group">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardCounter}" th:value="0" />
+											<span class="checkbox-text">なし</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardCounter}" th:value="1000" />
+											<span class="checkbox-text">1000</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardCounter}" th:value="2000" />
+											<span class="checkbox-text">2000</span>
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-type">
-							<label>種類:</label>
-							<input type="checkbox" th:field="*{cardType}" th:value="キャラ" />キャラ
-							<input type="checkbox" th:field="*{cardType}" th:value="イベント" />イベント
-							<input type="checkbox" th:field="*{cardType}" th:value="ステージ" />ステージ
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">属性</label>
+									<div class="checkbox-group">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardFeatures}" th:value="打" />
+											<span class="checkbox-text">打</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardFeatures}" th:value="射" />
+											<span class="checkbox-text">射</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardFeatures}" th:value="特" />
+											<span class="checkbox-text">特</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardFeatures}" th:value="知" />
+											<span class="checkbox-text">知</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardFeatures}" th:value="斬" />
+											<span class="checkbox-text">斬</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field half-width">
+									<label class="field-label">特徴</label>
+									<select th:field="*{cardAttribute}">
+										<option value="">すべて</option>
+										<option th:value="超新星">超新星</option>
+										<option th:value="麦わらの一味">麦わらの一味</option>
+										<option th:value="動物">動物</option>
+										<option th:value="アラバスタ王国">アラバスタ王国</option>
+										<option th:value="魚人族">魚人族</option>
+										<option th:value="キッド海賊団">キッド海賊団</option>
+										<option th:value="ファイアタンク海賊団">ファイアタンク海賊団</option>
+										<option th:value="破戒僧海賊団">破戒僧海賊団</option>
+										<option th:value="海軍">海軍</option>
+										<option th:value="ボニー海賊団">ボニー海賊団</option>
+										<option th:value="オンエア海賊団">オンエア海賊団</option>
+										<option th:value="ハートの海賊団">ハートの海賊団</option>
+										<option th:value="ホーキンス海賊団">ホーキンス海賊団</option>
+										<option th:value="ミンク族">ミンク族</option>
+										<option th:value="ドレーク海賊団">ドレーク海賊団</option>
+										<option th:value="王下七武海">王下七武海</option>
+										<option th:value="B・W">B・W</option>
+										<option th:value="スリラーバーク海賊団">スリラーバーク海賊団</option>
+										<option th:value="タイヨウの海賊団">タイヨウの海賊団</option>
+										<option th:value="ドンキホーテ海賊団">ドンキホーテ海賊団</option>
+										<option th:value="革命軍">革命軍</option>
+										<option th:value="バギーズ・デリバリー">バギーズ・デリバリー</option>
+										<option th:value="九蛇海賊団">九蛇海賊団</option>
+										<option th:value="黒ひげ海賊団">黒ひげ海賊団</option>
+										<option th:value="四皇">四皇</option>
+										<option th:value="百獣海賊団">百獣海賊団</option>
+										<option th:value="SMILE">SMILE</option>
+									</select>
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-pack">
-							<label>カードが収録されているパック:</label>
-							<select th:field="*{cardPack}">
-								<option value=""></option>
-								<option th:value="ST01">ST01</option>
-								<option th:value="ST02">ST02</option>
-								<option th:value="ST03">ST03</option>
-								<option th:value="ST04">ST04</option>
-							</select>
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field full-width">
+									<label class="field-label">テキスト効果</label>
+									<input type="text" th:field="*{cardText}" placeholder="テキスト効果を入力" />
+								</div>
+							</div>
+							
+							<div class="search-row">
+								<div class="search-field full-width trigger-field">
+									<label class="field-label">
+										<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
+										<span class="checkbox-text">トリガー</span>
+									</label>
+									<input type="text" th:field="*{cardTriggerText}" placeholder="トリガーテキストを入力" class="trigger-text-input" />
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-block-icon">
-							<label>ブロックアイコン:</label>
-							<select th:field="*{minCardBlockIcon}">
-								<option value=""></option>
-								<option th:value="1">1</option>
-								<option th:value="2">2</option>
-								<option th:value="3">3</option>
-								<option th:value="4">4</option>
-							</select>
-							<label>～</label>
-							<select th:field="*{maxCardBlockIcon}">
-								<option value=""></option>
-								<option th:value="1">1</option>
-								<option th:value="2">2</option>
-								<option th:value="3">3</option>
-								<option th:value="4">4</option>
-							</select>
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field full-width">
+									<div class="checkbox-grid">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardAppearance}" th:value="1" />
+											<span class="checkbox-text">登場時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardLaunchMain}" th:value="1" />
+											<span class="checkbox-text">起動メイン</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardAttack}" th:value="1" />
+											<span class="checkbox-text">アタック時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardKO}" th:value="1" />
+											<span class="checkbox-text">KO時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardBlock}" th:value="1" />
+											<span class="checkbox-text">ブロック時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardDuringYourTurn}" th:value="1" />
+											<span class="checkbox-text">自ターン中</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardDuringOpponentTurn}" th:value="1" />
+											<span class="checkbox-text">相手ターン中</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardYourTurnEnd}" th:value="1" />
+											<span class="checkbox-text">自ターン終了時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardOpponentAttack}" th:value="1" />
+											<span class="checkbox-text">相手アタック時</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardMain}" th:value="1" />
+											<span class="checkbox-text">メイン効果</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardEventCounter}" th:value="1" />
+											<span class="checkbox-text">イベントカウンター</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardOneTurn}" th:value="1" />
+											<span class="checkbox-text">ターン1回</span>
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-rarity">
-							<label>レアリティ:</label>
-							<input type="checkbox" th:field="*{cardRarity}" th:value="C" />C
-							<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />UC
-							<input type="checkbox" th:field="*{cardRarity}" th:value="R" />R
-							<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />SR
-							<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />SEC
+						
+						<div class="search-section">
+							<div class="search-row">
+								<div class="search-field full-width">
+									<div class="checkbox-grid">
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardDonHang}" th:value="1" />
+											<span class="checkbox-text">ドン!!×n</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardDonMinus}" th:value="1" />
+											<span class="checkbox-text">ドン!!-n</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardBlocker}" th:value="1" />
+											<span class="checkbox-text">ブロッカー</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardHaste}" th:value="1" />
+											<span class="checkbox-text">速攻</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardDoubleAttack}" th:value="1" />
+											<span class="checkbox-text">ダブルアタック</span>
+										</label>
+										<label class="checkbox-label">
+											<input type="checkbox" th:field="*{cardVanish}" th:value="1" />
+											<span class="checkbox-text">バニッシュ</span>
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="createDeck-search-cost-or-life">
-							<label>コストまたはライフ:</label>
-							<select th:field="*{minCardCostOrLife}">
-								<option value=""></option>
-								<option th:value="1">1</option>
-								<option th:value="2">2</option>
-								<option th:value="3">3</option>
-								<option th:value="4">4</option>
-								<option th:value="5">5</option>
-								<option th:value="6">6</option>
-								<option th:value="7">7</option>
-								<option th:value="8">8</option>
-								<option th:value="9">9</option>
-								<option th:value="10">10</option>
-							</select>
-							<label>～</label>
-							<select th:field="*{maxCardCostOrLife}">
-								<option value=""></option>
-								<option th:value="1">1</option>
-								<option th:value="2">2</option>
-								<option th:value="3">3</option>
-								<option th:value="4">4</option>
-								<option th:value="5">5</option>
-								<option th:value="6">6</option>
-								<option th:value="7">7</option>
-								<option th:value="8">8</option>
-								<option th:value="9">9</option>
-								<option th:value="10">10</option>
-							</select>
-						</div>
-						<div class="createDeck-search-power">
-							<label>パワー:</label>
-							<select th:field="*{minCardPower}">
-								<option value=""></option>
-								<option th:value="0">0</option>
-								<option th:value="1000">1000</option>
-								<option th:value="2000">2000</option>
-								<option th:value="3000">3000</option>
-								<option th:value="4000">4000</option>
-								<option th:value="5000">5000</option>
-								<option th:value="6000">6000</option>
-								<option th:value="7000">7000</option>
-								<option th:value="8000">8000</option>
-								<option th:value="9000">9000</option>
-								<option th:value="10000">10000</option>
-								<option th:value="11000">11000</option>
-								<option th:value="12000">12000</option>
-								<option th:value="13000">13000</option>
-							</select>
-							<label>～</label>
-							<select th:field="*{maxCardPower}">
-								<option value=""></option>
-								<option th:value="0">0</option>
-								<option th:value="1000">1000</option>
-								<option th:value="2000">2000</option>
-								<option th:value="3000">3000</option>
-								<option th:value="4000">4000</option>
-								<option th:value="5000">5000</option>
-								<option th:value="6000">6000</option>
-								<option th:value="7000">7000</option>
-								<option th:value="8000">8000</option>
-								<option th:value="9000">9000</option>
-								<option th:value="10000">10000</option>
-								<option th:value="11000">11000</option>
-								<option th:value="12000">12000</option>
-								<option th:value="13000">13000</option>
-							</select>
-						</div>
-						<div class="createDeck-search-features">
-							<label>属性:</label>
-							<input type="checkbox" th:field="*{cardFeatures}" th:value="打" />打
-							<input type="checkbox" th:field="*{cardFeatures}" th:value="射" />射
-							<input type="checkbox" th:field="*{cardFeatures}" th:value="特" />特
-							<input type="checkbox" th:field="*{cardFeatures}" th:value="知" />知
-							<input type="checkbox" th:field="*{cardFeatures}" th:value="斬" />斬
-						</div>
-						<div class="createDeck-search-attribute">
-							<label>特徴:</label>
-							<select th:field="*{cardAttribute}">
-								<option value=""></option>
-								<option th:value="超新星">超新星</option>
-								<option th:value="麦わらの一味">麦わらの一味</option>
-								<option th:value="動物">動物</option>
-								<option th:value="アラバスタ王国">アラバスタ王国</option>
-								<option th:value="魚人族">魚人族</option>
-								<option th:value="キッド海賊団">キッド海賊団</option>
-								<option th:value="ファイアタンク海賊団">ファイアタンク海賊団</option>
-								<option th:value="破戒僧海賊団">破戒僧海賊団</option>
-								<option th:value="海軍">海軍</option>
-								<option th:value="ボニー海賊団">ボニー海賊団</option>
-								<option th:value="オンエア海賊団">オンエア海賊団</option>
-								<option th:value="ハートの海賊団">ハートの海賊団</option>
-								<option th:value="ホーキンス海賊団">ホーキンス海賊団</option>
-								<option th:value="ミンク族">ミンク族</option>
-								<option th:value="ドレーク海賊団">ドレーク海賊団</option>
-								<option th:value="王下七武海">王下七武海</option>
-								<option th:value="B・W">B・W</option>
-								<option th:value="スリラーバーク海賊団">スリラーバーク海賊団</option>
-								<option th:value="タイヨウの海賊団">タイヨウの海賊団</option>
-								<option th:value="ドンキホーテ海賊団">ドンキホーテ海賊団</option>
-								<option th:value="革命軍">革命軍</option>
-								<option th:value="バギーズ・デリバリー">バギーズ・デリバリー</option>
-								<option th:value="九蛇海賊団">九蛇海賊団</option>
-								<option th:value="黒ひげ海賊団">黒ひげ海賊団</option>
-								<option th:value="四皇">四皇</option>
-								<option th:value="百獣海賊団">百獣海賊団</option>
-								<option th:value="SMILE">SMILE</option>
-							</select>
-						</div>
-						<div class="createDeck-search-counter">
-							<label>カウンター値:</label>
-							<input type="checkbox" th:field="*{cardCounter}" th:value="0" />カウンターなし
-							<input type="checkbox" th:field="*{cardCounter}" th:value="1000" />1000
-							<input type="checkbox" th:field="*{cardCounter}" th:value="2000" />2000
-						</div>
-						<div class="createDeck-search-text">
-							<label>テキスト効果:</label>
-							<input type="text" th:field="*{cardText}" />
-						</div>
-						<div class="createDeck-search-trigger">
-							<label>トリガー:</label>
-							<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
-							<label>トリガーのテキスト効果:</label>
-							<input type="text" th:field="*{cardTriggerText}" />
-						</div>
-						<div class="createDeck-search-others">
-							<label>登場時:</label>
-							<input type="checkbox" th:field="*{cardAppearance}" th:value="1" />
-							<label>起動メイン:</label>
-							<input type="checkbox" th:field="*{cardLaunchMain}" th:value="1" />
-							<label>アタック時:</label>
-							<input type="checkbox" th:field="*{cardAttack}" th:value="1" />
-							<label>KO時:</label>
-							<input type="checkbox" th:field="*{cardKO}" th:value="1" />
-							<label>ブロック時:</label>
-							<input type="checkbox" th:field="*{cardBlock}" th:value="1" />
-							<label>自分のターン中:</label>
-							<input type="checkbox" th:field="*{cardDuringYourTurn}" th:value="1" />
-							<label>相手のターン中:</label>
-							<input type="checkbox" th:field="*{cardDuringOpponentTurn}" th:value="1" />
-							<label>自分のターン終了時:</label>
-							<input type="checkbox" th:field="*{cardYourTurnEnd}" th:value="1" />
-							<label>相手のアタック時:</label>
-							<input type="checkbox" th:field="*{cardOpponentAttack}" th:value="1" />
-							<label>メイン効果:</label>
-							<input type="checkbox" th:field="*{cardMain}" th:value="1" />
-							<label>イベントカウンター:</label>
-							<input type="checkbox" th:field="*{cardEventCounter}" th:value="1" />
-							<label>ターン1回:</label>
-							<input type="checkbox" th:field="*{cardOneTurn}" th:value="1" />
-							<label>ドン!!×n:</label>
-							<input type="checkbox" th:field="*{cardDonHang}" th:value="1" />
-							<label>ドン!!-n:</label>
-							<input type="checkbox" th:field="*{cardDonMinus}" th:value="1" />
-							<label>ブロッカー:</label>
-							<input type="checkbox" th:field="*{cardBlocker}" th:value="1" />
-							<label>速攻:</label>
-							<input type="checkbox" th:field="*{cardHaste}" th:value="1" />
-							<label>ダブルアタック:</label>
-							<input type="checkbox" th:field="*{cardDoubleAttack}" th:value="1" />
-							<label>バニッシュ:</label>
-							<input type="checkbox" th:field="*{cardVanish}" th:value="1" />
-						</div>
-						<div>
-							<button type="submit">検索</button>
+						
+						<div class="search-actions">
+							<button type="submit" class="search-submit-btn">検索する</button>
 						</div>
 					</div>
 				</form>
@@ -276,18 +458,7 @@
 				</div>
 				<div class="createDeck-field-under">
 					<div id="displayDeck" class="createDeck-display-image-grid">
-						
 						<!-- ここでカードの画像表示 -->
-						
-						<th:block th:if="${deckCards != null}" th:each="deckCard : ${deckCards}">
-							<a href="javascript:void(0);" th:attr="data-id=${deckCard.id}" onclick="openCardModal(this.dataset.id, 2)">
-								<img id="modalDeckImage" 
-									th:src="@{/card/list/file/{id}(id=${deckCard.id})}" 
-									alt="NoImage" 
-									class="createDeck-display-image-card"
-									th:attr="data-type=${deckCard.type},data-cost=${deckCard.cost},data-id=${deckCard.id}" />
-							</a>
-						</th:block>
 					</div>
 				</div>
 			</div>
@@ -335,20 +506,14 @@
 							<p>このデッキを保存しますか。</p>
 						</div>
 						<div id="modalDeckWarning" class="createDeck-keep-deck-modal-warning-text">
-							
 							<!-- ここで警告文表示 -->
-							
 						</div>
 						<div class="createDeck-keep-deck-modal-cards-container">
 						    <div id="modalDeckLeader" class="createDeck-keep-deck-modal-leader-image">
-								
 								<!-- ここでリーダーカード表示 -->
-								
 							</div>
 							<div id="modalDeck" class="createDeck-keep-deck-modal-image">
-								
 								<!-- ここでカードの画像表示 -->
-								
 						 	</div>
 						</div>
 						<div class="createDeck-keep-deck-modal-button">
@@ -359,6 +524,13 @@
 			</div>
 		</div>
 	</main>
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		// サーバーからdeckCardsデータを取得（nullの場合は空配列）
+		const initialDeckCards = /*[[${deckCards}]]*/ null;
+		/*]]>*/
+	</script>
 	
 	<script>
 		// 詳細検索表示
@@ -475,7 +647,7 @@
 				const idB = parseInt(b.dataset.id) || 0;
 				return idA - idB;
 			});
-
+			
 			// ソートした順序でDOMを再配
 			images.forEach(img => {
 				const parent = img.parentElement;
@@ -609,6 +781,70 @@
 				document.getElementById('numberOfCardWarning').style.display = 'none';
 			}
 		})
+		
+		// ページ読み込み時に初期デッキを表示
+		window.addEventListener('DOMContentLoaded', function() {
+			// deckCardsがnullでなく、配列で、要素がある場合のみ実行
+			if (initialDeckCards && Array.isArray(initialDeckCards) && initialDeckCards.length > 0) {
+				loadInitialDeck(initialDeckCards);
+		 	}
+			updateDeckCounts();
+		});
+		
+		// 初期デッキを読み込む関数
+		async function loadInitialDeck(deckCards) {
+			const displayDeck = document.getElementById('displayDeck');
+			
+			for (const card of deckCards) {
+				try {
+					// カードの詳細を取得
+					const cardResponse = await fetch('/card/list/detail/' + card.id);
+					if (!cardResponse.ok) {
+						throw new Error('リーダーカード情報の取得に失敗しました');
+					}
+					const deckCard = await cardResponse.json();
+					
+					
+					const a = document.createElement('a');
+					a.href = 'javascript:void(0);';
+					a.setAttribute('data-id', card.id);
+			 		a.addEventListener('click', function() {
+						openCardModal(card.id, 2);
+					});
+					
+					// dataType変数を定義
+					let dataType;
+					if (deckCard.cardType === 'キャラ') {
+						dataType = '1';
+					} else if (deckCard.cardType === 'イベント') {
+						dataType = '2';
+					} else {
+						dataType = '3';
+					}
+					
+					const img = document.createElement('img');
+					img.id = 'modalDeckImage';
+			 		img.src = '/card/list/file/' + card.id;
+					img.alt = 'NoImage';
+			  		img.className = 'createDeck-display-image-card';
+					img.setAttribute('data-type', dataType);
+					img.setAttribute('data-cost', deckCard.cardCostOrLife);
+					img.setAttribute('data-id', card.id);
+				
+					a.appendChild(img);
+					displayDeck.appendChild(a);
+					
+					updateDeckCounts();
+				} catch (error) {
+					console.error('エラー:', error);
+				}
+			}
+			
+			// ソート
+			const container = document.querySelector('#displayDeck');
+			const images = Array.from(container.querySelectorAll('img'));
+			sortDeckImage(container, images);
+		}
 		
 		// カードモーダルを開く関数
 		function openCardModal(cardId, number) {

@@ -16,22 +16,23 @@
 		<div class="decklist-container">
 			<h1>デッキ一覧</h1>
 			<div class="decklist-list" th:each="deckList : ${deckLists}">
-				<a href="javascript:void(0);" 
-					th:attr="data-leader-card-id=${deckList.leaderCardId},data-deck-card-ids=${#strings.arrayJoin(deckList.deckCardId, ',')},
-							data-deck-name=${deckList.deckName},data-deck-created-date=${deckList.createdDate},data-deck-id=${deckList.id}"
-							onclick="openDeckModal(this.dataset.leaderCardId, this.dataset.deckCardIds, this.dataset.deckName, this.dataset.deckCreatedDate, this.dataset.deckId)">
-					<div class="decklist-list-detail">
-						<div class="decklist-list-image-leader">
-							<img th:src="@{/card/list/file/{id}(id=${deckList.leaderCardId})}" alt="NoImage">
+				<div th:if="${deckList.deleted == false}">
+					<a href="javascript:void(0);" th:attr="data-leader-card-id=${deckList.leaderCardId},data-deck-card-ids=${#strings.arrayJoin(deckList.deckCardId, ',')},
+								data-deck-name=${deckList.deckName},data-deck-created-date=${deckList.createdDate},data-deck-id=${deckList.id}"
+								onclick="openDeckModal(this.dataset.leaderCardId, this.dataset.deckCardIds, this.dataset.deckName, this.dataset.deckCreatedDate, this.dataset.deckId)">
+						<div class="decklist-list-detail">
+							<div class="decklist-list-image-leader">
+								<img th:src="@{/card/list/file/{id}(id=${deckList.leaderCardId})}" alt="NoImage">
+							</div>
+							<div class="decklist-list-deck-name">
+								<p><span th:text="${deckList.deckName}"></span></p>
+							</div>
+							<div class="decklist-list-deck-created-at">
+								<p><span th:text="${deckList.createdDate}"></span></p>
+							</div>
 						</div>
-						<div class="decklist-list-deck-name">
-							<p><span th:text="${deckList.deckName}"></span></p>
-						</div>
-						<div class="decklist-list-deck-created-at">
-							<p><span th:text="${deckList.createdDate}"></span></p>
-						</div>
-					</div>
-				</a>
+					</a>
+				</div>
 			</div>
 		</div>
 		
@@ -53,10 +54,13 @@
 						<!-- ここにデッキ表示 -->
 					</div>
 					<div class="decklist-modal-deck-change">
-						<form id="modalForm" action="" method="post" novalidate>
+						<form id="modalFormChange" action="" method="post" novalidate>
 							<input type="hidden" id="changeDeckDataField" name="deckData" value="" />
 							<input type="hidden" id="changeDeckId" name="deckId" value="" />
-							<button type="submit">変更</button>
+							<button type="submit" class="btn-change">変更</button>
+						</form>
+						<form id="modalFormDeleted" action="" method="get" novalidate>
+							<button type="submit" class="btn-delete">削除</button>
 						</form>
 					</div>
 				</div>
@@ -127,9 +131,10 @@
 				// モーダルに情報を設定
 				document.getElementById('modalDeckName').textContent = deckName || '';
 				document.getElementById('modalDeckCreatedDate').textContent = createdDate || '';
-				document.getElementById('modalLeaderImage').src = '/card/list/file/' + leaderCard.id;
-				document.getElementById('modalForm').action = '/change/deck/' + leaderCard.id;
+				document.getElementById('modalLeaderImage').src = '/card/list/file/' + leaderCardId;
+				document.getElementById('modalFormChange').action = '/change/deck/' + leaderCardId;
 				document.getElementById('changeDeckId').value = deckId;
+				document.getElementById('modalFormDeleted').action = '/deleted/deck/' + deckId;
 				
 				// 各デッキカードの詳細を取得して表示
 				for (const deckCardId of deckCardIdsArray) {
@@ -161,7 +166,7 @@
 		}
 		
 		// フォーム送信時の処理
-		document.getElementById('modalForm').addEventListener('submit', function(event) {
+		document.getElementById('modalFormChange').addEventListener('submit', function(event) {
 			event.preventDefault();
 			saveDeckToSession();
 			this.submit();

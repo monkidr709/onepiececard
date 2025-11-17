@@ -33,7 +33,9 @@ public class DeckListController {
 	}
 	
 	@PostMapping("/change/deck/{id}")
-	public String changeDeck(HttpSession session, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData, @RequestParam(required = false) Integer deckId, RedirectAttributes redirectAttributes) {
+	public String changeDeck(HttpSession session, Model model, @PathVariable Integer id, 
+							 @RequestParam(required = false) String deckData, @RequestParam(required = false) Integer deckId, 
+							 RedirectAttributes redirectAttributes) {
 		String username = (String) session.getAttribute("username");
 		// セッションタイムアウト
 		if (username == null) {
@@ -48,6 +50,20 @@ public class DeckListController {
 		session.setAttribute("changeDeck", true);
 		session.setAttribute("deckId", deckId);
 		return "redirect:/create/deck/" + id;
+	}
+	
+	@GetMapping("/deleted/deck/{id}")
+	public String deletedDeck(HttpSession session, @PathVariable Integer id) {
+		String username = (String) session.getAttribute("username");
+		// セッションタイムアウト
+		if (username == null) {
+			return "redirect:/login";
+		}
+		
+		// デッキ削除
+		deckListService.deletedDeck(id);
+		
+		return "redirect:/deck/list";
 	}
 
 }

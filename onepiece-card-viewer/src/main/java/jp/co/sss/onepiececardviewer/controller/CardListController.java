@@ -132,7 +132,7 @@ public class CardListController {
 		return "html/cardList";
 	}
 	
-	// モーダル表示
+	// カード詳細の取得
 	@GetMapping("/detail/{id}")
 	@ResponseBody
 	public ResponseEntity<CardList> CardDatail(@PathVariable Integer id) {
