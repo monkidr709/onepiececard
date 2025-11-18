@@ -11,6 +11,15 @@
 <body>
 	<header class="hidden" th:replace="~{html/common/header :: layout-header}"></header>
 
+	<!-- 固定ナビゲーションボタン（ページ最上部でのみ表示） -->
+	<nav id="fixed-nav" class="fixed-nav">
+		<a th:href="@{/card/list}" class="fixed-nav-link">カードリスト</a>
+		<a th:href="@{/choice/leader}" class="fixed-nav-link">デッキ作成</a>
+		<a th:href="@{/deck/list}" class="fixed-nav-link">デッキ一覧</a>
+		<a th:href="@{/setting}" class="fixed-nav-link">設定</a>
+		<a th:if="${session.role} == 'admin'" th:href="@{/admin/config}" class="fixed-nav-link admin-link">管理者設定</a>
+	</nav>
+
 	<!-- スプラッシュ -->
 	<section id="splash-section">
 		<div id="splash-content">
@@ -28,6 +37,10 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
+			const header = document.querySelector("header");
+			const fixedNav = document.getElementById("fixed-nav");
+			const scrollThreshold = 50;
+
 			// スプラッシュ表示中はスクロールを無効化
 			document.body.style.overflow = "hidden";
 
@@ -35,7 +48,6 @@
 			setTimeout(() => {
 				const splash = document.getElementById("splash-section");
 				const home = document.getElementById("home-section");
-				const header = document.querySelector("header");
 
 				// スプラッシュ画面をフェードアウト
 				splash.style.opacity = "0";
@@ -48,40 +60,49 @@
 					// スクロールを再度有効化
 					document.body.style.overflow = "auto";
 
-					// ヘッダーとホーム画面を表示
+					// ヘッダーを表示可能にする（最初は非表示状態）
 					if (header) {
 						header.classList.remove("hidden");
+						header.classList.add("header-hidden");
 					}
 					home.classList.remove("hidden");
 
-					// 次のタイミングでフェードイン
+					// 固定ナビゲーションを表示
+					console.log("Fixed nav element:", fixedNav);
+					if (fixedNav) {
+						fixedNav.classList.add("show");
+						console.log("Fixed nav classes:", fixedNav.classList);
+					}
+
+					// 次のタイミングでホーム画面をフェードイン
 					setTimeout(() => {
-						if (header) {
-							header.classList.add("show");
-						}
 						home.classList.add("show");
 					}, 10);
 				}, 500);
 
 			}, 3000);
 
-			// スクロールに応じてヘッダーの表示/非表示を切り替え
-			let lastScrollTop = 0;
-			const header = document.querySelector("header");
-			const scrollThreshold = 50; // 50px以上スクロールしたらヘッダーを表示
-
+			// スクロールに応じてヘッダーと固定ナビゲーションの表示/非表示を切り替え
 			window.addEventListener("scroll", () => {
 				const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
 				if (scrollTop <= scrollThreshold) {
-					// 最上部付近ではヘッダーを非表示
-					header.classList.add("header-hidden");
+					// 最上部付近ではヘッダーを非表示、固定ナビゲーションを表示
+					if (header) {
+						header.classList.add("header-hidden");
+					}
+					if (fixedNav) {
+						fixedNav.classList.add("show");
+					}
 				} else {
-					// スクロールしたらヘッダーを表示
-					header.classList.remove("header-hidden");
+					// スクロールしたらヘッダーを表示、固定ナビゲーションを非表示
+					if (header) {
+						header.classList.remove("header-hidden");
+					}
+					if (fixedNav) {
+						fixedNav.classList.remove("show");
+					}
 				}
-
-				lastScrollTop = scrollTop;
 			});
 		});
 	</script>
