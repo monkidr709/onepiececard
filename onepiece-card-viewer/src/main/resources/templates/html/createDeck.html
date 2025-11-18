@@ -438,7 +438,9 @@
 			<div class="createDeck-field">
 				<div class="createDeck-field-over">
 					<div id="displayLeader" class="createDeck-image-leaderCard" th:if="${leaderCard != null}">
-						<img th:src="@{/card/list/file/{id}(id=${leaderCard.id})}" th:alt="${leaderCard.cardName}">
+						<a href="javascript:void(0);" th:data-card-id="${leaderCard.id}" onclick="openCardModal(this.dataset.cardId, 3)">
+							<img th:src="@{/card/list/file/{id}(id=${leaderCard.id})}" th:alt="${leaderCard.cardName}">
+						</a>
 					</div>
 					<div class="createDeck-image-detail">
 						<label id="numberOfCardWarning" style="display: none;">
@@ -469,7 +471,7 @@
 			<div class="createDeck-modal-content">
 				<span class="createDeck-modal-close" onclick="closeCardModal()">&times;</span>
 				<div class="createDeck-modal-body">
-					<div class="createDeck-modal-text">
+					<div id="modalText" class="createDeck-modal-text">
 						<p>枚数を選択してください。</p>
 					</div>
 					<div class="createDeck-modal-image">
@@ -478,13 +480,15 @@
 					<div class="createDeck-modal-cardName">
 						<p><span id="modalCardName"></span></p>
 					</div>
-					<div class="createDeck-modal-numberOfCards">
-						<div id="counter" class="createDeck-counter">0</div>
-						<div>
-							<button id="buttonDown" class="createDeck-button-down" onclick="decrease()">-</button>
-							<button id="buttonUp" class="createDeck-button-up" onclick="">+</button>
+					<label id="buttonLabel">
+						<div class="createDeck-modal-numberOfCards">
+							<div id="counter" class="createDeck-counter">0</div>
+							<div>
+								<button id="buttonDown" class="createDeck-button-down" onclick="decrease()">-</button>
+								<button id="buttonUp" class="createDeck-button-up" onclick="">+</button>
+							</div>
 						</div>
-					</div>
+					</label>
 					<label id="additionLabel" style="display: none;">
 						<button id="addition" class="createDeck-button-addition" data-type="" data-cost="" data-id="">追加</button>
 					</label>
@@ -875,8 +879,10 @@
 					    dataType = '1';
 					} else if (card.cardType === 'イベント') {
 					    dataType = '2';
-					} else {
+					} else if (card.cardType === 'ステージ') {
 					    dataType = '3';
+					} else {
+						dataType = '4';
 					}
 					document.getElementById('addition').setAttribute('data-type', dataType);
 					document.getElementById('addition').setAttribute('data-cost', card.cardCostOrLife);
@@ -885,13 +891,22 @@
 					document.getElementById('change').setAttribute('data-cost', card.cardCostOrLife);
 					document.getElementById('change').setAttribute('data-id', card.id);
 					if (number === 1) {
+						document.getElementById('modalText').style.display = 'block';
 						document.getElementById('additionLabel').style.display = 'block';
 						document.getElementById('changeLabel').style.display = 'none';
+						document.getElementById('buttonLabel').style.display = 'block';
 						document.getElementById('buttonUp').onclick = function() { increase(card.id) };
-					} else {
+					} else if (number === 2) {
+						document.getElementById('modalText').style.display = 'block';
 						document.getElementById('additionLabel').style.display = 'none';
 						document.getElementById('changeLabel').style.display = 'block';
+						document.getElementById('buttonLabel').style.display = 'block';
 						document.getElementById('buttonUp').onclick = function() { increase2() };
+					} else {
+						document.getElementById('modalText').style.display = 'none';
+						document.getElementById('additionLabel').style.display = 'none';
+						document.getElementById('changeLabel').style.display = 'none';
+						document.getElementById('buttonLabel').style.display = 'none';
 					}
 					
 					// モーダルを表示

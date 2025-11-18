@@ -23,7 +23,7 @@ main {
 /* メインコンテナ */
 .createDeck-container {
 	display: grid;
-	grid-template-columns: 1fr 750px;
+	grid-template-columns: 1fr minmax(400px, 750px);
 	grid-template-rows: 35px auto 1fr;
 	gap: 0.5rem;
 	padding: 0.5rem;
@@ -144,18 +144,18 @@ main {
 .field-label {
 	font-weight: 600;
 	color: #444;
-	font-size: 0.68rem;
+	font-size: 0.75rem;
 	white-space: nowrap;
 	flex-shrink: 0;
-	min-width: 65px;
+	min-width: 70px;
 }
 
 /* テキスト入力 */
 .search-field input[type="text"] {
-	padding: 0.3rem 0.5rem;
+	padding: 0.35rem 0.6rem;
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
-	font-size: 0.7rem;
+	font-size: 0.78rem;
 	transition: all 0.3s ease;
 	background-color: white;
 	flex: 1;
@@ -169,15 +169,15 @@ main {
 
 .search-field input[type="text"]::placeholder {
 	color: #aaa;
-	font-size: 0.68rem;
+	font-size: 0.74rem;
 }
 
 /* セレクトボックス */
 .search-field select {
-	padding: 0.3rem 0.5rem;
+	padding: 0.35rem 0.6rem;
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
-	font-size: 0.7rem;
+	font-size: 0.78rem;
 	background-color: white;
 	cursor: pointer;
 	transition: all 0.3s ease;
@@ -210,7 +210,7 @@ main {
 .range-separator {
 	color: #666;
 	font-weight: 500;
-	font-size: 0.7rem;
+	font-size: 0.78rem;
 	flex-shrink: 0;
 }
 
@@ -218,14 +218,14 @@ main {
 .checkbox-group {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.25rem;
+	gap: 0.3rem;
 	flex: 1;
 }
 
 .checkbox-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-	gap: 0.25rem;
+	grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+	gap: 0.3rem;
 	flex: 1;
 }
 
@@ -233,7 +233,7 @@ main {
 	display: inline-flex;
 	align-items: center;
 	cursor: pointer;
-	padding: 0.2rem 0.35rem;
+	padding: 0.25rem 0.4rem;
 	background-color: #f8f8f8;
 	border-radius: 3px;
 	transition: all 0.2s ease;
@@ -247,10 +247,10 @@ main {
 
 .checkbox-label input[type="checkbox"] {
 	margin: 0;
-	margin-right: 0.2rem;
+	margin-right: 0.25rem;
 	cursor: pointer;
-	width: 13px;
-	height: 13px;
+	width: 14px;
+	height: 14px;
 	accent-color: #8e2639;
 	flex-shrink: 0;
 }
@@ -261,7 +261,7 @@ main {
 }
 
 .checkbox-text {
-	font-size: 0.68rem;
+	font-size: 0.75rem;
 	color: #555;
 	transition: all 0.2s ease;
 }
@@ -278,7 +278,7 @@ main {
 	margin-bottom: 0;
 	display: inline-flex;
 	align-items: center;
-	padding: 0.2rem 0.35rem;
+	padding: 0.25rem 0.4rem;
 	background-color: #f8f8f8;
 	border-radius: 3px;
 	cursor: pointer;
@@ -294,19 +294,19 @@ main {
 
 .trigger-field input[type="checkbox"] {
 	margin: 0;
-	margin-right: 0.2rem;
+	margin-right: 0.25rem;
 	cursor: pointer;
-	width: 13px;
-	height: 13px;
+	width: 14px;
+	height: 14px;
 	accent-color: #8e2639;
 }
 
 .trigger-text-input {
 	flex: 1;
-	padding: 0.3rem 0.5rem;
+	padding: 0.35rem 0.6rem;
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
-	font-size: 0.7rem;
+	font-size: 0.78rem;
 	transition: all 0.3s ease;
 }
 
@@ -357,8 +357,8 @@ main {
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	overflow-y: auto;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-	gap: 0.4rem;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	gap: 0.5rem;
 	align-content: start;
 }
 
@@ -420,6 +420,13 @@ main {
 /* リーダーカード */
 .createDeck-image-leaderCard {
 	grid-column: 1;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.createDeck-image-leaderCard:hover {
+	transform: scale(1.05);
+	z-index: 10;
 }
 
 .createDeck-image-leaderCard img {
@@ -427,6 +434,11 @@ main {
 	height: auto;
 	border-radius: 4px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transition: box-shadow 0.2s ease;
+}
+
+.createDeck-image-leaderCard:hover img {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* デッキ枚数表示エリア */
@@ -898,4 +910,41 @@ main {
 .createDeck-field-under::-webkit-scrollbar-thumb:hover,
 .createDeck-keep-deck-modal-content::-webkit-scrollbar-thumb:hover {
 	background: #a8344d;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 1200px) {
+	.createDeck-container {
+		grid-template-columns: 1fr minmax(350px, 600px);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.createDeck-container {
+		grid-template-columns: 1fr minmax(300px, 500px);
+	}
+
+	.createDeck-field-over {
+		grid-template-columns: 90px 1fr auto;
+	}
+
+	.createDeck-display-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.createDeck-container {
+		grid-template-columns: 1fr;
+		grid-template-rows: 35px auto auto 1fr;
+	}
+
+	.createDeck-field {
+		grid-column: 1;
+		grid-row: 3 / 4;
+	}
+
+	.createDeck-image-grid {
+		grid-row: 4;
+	}
 }

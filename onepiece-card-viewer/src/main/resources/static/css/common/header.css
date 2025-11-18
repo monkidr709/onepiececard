@@ -14,12 +14,23 @@ body {
 /* ヘッダー全体のスタイル */
 header {
 	margin: 0;
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
-	padding: 1.5rem 2rem;
+	padding: 1rem 2rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	z-index: 100;
+	transform: translateY(0);
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ヘッダーを非表示にするクラス */
+header.header-hidden {
+	transform: translateY(-100%);
+	opacity: 0;
 }
 
 /* ヘッダー内のリンク色を固定 */
@@ -39,8 +50,8 @@ header a:focus {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 2rem;
 	flex-wrap: wrap;
-	gap: 1rem;
 }
 
 /* タイトル */
@@ -50,33 +61,67 @@ header a:focus {
 
 .header-title h1 {
 	margin: 0;
-	font-size: 2.5rem;
+	font-size: 1.8rem;
 	font-weight: bold;
 	letter-spacing: 1px;
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 	color: white;
 }
 
-/* ユーザー情報 */
-.header-user {
+/* ナビゲーションメニュー */
+.header-nav {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
 	flex-grow: 1;
-	text-align: right;
+	justify-content: center;
 }
 
+.nav-link {
+	display: inline-block;
+	padding: 0.6rem 1.2rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	border-radius: 20px;
+	background-color: rgba(255, 255, 255, 0.15);
+	transition: all 0.3s ease;
+	white-space: nowrap;
+}
+
+.nav-link:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.admin-link {
+	background-color: rgba(220, 53, 69, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.admin-link:hover {
+	background-color: rgba(220, 53, 69, 0.5);
+}
+
+/* 右側のユーザー情報とログアウト */
+.header-right {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-shrink: 0;
+}
+
+/* ユーザー情報 */
 .header-user p {
 	margin: 0;
-	font-size: 1.1rem;
+	font-size: 0.95rem;
 	color: white;
+	white-space: nowrap;
 }
 
 .header-user p span {
 	font-weight: bold;
 	color: #ffd700;
-}
-
-/* ログアウトボタンエリア */
-.header-logout {
-	flex-shrink: 0;
 }
 
 /* ログアウトボタン */
@@ -85,13 +130,14 @@ header a:focus {
 	background-color: rgba(255, 255, 255, 0.2);
 	color: white;
 	border: 2px solid white;
-	padding: 0.6rem 1.5rem;
-	font-size: 0.95rem;
+	padding: 0.5rem 1.2rem;
+	font-size: 0.9rem;
 	font-weight: bold;
 	border-radius: 25px;
 	cursor: pointer;
 	text-decoration: none;
 	transition: all 0.3s ease;
+	white-space: nowrap;
 }
 
 .logout-button:hover {
@@ -106,21 +152,43 @@ header a:focus {
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 	.header-container {
 		flex-direction: column;
-		text-align: center;
+		gap: 1rem;
 	}
 
-	.header-user {
-		text-align: center;
+	.header-nav {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.header-right {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 768px) {
+	header {
+		padding: 1rem;
 	}
 
 	.header-title h1 {
-		font-size: 2rem;
+		font-size: 1.5rem;
+	}
+
+	.nav-link {
+		padding: 0.5rem 1rem;
+		font-size: 0.85rem;
 	}
 
 	.header-user p {
-		font-size: 1.1rem;
+		font-size: 0.85rem;
+	}
+
+	.logout-button {
+		padding: 0.4rem 1rem;
+		font-size: 0.85rem;
 	}
 }

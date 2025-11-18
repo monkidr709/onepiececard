@@ -9,29 +9,82 @@
 </head>
 
 <body>
-	<header th:replace="~{html/common/header :: layout-header}"></header>
-	<main>
-		<div class="home-container">
-			<h2>ホーム</h2>
-			<div class="menu-buttons">
-				<div class="menu-item">
-					<a th:href="@{/card/list}" class="menu-button">カードリスト</a>
-				</div>
-				<div class="menu-item">
-					<a th:href="@{/choice/leader}" class="menu-button">デッキ作成</a>
-				</div>
-				<div class="menu-item">
-					<a th:href="@{/deck/list}" class="menu-button">デッキ一覧</a>
-				</div>
-				<div class="menu-item">
-					<a th:href="@{/setting}" class="menu-button">設定</a>
-				</div>
-				<div class="menu-item" th:if="${session.role} == 'admin'">
-					<a th:href="@{/admin/config}" class="menu-button admin-button">管理者設定</a>
-				</div>
-			</div>
+	<header class="hidden" th:replace="~{html/common/header :: layout-header}"></header>
+
+	<!-- スプラッシュ -->
+	<section id="splash-section">
+		<div id="splash-content">
+			<img th:src="@{/img/onepiececard_logo.png}" id="splash-logo">
 		</div>
+	</section>
+
+	<main>
+		<!-- ホーム画面（最初は非表示） -->
+		<section id="home-section" class="hidden">
+			<div class="background-section section-1"></div>
+			<div class="background-section section-2"></div>
+		</section>
 	</main>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			// スプラッシュ表示中はスクロールを無効化
+			document.body.style.overflow = "hidden";
+
+			// ロゴのアニメーションが終わるころに実行（3秒に延長）
+			setTimeout(() => {
+				const splash = document.getElementById("splash-section");
+				const home = document.getElementById("home-section");
+				const header = document.querySelector("header");
+
+				// スプラッシュ画面をフェードアウト
+				splash.style.opacity = "0";
+				splash.style.transition = "opacity 0.5s ease";
+
+				// スプラッシュ画面を完全に非表示にしてからホーム画面を表示
+				setTimeout(() => {
+					splash.style.display = "none";
+
+					// スクロールを再度有効化
+					document.body.style.overflow = "auto";
+
+					// ヘッダーとホーム画面を表示
+					if (header) {
+						header.classList.remove("hidden");
+					}
+					home.classList.remove("hidden");
+
+					// 次のタイミングでフェードイン
+					setTimeout(() => {
+						if (header) {
+							header.classList.add("show");
+						}
+						home.classList.add("show");
+					}, 10);
+				}, 500);
+
+			}, 3000);
+
+			// スクロールに応じてヘッダーの表示/非表示を切り替え
+			let lastScrollTop = 0;
+			const header = document.querySelector("header");
+			const scrollThreshold = 50; // 50px以上スクロールしたらヘッダーを表示
+
+			window.addEventListener("scroll", () => {
+				const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+				if (scrollTop <= scrollThreshold) {
+					// 最上部付近ではヘッダーを非表示
+					header.classList.add("header-hidden");
+				} else {
+					// スクロールしたらヘッダーを表示
+					header.classList.remove("header-hidden");
+				}
+
+				lastScrollTop = scrollTop;
+			});
+		});
+	</script>
 </body>
 
 </html>

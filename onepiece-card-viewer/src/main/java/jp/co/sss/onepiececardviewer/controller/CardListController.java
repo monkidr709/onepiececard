@@ -116,6 +116,7 @@ public class CardListController {
 		criteria.setCardDuringYourTurn(form.isCardDuringYourTurn());
 		criteria.setCardDuringOpponentTurn(form.isCardDuringOpponentTurn());
 		criteria.setCardYourTurnEnd(form.isCardYourTurnEnd());
+		criteria.setCardOpponentAttack(form.isCardOpponentAttack());
 		criteria.setCardMain(form.isCardMain());
 		criteria.setCardEventCounter(form.isCardEventCounter());
 		criteria.setCardOneTurn(form.isCardOneTurn());
