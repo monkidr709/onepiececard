@@ -57,10 +57,22 @@
 							<input type="hidden" id="changeDeckId" name="deckId" value="" />
 							<button type="submit" class="btn-change">変更</button>
 						</form>
-						<form id="modalFormDeleted" action="" method="get" novalidate>
-							<button type="submit" class="btn-delete">削除</button>
-						</form>
+						<button type="button" class="btn-delete" onclick="showDeleteConfirmModal()">削除</button>
 					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 削除確認モーダル -->
+		<div id="deleteConfirmModal" class="delete-confirm-modal">
+			<div class="delete-confirm-content">
+				<h2>削除確認</h2>
+				<p>本当にこのデッキを削除しますか？</p>
+				<div class="delete-confirm-buttons">
+					<button type="button" class="btn-cancel" onclick="closeDeleteConfirmModal()">キャンセル</button>
+					<form id="modalFormDeleted" action="" method="get" novalidate style="display: inline;">
+						<button type="submit" class="btn-confirm-delete">削除する</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -163,6 +175,16 @@
 			document.getElementById('modalDeckCardImage').innerHTML = '';
 		}
 		
+		// 削除確認モーダルを表示
+		function showDeleteConfirmModal() {
+		    document.getElementById('deleteConfirmModal').classList.add('active');
+		}
+		
+		// 削除確認モーダルを閉じる
+		function closeDeleteConfirmModal() {
+		    document.getElementById('deleteConfirmModal').classList.remove('active');
+		}
+		
 		// フォーム送信時の処理
 		document.getElementById('modalFormChange').addEventListener('submit', function(event) {
 			event.preventDefault();
@@ -173,8 +195,12 @@
 		// モーダルの背景をクリックしたら閉じる
 		window.onclick = function(event) {
 			const modal = document.getElementById('deckModal');
+			const deleteModal = document.getElementById('deleteConfirmModal');
 			if (event.target === modal) {
 				closeCardModal();
+			}
+			if (event.target === deleteModal) {
+				closeDeleteConfirmModal();
 			}
 		}
 		
@@ -182,6 +208,7 @@
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Escape') {
 				closeCardModal();
+				closeDeleteConfirmModal();
 			}
 		})
 	</script>

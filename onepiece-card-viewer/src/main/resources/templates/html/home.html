@@ -54,56 +54,56 @@
 			<div class="background-section section-4"></div>
 		</section>
 	</main>
-
+	
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 			const header = document.querySelector("header");
 			const fixedNav = document.getElementById("fixed-nav");
 			const scrollThreshold = 50;
-
+			
 			// スプラッシュ表示中はスクロールを無効化
 			document.body.style.overflow = "hidden";
-
+			
 			// ロゴのアニメーションが終わるころに実行（3秒に延長）
 			setTimeout(() => {
 				const splash = document.getElementById("splash-section");
 				const home = document.getElementById("home-section");
-
+				
 				// スプラッシュ画面をフェードアウト
 				splash.style.opacity = "0";
 				splash.style.transition = "opacity 0.5s ease";
-
+				
 				// スプラッシュ画面を完全に非表示にしてからホーム画面を表示
 				setTimeout(() => {
 					splash.style.display = "none";
-
+					
 					// スクロールを再度有効化
 					document.body.style.overflow = "auto";
-
+					
 					// ヘッダーを表示可能にする（最初は非表示状態）
 					if (header) {
 						header.classList.remove("hidden");
 						header.classList.add("header-hidden");
 					}
 					home.classList.remove("hidden");
-
+					
 					// 固定ナビゲーションを表示
 					if (fixedNav) {
 						fixedNav.classList.add("show");
 					}
-
+					
 					// 次のタイミングでホーム画面をフェードイン
 					setTimeout(() => {
 						home.classList.add("show");
 					}, 10);
 				}, 500);
-
+				
 			}, 3000);
-
+			
 			// スクロールに応じてヘッダーと固定ナビゲーションの表示/非表示を切り替え
 			window.addEventListener("scroll", () => {
 				const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
+				
 				if (scrollTop <= scrollThreshold) {
 					// 最上部付近ではヘッダーを非表示、固定ナビゲーションを表示
 					if (header) {
@@ -121,7 +121,7 @@
 						fixedNav.classList.remove("show");
 					}
 				}
-
+				
 				// section-2のテキストアニメーション
 				const section2 = document.querySelector('.section-2');
 				const section2Text = document.querySelectorAll('.section-2 h2, .section-2 p');
