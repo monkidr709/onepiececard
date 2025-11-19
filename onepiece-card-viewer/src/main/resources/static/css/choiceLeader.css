@@ -1,87 +1,134 @@
 @charset "UTF-8";
 
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	min-height: 100vh;
+}
+
+/* 背景画像 */
+body::after {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: url('/img/onepiececard_background_2.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	z-index: -2;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.85);
+	z-index: -1;
+}
+
 /* メインコンテンツエリア */
 main {
 	display: flex;
 	min-height: 100vh;
+	padding-top: 80px;
 }
 
 /* リーダー選択コンテナ */
 .choiceleader-container {
-	margin-left: 260px;
-	padding: 2rem;
-	padding-top: 120px;
-	width: calc(100% - 260px);
+	margin: 0 auto;
+	padding: 40px;
+	max-width: 1600px;
+	width: 100%;
 	min-height: 100vh;
-	background-color: #f5f5f5;
 }
 
 .choiceleader-container h1 {
-	font-size: 2rem;
+	font-size: 2.5rem;
 	color: #8e2639;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 	text-align: center;
 	font-weight: bold;
+	text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+	letter-spacing: 2px;
 }
 
 /* 検索エリア */
 .choiceleader-search {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 }
 
 .choiceleader-search-leader {
 	display: flex;
-	gap: 1rem;
+	gap: 15px;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding: 0;
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
+	backdrop-filter: none;
+	border: none;
 }
 
 .choiceleader-search-leader button {
-	padding: 0.8rem 1.5rem;
-	font-size: 1rem;
-	font-weight: bold;
+	padding: 12px 28px;
+	font-size: 1.1rem;
+	font-weight: 700;
 	border: 2px solid #8e2639;
-	border-radius: 8px;
+	border-radius: 15px;
 	background-color: white;
 	color: #8e2639;
 	cursor: pointer;
-	transition: all 0.3s ease;
-	min-width: 80px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	min-width: 90px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .choiceleader-search-leader button:hover {
-	background-color: #8e2639;
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
-	transform: translateY(-2px);
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-color: #8e2639;
+	transform: translateY(-3px);
+	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.5);
 }
 
 .choiceleader-search-leader button:active {
-	transform: translateY(0);
+	transform: translateY(-1px);
 }
 
 /* カードグリッド */
 .choiceleader-image-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 1.5rem;
-	padding: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 20px;
+	padding: 20px;
 }
 
 .choiceleader-image-card {
-	background-color: white;
+	background: transparent;
 	border-radius: 10px;
 	overflow: hidden;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 	transition: all 0.3s ease;
 	cursor: pointer;
+	border: none;
+	padding: 0;
 }
 
 .choiceleader-image-card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	transform: translateY(-10px) scale(1.05);
+	box-shadow: 0 12px 35px rgba(142, 38, 57, 0.5);
+	z-index: 10;
 }
 
 .choiceleader-image-card a {
@@ -93,62 +140,7 @@ main {
 	width: 100%;
 	height: auto;
 	display: block;
-	object-fit: cover;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-	.choiceleader-container {
-		margin-left: 200px;
-		width: calc(100% - 200px);
-		padding: 1.5rem;
-		padding-top: 100px;
-	}
-
-	.choiceleader-container h1 {
-		font-size: 1.8rem;
-	}
-
-	.choiceleader-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-		gap: 1rem;
-	}
-
-	.choiceleader-search-leader button {
-		padding: 0.7rem 1.2rem;
-		font-size: 0.95rem;
-		min-width: 70px;
-	}
-}
-
-@media (max-width: 480px) {
-	.choiceleader-container {
-		margin-left: 0;
-		width: 100%;
-		padding: 1rem;
-		padding-top: 80px;
-	}
-
-	.choiceleader-container h1 {
-		font-size: 1.5rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.choiceleader-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-		gap: 0.8rem;
-		padding: 0.5rem;
-	}
-
-	.choiceleader-search-leader {
-		gap: 0.5rem;
-	}
-
-	.choiceleader-search-leader button {
-		padding: 0.6rem 1rem;
-		font-size: 0.9rem;
-		min-width: 60px;
-	}
+	border-radius: 10px;
 }
 
 /* モーダルの基本スタイル */
@@ -160,8 +152,8 @@ main {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	backdrop-filter: blur(3px);
+	background-color: rgba(0, 0, 0, 0.85);
+	backdrop-filter: blur(8px);
 }
 
 .choiceleader-modal.active {
@@ -172,26 +164,27 @@ main {
 
 /* モーダルコンテンツ */
 .choiceleader-modal-content {
-	background-color: white;
-	border-radius: 15px;
-	padding: 2rem;
-	max-width: 500px;
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 250, 250, 0.95) 100%);
+	border-radius: 25px;
+	padding: 40px;
+	max-width: 600px;
 	width: 90%;
 	max-height: 90vh;
 	overflow-y: auto;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 	position: relative;
-	animation: modalSlideIn 0.3s ease;
+	animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	border: 3px solid rgba(142, 38, 57, 0.3);
+	backdrop-filter: blur(10px);
 }
 
 @keyframes modalSlideIn {
 	from {
-		transform: translateY(-50px);
+		transform: translateY(-80px) scale(0.9);
 		opacity: 0;
 	}
-
 	to {
-		transform: translateY(0);
+		transform: translateY(0) scale(1);
 		opacity: 1;
 	}
 }
@@ -199,36 +192,40 @@ main {
 /* 閉じるボタン */
 .choiceleader-modal-close {
 	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	width: 30px;
-	height: 30px;
+	top: 20px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
 	cursor: pointer;
-	transition: transform 0.2s ease;
+	transition: all 0.3s ease;
+	background: rgba(142, 38, 57, 0.1);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .choiceleader-modal-close:hover {
 	transform: rotate(90deg);
+	background: rgba(142, 38, 57, 0.2);
 }
 
 .choiceleader-modal-close::before,
 .choiceleader-modal-close::after {
 	content: '';
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 20px;
-	height: 2px;
+	width: 24px;
+	height: 3px;
 	background-color: #8e2639;
 	border-radius: 2px;
 }
 
 .choiceleader-modal-close::before {
-	transform: translate(-50%, -50%) rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .choiceleader-modal-close::after {
-	transform: translate(-50%, -50%) rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 /* モーダルボディ */
@@ -236,20 +233,28 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1.5rem;
+	gap: 30px;
+	padding-top: 20px;
 }
 
 /* 確認メッセージ */
 .choiceleader-modal-confirmation {
 	width: 100%;
 	text-align: center;
+	padding: 20px;
+	background: linear-gradient(to right, rgba(142, 38, 57, 0.05) 0%, transparent 50%, rgba(142, 38, 57, 0.05) 100%);
+	border-radius: 15px;
+	border-left: 5px solid #8e2639;
+	border-right: 5px solid #8e2639;
 }
 
 .choiceleader-modal-confirmation p {
-	font-size: 1.2rem;
-	font-weight: bold;
-	color: #333;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #8e2639;
 	margin: 0;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+	letter-spacing: 1px;
 }
 
 /* モーダル画像 */
@@ -258,14 +263,21 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1rem 0;
+	padding: 20px 0;
 }
 
 .choiceleader-modal-image img {
 	max-width: 100%;
+	width: 350px;
 	height: auto;
-	border-radius: 10px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	border-radius: 15px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+	border: 3px solid rgba(142, 38, 57, 0.2);
+	transition: transform 0.3s ease;
+}
+
+.choiceleader-modal-image img:hover {
+	transform: scale(1.02);
 }
 
 /* モーダルボタン */
@@ -273,45 +285,127 @@ main {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	padding-top: 10px;
 }
 
 .choiceleader-modal-button button {
-	padding: 1rem 2.5rem;
-	font-size: 1.1rem;
-	font-weight: bold;
+	padding: 16px 50px;
+	font-size: 1.3rem;
+	font-weight: 700;
 	border: none;
-	border-radius: 8px;
-	background-color: #8e2639;
+	border-radius: 30px;
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 4px 8px rgba(142, 38, 57, 0.3);
+	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.4);
+	letter-spacing: 2px;
+	text-transform: uppercase;
 }
 
 .choiceleader-modal-button button:hover {
-	background-color: #6d1d2d;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(142, 38, 57, 0.4);
+	background: linear-gradient(135deg, #a8344d 0%, #c8405a 100%);
+	transform: translateY(-4px);
+	box-shadow: 0 10px 30px rgba(142, 38, 57, 0.6);
 }
 
 .choiceleader-modal-button button:active {
-	transform: translateY(0);
-	box-shadow: 0 2px 6px rgba(142, 38, 57, 0.3);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.4);
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 480px) {
+@media (max-width: 1024px) {
+	.choiceleader-container {
+		padding: 30px;
+	}
+
+	.choiceleader-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	}
+}
+
+@media (max-width: 768px) {
+	main {
+		padding-top: 200px;
+	}
+
+	.choiceleader-container {
+		padding: 20px;
+	}
+
+	.choiceleader-container h1 {
+		font-size: 2rem;
+	}
+
+	.choiceleader-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 15px;
+	}
+
+	.choiceleader-search-leader {
+		padding: 20px 25px;
+		gap: 12px;
+	}
+
+	.choiceleader-search-leader button {
+		padding: 10px 22px;
+		font-size: 1rem;
+		min-width: 75px;
+	}
+
 	.choiceleader-modal-content {
-		padding: 1.5rem;
+		padding: 30px;
 		width: 95%;
 	}
 
 	.choiceleader-modal-confirmation p {
-		font-size: 1rem;
+		font-size: 1.2rem;
 	}
 
 	.choiceleader-modal-button button {
-		padding: 0.8rem 2rem;
+		padding: 14px 40px;
+		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.choiceleader-container h1 {
+		font-size: 1.8rem;
+		margin-bottom: 2rem;
+	}
+
+	.choiceleader-image-grid {
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+		gap: 12px;
+		padding: 10px;
+	}
+
+	.choiceleader-search-leader {
+		padding: 15px 20px;
+		gap: 10px;
+	}
+
+	.choiceleader-search-leader button {
+		padding: 8px 18px;
+		font-size: 0.95rem;
+		min-width: 65px;
+	}
+
+	.choiceleader-modal-content {
+		padding: 25px;
+	}
+
+	.choiceleader-modal-confirmation p {
+		font-size: 1.1rem;
+	}
+
+	.choiceleader-modal-image img {
+		width: 280px;
+	}
+
+	.choiceleader-modal-button button {
+		padding: 12px 35px;
 		font-size: 1rem;
 	}
 }

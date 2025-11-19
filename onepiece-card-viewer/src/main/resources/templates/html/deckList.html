@@ -6,13 +6,11 @@
 	<title>デッキ一覧</title>
 	<link rel="stylesheet" th:href="@{/css/deckList.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
-	<link rel="stylesheet" th:href="@{/css/common/sidebar.css}">
 </head>
 
 <body>
 	<header th:replace="~{html/common/header :: layout-header}"></header>
 	<main>
-		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
 		<div class="decklist-container">
 			<h1>デッキ一覧</h1>
 			<div class="decklist-list" th:each="deckList : ${deckLists}">

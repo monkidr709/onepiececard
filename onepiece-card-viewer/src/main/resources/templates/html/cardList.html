@@ -6,13 +6,11 @@
 	<title>カードリスト</title>
 	<link rel="stylesheet" th:href="@{/css/cardList.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
-	<link rel="stylesheet" th:href="@{/css/common/sidebar.css}">
 </head>
 
 <body>
 	<header th:replace="~{html/common/header :: layout-header}"></header>
 	<main>
-		<aside th:replace="~{html/common/sidebar :: layout-sidebar}"></aside>
 		<div class="cardlist-container">
 			<h1>カードリスト</h1>
 			<div class="cardlist-search">
@@ -543,6 +541,153 @@
 				closeCardModal();
 			}
 		})
+		
+		// ページネーション機能
+		const CARDS_PER_PAGE = 30; // 1ページあたりのカード数（5-6行 × 5-6列）
+		let currentPage = 1;
+		let allCards = [];
+
+		document.addEventListener('DOMContentLoaded', function() {
+			// すべてのカードを取得
+			const cardGrid = document.querySelector('.cardlist-image-grid');
+			if (cardGrid) {
+				allCards = Array.from(cardGrid.querySelectorAll('.cardlist-image-card'));
+				
+				// ページネーションを初期化
+				initPagination();
+				showPage(1);
+			}
+		});
+		
+		function initPagination() {
+			const cardGrid = document.querySelector('.cardlist-image-grid');
+			const container = cardGrid.parentElement;
+			
+			// 上部のページネーションを追加
+			const topPagination = createPaginationHTML();
+			cardGrid.insertAdjacentHTML('beforebegin', topPagination);
+			
+			// 下部のページネーションを追加
+			const bottomPagination = createPaginationHTML();
+			cardGrid.insertAdjacentHTML('afterend', bottomPagination);
+		}
+		
+		function createPaginationHTML() {
+			return '<div class="pagination"></div>';
+		}
+		
+		function showPage(page) {
+			currentPage = page;
+			const totalPages = Math.ceil(allCards.length / CARDS_PER_PAGE);
+			
+			// すべてのカードを非表示
+			allCards.forEach(card => card.style.display = 'none');
+			
+			// 現在のページのカードを表示
+			const startIndex = (page - 1) * CARDS_PER_PAGE;
+			const endIndex = startIndex + CARDS_PER_PAGE;
+			const cardsToShow = allCards.slice(startIndex, endIndex);
+			cardsToShow.forEach(card => card.style.display = 'block');
+			
+			// ページネーションボタンを更新
+			updatePaginationButtons(page, totalPages);
+			
+			// ページトップにスクロール
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+		
+		function updatePaginationButtons(currentPage, totalPages) {
+			const paginationContainers = document.querySelectorAll('.pagination');
+			
+			paginationContainers.forEach(container => {
+				container.innerHTML = '';
+				
+				// 前へボタン
+				const prevBtn = document.createElement('button');
+				prevBtn.className = 'pagination-btn';
+				prevBtn.innerHTML = '←';
+				prevBtn.disabled = currentPage === 1;
+				prevBtn.onclick = () => showPage(currentPage - 1);
+				container.appendChild(prevBtn);
+				
+				// ページ番号ボタン
+				const pageNumbers = getPageNumbers(currentPage, totalPages);
+				pageNumbers.forEach(pageNum => {
+					if (pageNum === null) {
+						// 空白のスペーサー
+						const spacer = document.createElement('span');
+						spacer.className = 'pagination-number';
+						spacer.style.visibility = 'hidden'; // 非表示だが幅は確保
+						spacer.textContent = '0';
+						container.appendChild(spacer);
+					} else if (pageNum === '...') {
+						const ellipsis = document.createElement('span');
+						ellipsis.className = 'pagination-ellipsis';
+						ellipsis.textContent = '...';
+						container.appendChild(ellipsis);
+					} else {
+						const pageBtn = document.createElement('button');
+						pageBtn.className = 'pagination-number';
+						if (pageNum === currentPage) {
+							pageBtn.classList.add('active');
+						}
+						pageBtn.textContent = pageNum;
+						pageBtn.onclick = () => showPage(pageNum);
+						container.appendChild(pageBtn);
+					}
+				});
+				
+				// 次へボタン
+				const nextBtn = document.createElement('button');
+				nextBtn.className = 'pagination-btn';
+				nextBtn.innerHTML = '→';
+				nextBtn.disabled = currentPage === totalPages;
+				nextBtn.onclick = () => showPage(currentPage + 1);
+				container.appendChild(nextBtn);
+			});
+		}
+		
+		function getPageNumbers(current, total) {
+			const pages = [];
+			const maxButtons = 9; // 常に9個のボタン（矢印除く）を表示
+			
+			if (total <= maxButtons) {
+				// 総ページ数が9以下の場合はすべて表示
+				for (let i = 1; i <= total; i++) {
+					pages.push(i);
+				}
+				// ボタン数を9個に揃えるため、空白を追加
+				while (pages.length < maxButtons) {
+					pages.push(null); // nullは非表示の要素として扱う
+				}
+			} else {
+				// 常に「1 ... 中間5つ ... 最終」の形式で9個表示
+				pages.push(1);
+				pages.push('...');
+				
+				// 現在のページを中心に5つのページ番号を表示
+				let start = Math.max(2, current - 2);
+				let end = Math.min(total - 1, current + 2);
+				
+				// 端に寄っている場合は調整
+				if (current <= 4) {
+					start = 2;
+					end = 6;
+				} else if (current >= total - 3) {
+					start = total - 5;
+					end = total - 1;
+				}
+				
+				for (let i = start; i <= end; i++) {
+					pages.push(i);
+				}
+				
+				pages.push('...');
+				pages.push(total);
+			}
+			
+			return pages;
+		}
 	</script>
 </body>
 

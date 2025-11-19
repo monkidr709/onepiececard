@@ -31,7 +31,27 @@
 		<!-- ホーム画面（最初は非表示） -->
 		<section id="home-section" class="hidden">
 			<div class="background-section section-1"></div>
-			<div class="background-section section-2"></div>
+			<div class="background-section section-2">
+				<h2>我々は、挑み続ける。</h2>
+				<p>
+					今までにないサービスや商品を生み出し、提供し続けます。<br>
+					常に価値を磨き続け、利用者様の期待を超える体験を創造します。<br><br>
+					利用者様が求めるものをただ形にするのではなく、<br>
+					その一歩先を見据え、まだ誰も見たことのない価値を届けることを目指しています。<br><br>
+					利用者様の声に耳を傾け、本当に求められている価値とは何かを追求し続けます。<br>
+					そして、その価値が確かな形となり、<br>
+					プレイヤーを支える存在となるよう、責任を持って行動していきます。<br><br>
+					私たちは、これからも挑戦の歩みを止めません。<br>
+					常に考え、学び続け、利用者様の期待を超える新たな可能性を生み出し続けます。
+				</p>
+			</div>
+			<div class="background-section section-3">
+				<video class="section-3-video" autoplay muted loop playsinline>
+				    <source th:src="@{/video/onepiece_video_1.mp4}" type="video/mp4">
+				    お使いのブラウザは動画タグをサポートしていません。
+				</video>
+			</div>
+			<div class="background-section section-4"></div>
 		</section>
 	</main>
 
@@ -68,10 +88,8 @@
 					home.classList.remove("hidden");
 
 					// 固定ナビゲーションを表示
-					console.log("Fixed nav element:", fixedNav);
 					if (fixedNav) {
 						fixedNav.classList.add("show");
-						console.log("Fixed nav classes:", fixedNav.classList);
 					}
 
 					// 次のタイミングでホーム画面をフェードイン
@@ -101,6 +119,22 @@
 					}
 					if (fixedNav) {
 						fixedNav.classList.remove("show");
+					}
+				}
+
+				// section-2のテキストアニメーション
+				const section2 = document.querySelector('.section-2');
+				const section2Text = document.querySelectorAll('.section-2 h2, .section-2 p');
+				
+				if (section2) {
+					const section2Top = section2.getBoundingClientRect().top;
+					const windowHeight = window.innerHeight;
+					
+					// section-2が画面の半分まで来たら表示
+					if (section2Top < windowHeight / 2) {
+						section2Text.forEach(el => {
+							el.classList.add('show');
+						});
 					}
 				}
 			});
