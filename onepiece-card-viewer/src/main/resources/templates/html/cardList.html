@@ -130,6 +130,13 @@
 										<option th:value="ST02">ST02</option>
 										<option th:value="ST03">ST03</option>
 										<option th:value="ST04">ST04</option>
+										<option th:value="ST05">ST05</option>
+										<option th:value="ST06">ST06</option>
+										<option th:value="ST07">ST07</option>
+										<option th:value="OP01">OP01</option>
+										<option th:value="OP02">OP02</option>
+										<option th:value="OP03">OP03</option>
+										<option th:value="OP04">OP04</option>
 									</select>
 								</div>
 							</div>
@@ -165,6 +172,7 @@
 									<div class="range-inputs">
 										<select th:field="*{minCardCostOrLife}">
 											<option value="">下限なし</option>
+											<option th:value="0">0</option>
 											<option th:value="1">1</option>
 											<option th:value="2">2</option>
 											<option th:value="3">3</option>
@@ -179,6 +187,7 @@
 										<span class="range-separator">〜</span>
 										<select th:field="*{maxCardCostOrLife}">
 											<option value="">上限なし</option>
+											<option th:value="0">0</option>
 											<option th:value="1">1</option>
 											<option th:value="2">2</option>
 											<option th:value="3">3</option>

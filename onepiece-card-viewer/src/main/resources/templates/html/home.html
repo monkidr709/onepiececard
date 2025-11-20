@@ -10,7 +10,7 @@
 
 <body>
 	<header class="hidden" th:replace="~{html/common/header :: layout-header}"></header>
-
+	
 	<!-- 固定ナビゲーションボタン（ページ最上部でのみ表示） -->
 	<nav id="fixed-nav" class="fixed-nav">
 		<a th:href="@{/card/list}" class="fixed-nav-link">カードリスト</a>
@@ -19,14 +19,14 @@
 		<a th:href="@{/setting}" class="fixed-nav-link">設定</a>
 		<a th:if="${session.role} == 'admin'" th:href="@{/admin/config}" class="fixed-nav-link admin-link">管理者設定</a>
 	</nav>
-
+	
 	<!-- スプラッシュ -->
 	<section id="splash-section">
 		<div id="splash-content">
 			<img th:src="@{/img/onepiececard_logo.png}" id="splash-logo">
 		</div>
 	</section>
-
+	
 	<main>
 		<!-- ホーム画面（最初は非表示） -->
 		<section id="home-section" class="hidden">
