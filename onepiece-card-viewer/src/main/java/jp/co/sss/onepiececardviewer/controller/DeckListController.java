@@ -34,7 +34,8 @@ public class DeckListController {
 	
 	@PostMapping("/change/deck/{id}")
 	public String changeDeck(HttpSession session, Model model, @PathVariable Integer id, 
-							 @RequestParam(required = false) String deckData, @RequestParam(required = false) Integer deckId, 
+							 @RequestParam(required = false) String deckData, 
+							 @RequestParam(required = false) Integer deckId, 
 							 RedirectAttributes redirectAttributes) {
 		String username = (String) session.getAttribute("username");
 		// セッションタイムアウト

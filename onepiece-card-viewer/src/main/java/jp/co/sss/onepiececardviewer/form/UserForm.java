@@ -5,6 +5,8 @@ public class UserForm {
 	private String username;
 	private String password;
 	private String role;
+	private String emailAddress;
+	private String telephoneNumber;
 
 	public Integer getId() {
 		return id;
@@ -36,6 +38,22 @@ public class UserForm {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
 	}
 
 }

@@ -39,7 +39,8 @@ public class CreateDeckController {
 	private ObjectMapper objectMapper;
 	
 	@RequestMapping(value = "/create/deck/{id}", method = {RequestMethod.GET, RequestMethod.POST})
-	public String createDeck(HttpSession session, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
+	public String createDeck(HttpSession session, Model model, @PathVariable Integer id, 
+							 @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
 		// セッションタイムアウト
 		if (username == null) {
@@ -74,7 +75,9 @@ public class CreateDeckController {
 	}
 	
 	@PostMapping("/create/deck/search/{id}")
-	public String searchCardListForCreatedDeck(HttpSession session, CardListForm form, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
+	public String searchCardListForCreatedDeck(HttpSession session, CardListForm form, 
+											   Model model, @PathVariable Integer id, 
+											   @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
 		// セッションタイムアウト
 		if (username == null) {

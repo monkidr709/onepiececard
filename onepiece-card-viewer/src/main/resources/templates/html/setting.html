@@ -10,9 +10,78 @@
 
 <body>
 	<header th:replace="~{html/common/header :: layout-header}"></header>
-	<main>
+	<div class="setting-container">
+		<aside class="setting-sidebar">
+			<h2>設定</h2>
+			<nav>
+				<ul>
+					<li><a href="#" data-section="profile" class="setting-menu-item active">プロフィール</a></li>
+					<li><a href="#" data-section="security" class="setting-menu-item">セキュリティ</a></li>
+					<li><a href="#" data-section="notifications" class="setting-menu-item">通知</a></li>
+					<li><a href="#" data-section="account" class="setting-menu-item">アカウント</a></li>
+				</ul>
+			</nav>
+		</aside>
 		
-	</main>
+		<main class="setting-content">
+			<div id="message-area"></div>
+			
+			<div id="content-area">
+				<h2>設定</h2>
+				<p>左側のメニューから項目を選択してください。</p>
+			</div>
+		</main>
+	</div>
+	
+	<script>
+		document.addEventListener('DOMCotentLoaded', function() {
+			const menuItems = document.querySelectorAll('.setting-menu-item');
+			const contentArea = document.getElementById('content-area');
+			const messageArea = document.getElementById('message-area');
+			
+			// メニュークリック処理
+			menuItems.forEach(item => {
+				item.addEventListener('click', function() {
+					e.preventDefault();
+					
+					// アクティブ状態を更新
+					menuItems.forEach(mi => mi.classList.remove('active'));
+					this.classList.add('active');
+					
+					const section = this.getAttribute('data-section');
+					loadSection(section);
+				});
+			});
+			
+			// セクションの読み込み
+			function loadSection(section) {
+				contentArea.style.opacity = '0.5';
+				
+				fetch('/setting/${section}')
+					.then(response => {
+						if (!response.ok) throw new Error('Network response was not ok');
+						return response.text();
+					})
+					.then(html => {
+						contentArea.innerHTML = html;
+						contentArea.style.opacity = '1';
+						
+						// フォーム送信イベントを再設定
+						setupFormHandlers();
+					})
+					.catch(error => {
+						console.error('Error:', error);
+						showMessage('エラーが発生しました', 'error');
+						contentArea.style.opacity = '1';
+					});
+			}
+			
+			// フォーム処理のセットアップ
+			function setupFormHandlers() {
+				
+			}
+		});
+	</script>
 </body>
 
 </html>

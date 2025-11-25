@@ -36,7 +36,8 @@ public class KeepDeckController {
 	private ObjectMapper objectMapper;
 	
 	@PostMapping("/confirm/deck/{id}")
-	public String confirmDeck(HttpSession session, Model model, @PathVariable Integer id, @RequestParam(required = false) String deckData) {
+	public String confirmDeck(HttpSession session, Model model, @PathVariable Integer id, 
+							  @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
 		// セッションタイムアウト
 		if (username == null) {
@@ -69,7 +70,9 @@ public class KeepDeckController {
 	}
 	
 	@PostMapping("/keep/deck/{id}")
-	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id, @RequestParam(required = false) String deckData, RedirectAttributes redirectAttributes) {
+	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id, 
+						   @RequestParam(required = false) String deckData, 
+						   RedirectAttributes redirectAttributes) {
 		String username = (String) session.getAttribute("username");
 		Integer userId = (Integer) session.getAttribute("userId");
 		Boolean changeDeck = (Boolean) session.getAttribute("changeDeck");

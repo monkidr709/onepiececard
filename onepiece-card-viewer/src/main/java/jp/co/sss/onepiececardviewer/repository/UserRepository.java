@@ -8,10 +8,7 @@ import jp.co.sss.onepiececardviewer.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
-	//ユーザー名でユーザー検索
-	Optional<User> findByUsername(String username);
-	
-	//ユーザー名とパスワードでユーザー検索
+	// ユーザー名とパスワードでユーザー検索
 	Optional<User> findByUsernameAndPassword(String username, String password);
 
 }

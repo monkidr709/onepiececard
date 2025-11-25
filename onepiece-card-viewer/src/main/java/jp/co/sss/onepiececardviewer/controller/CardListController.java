@@ -74,7 +74,8 @@ public class CardListController {
 			
 			return ResponseEntity.ok()
 								 .contentType(MediaType.parseMediaType(contentType))
-								 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+								 .header(HttpHeaders.CONTENT_DISPOSITION, 
+										 "inline; filename=\"" + resource.getFilename() + "\"")
 								 .body(resource);
 		} catch (IOException e) {
 			throw new RuntimeException("ファイルの読み込みエラー", e);

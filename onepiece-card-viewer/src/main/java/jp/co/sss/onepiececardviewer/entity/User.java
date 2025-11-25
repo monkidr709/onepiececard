@@ -15,14 +15,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column
+	@Column (name = "username")
 	private String username;
 
-	@Column
+	@Column (name = "password")
 	private String password;
 
-	@Column
+	@Column (name = "role")
 	private String role;
+	
+	@Column (name = "email_address")
+	private String emailAddress;
+	
+	@Column (name = "telephone_number")
+	private String telephoneNumber;
 
 	public Integer getId() {
 		return id;
@@ -54,5 +60,21 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
 	}
 }
