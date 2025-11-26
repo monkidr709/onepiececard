@@ -1,5 +1,7 @@
 package jp.co.sss.onepiececardviewer.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,12 @@ public class User {
 	
 	@Column (name = "telephone_number")
 	private String telephoneNumber;
+	
+	@Column (name = "deleted")
+	private boolean deleted;
+	
+	@Column (name = "deleted_at")
+	private LocalDate deletedAt;
 
 	public Integer getId() {
 		return id;
@@ -77,4 +85,21 @@ public class User {
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public LocalDate getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(LocalDate deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
 }

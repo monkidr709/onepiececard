@@ -15,10 +15,37 @@
 			<h2>設定</h2>
 			<nav>
 				<ul>
-					<li><a href="#" data-section="profile" class="setting-menu-item active">プロフィール</a></li>
-					<li><a href="#" data-section="security" class="setting-menu-item">セキュリティ</a></li>
-					<li><a href="#" data-section="notifications" class="setting-menu-item">通知</a></li>
-					<li><a href="#" data-section="account" class="setting-menu-item">アカウント</a></li>
+					<li>
+						<a href="#" data-section="account" class="setting-menu-item setting-menu-parent">
+							<span>アカウント</span>
+							<span class="menu-arrow">▼</span>
+						</a>
+						<div class="setting-submenu">
+							<a href="#" data-section="profile" class="setting-submenu-item active">プロフィール</a>
+							<a href="#" data-section="security" class="setting-submenu-item">セキュリティ</a>
+							<a href="#" data-section="privacy" class="setting-submenu-item">プライバシー</a>
+						</div>
+					</li>
+					<li>
+						<a href="#" data-section="notification" class="setting-menu-item setting-menu-parent">
+							<span>通知</span>
+							<span class="menu-arrow">▼</span>
+						</a>
+						<div class="setting-submenu">
+							<a href="#" data-section="pushNotifications" class="setting-submenu-item active">プッシュ通知</a>
+							<a href="#" data-section="emailNotifications" class="setting-submenu-item">メール通知</a>
+						</div>
+					</li>
+					<li>
+						<a href="#" data-section="display" class="setting-menu-item setting-menu-parent">
+							<span>表示</span>
+							<span class="menu-arrow">▼</span>
+						</a>
+						<div class="setting-submenu">
+							<a href="#" data-section="pushNotifications" class="setting-submenu-item active">色とフォント</a>
+						</div>
+					</li>
+					<li><a href="#" data-section="help" class="setting-menu-item">ヘルプ</a></li>
 				</ul>
 			</nav>
 		</aside>
@@ -34,18 +61,47 @@
 	</div>
 	
 	<script>
-		document.addEventListener('DOMCotentLoaded', function() {
-			const menuItems = document.querySelectorAll('.setting-menu-item');
+		document.addEventListener('DOMContentLoaded', function() {
+			const menuParents = document.querySelectorAll('.setting-menu-parent');
+			const submenuItems = document.querySelectorAll('.setting-submenu-item');
+			const regularMenuItems = document.querySelectorAll('.setting-menu-item:not(.setting-menu-parent)');
 			const contentArea = document.getElementById('content-area');
 			const messageArea = document.getElementById('message-area');
 			
-			// メニュークリック処理
-			menuItems.forEach(item => {
-				item.addEventListener('click', function() {
+			// 親メニュー(アコーディオン)のクリック処理
+			menuParents.forEach(parent => {
+				parent.addEventListener('click', function(e) {
 					e.preventDefault();
 					
-					// アクティブ状態を更新
-					menuItems.forEach(mi => mi.classList.remove('active'));
+					const submenu = this.nextElementSibling;
+					const isOpen = submenu.classList.contains('open');
+					
+					// 他のアコーディオンを閉じる
+					document.querySelectorAll('.setting-submenu').forEach(sm => {
+						sm.classList.remove('open');
+					});
+					document.querySelectorAll('.setting-menu-parent').forEach(mp => {
+						mp.classList.remove('open');
+					});
+					
+					// クリックされたアコーディオンを開閉
+					if (!isOpen) {
+						submenu.classList.add('open');
+						this.classList.add('open');
+					}
+				});
+			});
+			
+			// サブメニューのクリック処理
+			submenuItems.forEach(item => {
+				item.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					// 全てのアクティブ状態を削除
+					submenuItems.forEach(si => si.classList.remove('active'));
+					regularMenuItems.forEach(mi => mi.classList.remove('active'));
+					
+					// クリックされた項目をアクティブに
 					this.classList.add('active');
 					
 					const section = this.getAttribute('data-section');
@@ -53,11 +109,31 @@
 				});
 			});
 			
+			// 通常メニューのクリック処理
+			regularMenuItems.forEach(item => {
+				item.addEventListener('click', function(e) {
+					e.preventDefault();
+					
+					// アコーディオンメニューでない場合
+					if (!this.classList.contains('setting-menu-parent')) {
+						// 全てのアクティブ状態を削除
+						submenuItems.forEach(si => si.classList.remove('active'));
+						regularMenuItems.forEach(mi => mi.classList.remove('active'));
+						
+						// クリックされた項目をアクティブに
+						this.classList.add('active');
+						
+						const section = this.getAttribute('data-section');
+						loadSection(section);
+					}
+				});
+			});
+			
 			// セクションの読み込み
 			function loadSection(section) {
 				contentArea.style.opacity = '0.5';
 				
-				fetch('/setting/${section}')
+				fetch(`/setting/${section}`)
 					.then(response => {
 						if (!response.ok) throw new Error('Network response was not ok');
 						return response.text();
@@ -65,8 +141,6 @@
 					.then(html => {
 						contentArea.innerHTML = html;
 						contentArea.style.opacity = '1';
-						
-						// フォーム送信イベントを再設定
 						setupFormHandlers();
 					})
 					.catch(error => {
@@ -78,7 +152,52 @@
 			
 			// フォーム処理のセットアップ
 			function setupFormHandlers() {
+				const profileForm = document.getElementById('profileForm');
+				if (profileForm) {
+					profileForm.addEventListener('submit', handleProfileSubmit);
+				}
 				
+				const passwordForm = document.getElementById('passwordForm');
+				if (passwordForm) {
+					passwordForm.addEventListener('submit', handlePasswordSubmit);
+				}
+				
+				const notificationForm = document.getElementById('notificationForm');
+				if (notificationForm) {
+					notificationForm.addEventListener('submit', handleNotificationSubmit);
+				}
+			}
+			
+			// プロフィール送信
+			function handleProfileSubmit(e) {
+				e.preventDefault();
+				const formData = new FormData(e.target);
+				const username = document.getElementById('username').value;
+				
+				if (!username) {
+					showMessage('ユーザー名を入力して下さい', 'error');
+					return;
+				}
+				
+				fetch('/setting/profile', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => {
+					showMessage(data.message, data.status);
+				})
+				.catch(error => {
+					showMessage('保存に失敗しました', 'error');
+				});
+			}
+			
+			// メッセージ表示
+			function showMessage(text, type) {
+				messageArea.innerHTML = `<div class="message ${type}">${text}</div>`;
+				setTimeout(() => {
+					messageArea.innerHTML = '';
+				}, 3000);
 			}
 		});
 	</script>

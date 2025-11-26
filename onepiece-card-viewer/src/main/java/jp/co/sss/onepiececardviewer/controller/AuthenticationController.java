@@ -28,21 +28,28 @@ public class AuthenticationController {
 	
 	@PostMapping("/login")
 	public String login(UserForm form, HttpSession session, Model model) {
+		//ユーザー情報が未入力
+		if (form.getUsername().isEmpty() || form.getPassword().isEmpty()) {
+			model.addAttribute("error", "ユーザー名またはパスワードを入力してください");
+			return "html/login";
+		}
+		
 		//ユーザー検索
 		Optional<User> getFindByUsernameAndPassword = userService.getFindByUsernameAndPassword(form.getUsername(), form.getPassword());
 		
 		model.addAttribute("userForm", new UserForm());
 		
-		//ユーザー情報が未入力
-		if (getFindByUsernameAndPassword.isEmpty()) {
-			model.addAttribute("error", "ユーザー名またはパスワードを入力してください。");
-			return "html/login";
-		}
-		
 		//ユーザー認証
 		if (getFindByUsernameAndPassword.isPresent()) {
 			//認証成功
 			User user = getFindByUsernameAndPassword.get();
+			
+			if (user.isDeleted()) {
+				//認証失敗
+				model.addAttribute("error", "ユーザー名またはパスワードが正しくありません");
+				return "html/login";
+			}
+			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("username", user.getUsername());
 			session.setAttribute("role", user.getRole());

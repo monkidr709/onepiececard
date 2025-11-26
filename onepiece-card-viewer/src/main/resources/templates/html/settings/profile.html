@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8">
-</head>
-
 <body>
 	<div th:fragment="content">
 		<h2>プロフィール設定</h2>
-		
+		<form id="profileForm" th:object="${profile}" class="setting-form" novalidate>
+			<div class="setting-form-group">
+				<label for="username">ユーザー名</label>
+				<input type="text" id="username" name="username" class="setting-form-control" th:value="*{username}" required>
+				<small>*必須</small>
+			</div>
+			<div class="setting-form-group">
+				<label for="emailAddress">メールアドレス</label>
+				<input type="email" id="emailAddress" name="emailAddress" class="setting-form-control" th:value="*{emailAddress}" required>
+			</div>
+			<div class="setting-form-group">
+				<label for="telephoneNumber">電話番号</label>
+				<input type="tel" id="telephoneNumber" name="telephoneNumber" class="setting-form-control" th:value="*{telephoneNumber}" required>
+			</div>
+			<div class="setting-form-action">
+				<button type="submit" class="btn btn-primary">保存</button>
+			</div>
+		</form>
 	</div>
 </body>
 

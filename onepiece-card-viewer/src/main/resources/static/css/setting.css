@@ -1,1 +1,378 @@
 @charset "UTF-8";
+
+/* コンテナ全体 */
+.setting-container {
+	display: flex;
+	min-height: calc(100vh - 80px);
+	margin-top: 80px;
+	/* 固定ヘッダー分の上マージン */
+	background-color: #f5f5f5;
+}
+
+/* サイドバー */
+.setting-sidebar {
+	width: 250px;
+	background-color: #ffffff;
+	border-right: 1px solid #e0e0e0;
+	padding: 30px 0;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+	position: sticky;
+	top: 80px;
+	/* ヘッダーの高さ分下げる */
+	height: calc(100vh - 80px);
+	overflow-y: auto;
+	align-self: flex-start;
+}
+
+.setting-sidebar h2 {
+	font-size: 24px;
+	font-weight: 600;
+	color: #333;
+	padding: 0 30px 20px;
+	margin: 0;
+	border-bottom: 2px solid #f0f0f0;
+}
+
+.setting-sidebar nav {
+	margin-top: 10px;
+}
+
+.setting-sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.setting-sidebar li {
+	margin: 0;
+}
+
+.setting-menu-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 30px;
+	color: #666;
+	text-decoration: none;
+	font-size: 15px;
+	transition: all 0.3s ease;
+	border-left: 3px solid transparent;
+	cursor: pointer;
+}
+
+.setting-menu-item:hover {
+	background-color: #f8f9fa;
+	color: #333;
+}
+
+.setting-menu-item.active {
+	background-color: #f0f7ff;
+	color: #0066cc;
+	border-left-color: #0066cc;
+	font-weight: 500;
+}
+
+/* アコーディオン用スタイル */
+.setting-menu-parent {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.setting-menu-parent.open {
+	background-color: #f8f9fa;
+}
+
+.menu-arrow {
+	transition: transform 0.3s ease;
+	font-size: 12px;
+	color: #999;
+	margin-left: 10px;
+}
+
+.setting-menu-parent.open .menu-arrow {
+	transform: rotate(180deg);
+}
+
+.setting-submenu {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	background-color: #fafafa;
+}
+
+.setting-submenu.open {
+	max-height: 500px;
+}
+
+.setting-submenu-item {
+	display: block;
+	padding: 12px 30px 12px 50px;
+	color: #666;
+	text-decoration: none;
+	font-size: 14px;
+	transition: all 0.3s ease;
+	border-left: 3px solid transparent;
+	cursor: pointer;
+}
+
+.setting-submenu-item:hover {
+	background-color: #f0f0f0;
+	color: #333;
+}
+
+.setting-submenu-item.active {
+	background-color: #e8f4ff;
+	color: #0066cc;
+	border-left-color: #0066cc;
+	font-weight: 500;
+}
+
+/* メインコンテンツ */
+.setting-content {
+	flex: 1;
+	padding: 40px 60px;
+	max-width: 900px;
+}
+
+#message-area {
+	margin-bottom: 20px;
+	min-height: 20px;
+}
+
+#content-area {
+	background-color: #ffffff;
+	border-radius: 8px;
+	padding: 40px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: opacity 0.3s ease;
+}
+
+#content-area h2 {
+	font-size: 28px;
+	font-weight: 600;
+	color: #222;
+	margin: 0 0 30px 0;
+	padding-bottom: 15px;
+	border-bottom: 2px solid #f0f0f0;
+}
+
+#content-area>p {
+	color: #666;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+/* フォームスタイル */
+.setting-form {
+	max-width: 600px;
+}
+
+.setting-form-group {
+	margin-bottom: 25px;
+}
+
+.setting-form-group label {
+	display: block;
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 8px;
+}
+
+.setting-form-control {
+	width: 100%;
+	padding: 12px 15px;
+	font-size: 14px;
+	border: 1px solid #d0d0d0;
+	border-radius: 6px;
+	background-color: #ffffff;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+}
+
+.setting-form-control:focus {
+	outline: none;
+	border-color: #0066cc;
+	box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.setting-form-group small {
+	display: block;
+	margin-top: 6px;
+	font-size: 12px;
+	color: #999;
+}
+
+/* ボタン */
+.setting-form-action {
+	margin-top: 35px;
+	padding-top: 25px;
+	border-top: 1px solid #f0f0f0;
+}
+
+.btn {
+	padding: 12px 30px;
+	font-size: 15px;
+	font-weight: 500;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.btn-primary {
+	background-color: #0066cc;
+	color: #ffffff;
+}
+
+.btn-primary:hover {
+	background-color: #0052a3;
+	box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.btn-primary:active {
+	transform: translateY(1px);
+}
+
+/* メッセージエリア */
+.message {
+	padding: 15px 20px;
+	border-radius: 6px;
+	margin-bottom: 20px;
+	font-size: 14px;
+	animation: slideDown 0.3s ease;
+}
+
+.message.success {
+	background-color: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.message.error {
+	background-color: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+	.setting-container {
+		margin-top: 120px;
+		/* レスポンシブ時のヘッダー高さ調整 */
+		min-height: calc(100vh - 120px);
+	}
+
+	.setting-sidebar {
+		top: 120px;
+		height: calc(100vh - 120px);
+	}
+}
+
+@media (max-width: 768px) {
+	.setting-container {
+		flex-direction: column;
+		margin-top: 140px;
+		min-height: calc(100vh - 140px);
+	}
+
+	.setting-sidebar {
+		width: 100%;
+		border-right: none;
+		border-bottom: 1px solid #e0e0e0;
+		padding: 20px 0;
+		position: relative;
+		top: 0;
+		height: auto;
+	}
+
+	.setting-sidebar h2 {
+		padding: 0 20px 15px;
+	}
+
+	.setting-menu-item {
+		padding: 12px 20px;
+	}
+
+	.setting-submenu-item {
+		padding: 10px 20px 10px 40px;
+	}
+
+	.setting-content {
+		padding: 20px;
+	}
+
+	#content-area {
+		padding: 25px 20px;
+	}
+
+	#content-area h2 {
+		font-size: 24px;
+	}
+}
+
+@media (max-width: 480px) {
+	.setting-container {
+		margin-top: 160px;
+	}
+
+	.setting-sidebar h2 {
+		font-size: 20px;
+	}
+
+	.setting-menu-item {
+		font-size: 14px;
+		padding: 10px 15px;
+	}
+
+	.setting-submenu-item {
+		font-size: 13px;
+		padding: 8px 15px 8px 35px;
+	}
+
+	#content-area {
+		padding: 20px 15px;
+	}
+
+	#content-area h2 {
+		font-size: 20px;
+	}
+
+	.btn {
+		width: 100%;
+		padding: 14px;
+	}
+}
+
+/* サイドバーのスクロールバーカスタマイズ（オプション） */
+.setting-sidebar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.setting-sidebar::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+.setting-sidebar::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 3px;
+}
+
+.setting-sidebar::-webkit-scrollbar-thumb:hover {
+	background: #999;
+}

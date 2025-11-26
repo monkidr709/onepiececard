@@ -32,13 +32,13 @@ public class DeckList {
 	@Column (name = "deck_card_id")
 	private Integer[] deckCardId;
 	
-	@Column (name = "created_date")
+	@Column (name = "created_at")
 	private LocalDate createdDate;
 	
 	@Column (name = "deleted")
 	private boolean deleted;
 	
-	@Column (name = "deleted_date")
+	@Column (name = "deleted_at")
 	private LocalDate deletedDate;
 
 	public Integer getId() {

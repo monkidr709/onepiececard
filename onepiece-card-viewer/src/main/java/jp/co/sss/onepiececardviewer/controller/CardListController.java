@@ -2,15 +2,14 @@ package jp.co.sss.onepiececardviewer.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,8 +57,11 @@ public class CardListController {
 			CardList image = getCardListById.get();
 			
 			// IDに対応するimageFilePathをファイルパスに変換し、読み込む
-			Path filePath = Paths.get(image.getImageFilePath());
-			Resource resource = new UrlResource(filePath.toUri());
+//			Path filePath = Paths.get(image.getImageFilePath());
+//			Resource resource = new UrlResource(filePath.toUri());
+			
+			// クラスパスからの相対パスで読み込む
+			Resource resource = new ClassPathResource(image.getImageFilePath());
 			
 			// ファイルの存在と読み込み権限の確認
 			if (!resource.exists() || !resource.isReadable()) {
@@ -67,7 +69,7 @@ public class CardListController {
 			}
 			
 			// ファイルのContent-Typeを判定
-			String contentType = Files.probeContentType(filePath);
+			String contentType = Files.probeContentType(Paths.get(resource.getURI()));
 			if (contentType == null) {
 				contentType = "application/octet-stream";
 			}

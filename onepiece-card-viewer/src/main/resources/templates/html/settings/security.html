@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content">
+		<h2>セキュリティ設定</h2>
+		<div class="setting-section">
+			<h3>パスワード変更</h3>
+			<form id="passwordForm" class="setting-form" novalidate>
+				<div class="setting-form-group">
+					<label for="currentPassword">現在のパスワード</label>
+					<input type="password" id="currentPassword" name="currentPassword" class="setting-form-control" required>
+				</div>
+				<div class="setting-form-group">
+					<label for="newPassword">新しいパスワード</label>
+					<input type="password" id="newPassword" name="newPassword" class="setting-form-control" minlength="8" required>
+					<small>8文字以上、英数字を含む</small>
+				</div>
+				<div class="setting-form-group">
+					<label for="confirmPassword">新しいパスワード（確認）</label>
+					<input type="password" id="confirmPassword" name="confirmPassword" class="setting-form-control" required>
+				</div>
+				<div class="setting-form-action">
+					<button type="submit" class="btn btn-primary">保存</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

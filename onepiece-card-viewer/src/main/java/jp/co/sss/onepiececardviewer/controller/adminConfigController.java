@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class adminConfigController {
+public class AdminConfigController {
 	
 	@GetMapping("/admin/config")
 	public String adminConfig(HttpSession session) {
