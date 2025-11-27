@@ -157,11 +157,11 @@ main {
 .decklist-modal-content {
 	position: relative;
 	background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 250, 250, 0.95) 100%);
-	padding: 3rem;
-	border-radius: 25px;
-	max-width: 1400px;
-	width: 90%;
-	max-height: 95vh;
+	padding: 1.5rem;
+	border-radius: 20px;
+	max-width: 95vw;
+	width: auto;
+	max-height: 90vh;
 	overflow-y: auto;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 	animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -174,6 +174,7 @@ main {
 		opacity: 0;
 		transform: translateY(-80px) scale(0.9);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0) scale(1);
@@ -209,23 +210,23 @@ main {
 .decklist-modal-body {
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
-	padding-top: 20px;
+	gap: 0.8rem;
+	padding-top: 5px;
 }
 
 /* モーダル内デッキ名 */
 .decklist-modal-deck-name {
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 	background: linear-gradient(to right, rgba(142, 38, 57, 0.05) 0%, transparent 50%, rgba(142, 38, 57, 0.05) 100%);
-	border-radius: 15px;
-	border-left: 5px solid #8e2639;
-	border-right: 5px solid #8e2639;
+	border-radius: 12px;
+	border-left: 4px solid #8e2639;
+	border-right: 4px solid #8e2639;
 }
 
 .decklist-modal-deck-name p {
 	margin: 0;
-	font-size: 2.2rem;
+	font-size: 1.5rem;
 	font-weight: 700;
 	color: #8e2639;
 	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
@@ -235,58 +236,330 @@ main {
 /* モーダル内作成日 */
 .decklist-modal-deck-created-date {
 	text-align: center;
+	margin-bottom: 0.3rem;
 }
 
 .decklist-modal-deck-created-date p {
 	margin: 0;
-	font-size: 1.1rem;
+	font-size: 0.95rem;
 	color: #666;
 	font-weight: 600;
 }
 
+/* デッキとリーダーのコンテナ */
+.decklist-modal-deck-cards-wrapper {
+	display: grid;
+	grid-template-columns: 180px repeat(10, 70px);
+	grid-template-rows: repeat(5, auto);
+	gap: 0.3rem;
+	padding: 0.8rem;
+	background: linear-gradient(135deg, rgba(250, 250, 250, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%);
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	border: 2px solid rgba(142, 38, 57, 0.1);
+	justify-content: start;
+	align-items: start;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
 /* モーダル内リーダー画像 */
 .decklist-modal-deck-image-leader {
+	grid-column: 1;
+	grid-row: 1 / 6;
 	display: flex;
 	justify-content: center;
-	margin: 1rem 0;
+	align-items: flex-start;
 }
 
 .decklist-modal-deck-image-leader img {
-	width: 160px;
-	height: 224px;
+	width: 180px;
+	height: auto;
+	aspect-ratio: 5/7;
 	object-fit: cover;
-	border-radius: 12px;
-	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-	border: 3px solid rgba(142, 38, 57, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+	border: 3px solid rgba(142, 38, 57, 0.4);
 }
 
 /* モーダル内デッキカード画像エリア */
 .decklist-modal-deck-image-cards {
-	display: grid;
-	grid-template-columns: repeat(10, 1fr);
-	gap: 0.5rem;
-	padding: 1.5rem;
-	background: linear-gradient(135deg, rgba(250, 250, 250, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%);
-	border-radius: 15px;
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-	border: 2px solid rgba(142, 38, 57, 0.1);
+	grid-column: 1 / 12;
+	grid-row: 1 / 6;
+	display: contents;
 }
 
+/* デッキカードの配置 */
 .decklist-modal-deck-image-card {
 	width: 100%;
 	height: auto;
 	aspect-ratio: 5/7;
 	object-fit: cover;
-	border-radius: 6px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	transition: all 0.3s ease;
 	cursor: pointer;
 	border: 1px solid rgba(142, 38, 57, 0.1);
 }
 
+/* 1行目（リーダーの右）に10枚配置 */
+.decklist-modal-deck-image-card:nth-child(1) {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(2) {
+	grid-column: 3;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(3) {
+	grid-column: 4;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(4) {
+	grid-column: 5;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(5) {
+	grid-column: 6;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(6) {
+	grid-column: 7;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(7) {
+	grid-column: 8;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(8) {
+	grid-column: 9;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(9) {
+	grid-column: 10;
+	grid-row: 1;
+}
+
+.decklist-modal-deck-image-card:nth-child(10) {
+	grid-column: 11;
+	grid-row: 1;
+}
+
+/* 2行目 */
+.decklist-modal-deck-image-card:nth-child(11) {
+	grid-column: 2;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(12) {
+	grid-column: 3;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(13) {
+	grid-column: 4;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(14) {
+	grid-column: 5;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(15) {
+	grid-column: 6;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(16) {
+	grid-column: 7;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(17) {
+	grid-column: 8;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(18) {
+	grid-column: 9;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(19) {
+	grid-column: 10;
+	grid-row: 2;
+}
+
+.decklist-modal-deck-image-card:nth-child(20) {
+	grid-column: 11;
+	grid-row: 2;
+}
+
+/* 3行目 */
+.decklist-modal-deck-image-card:nth-child(21) {
+	grid-column: 2;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(22) {
+	grid-column: 3;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(23) {
+	grid-column: 4;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(24) {
+	grid-column: 5;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(25) {
+	grid-column: 6;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(26) {
+	grid-column: 7;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(27) {
+	grid-column: 8;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(28) {
+	grid-column: 9;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(29) {
+	grid-column: 10;
+	grid-row: 3;
+}
+
+.decklist-modal-deck-image-card:nth-child(30) {
+	grid-column: 11;
+	grid-row: 3;
+}
+
+/* 4行目 */
+.decklist-modal-deck-image-card:nth-child(31) {
+	grid-column: 2;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(32) {
+	grid-column: 3;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(33) {
+	grid-column: 4;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(34) {
+	grid-column: 5;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(35) {
+	grid-column: 6;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(36) {
+	grid-column: 7;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(37) {
+	grid-column: 8;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(38) {
+	grid-column: 9;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(39) {
+	grid-column: 10;
+	grid-row: 4;
+}
+
+.decklist-modal-deck-image-card:nth-child(40) {
+	grid-column: 11;
+	grid-row: 4;
+}
+
+/* 5行目 */
+.decklist-modal-deck-image-card:nth-child(41) {
+	grid-column: 2;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(42) {
+	grid-column: 3;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(43) {
+	grid-column: 4;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(44) {
+	grid-column: 5;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(45) {
+	grid-column: 6;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(46) {
+	grid-column: 7;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(47) {
+	grid-column: 8;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(48) {
+	grid-column: 9;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(49) {
+	grid-column: 10;
+	grid-row: 5;
+}
+
+.decklist-modal-deck-image-card:nth-child(50) {
+	grid-column: 11;
+	grid-row: 5;
+}
+
 .decklist-modal-deck-image-card:hover {
-	transform: scale(1.1) translateY(-5px);
-	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.4);
+	transform: scale(1.15);
+	box-shadow: 0 4px 15px rgba(142, 38, 57, 0.4);
 	z-index: 10;
 }
 
@@ -295,8 +568,8 @@ main {
 	display: flex;
 	justify-content: center;
 	gap: 1.5rem;
-	margin-top: 2rem;
-	padding-top: 1.5rem;
+	margin-top: 1rem;
+	padding-top: 1rem;
 	border-top: 3px solid rgba(142, 38, 57, 0.2);
 }
 
@@ -305,7 +578,7 @@ main {
 	max-width: 250px;
 }
 
-.decklist-modal-deck-change > button {
+.decklist-modal-deck-change>button {
 	flex: 1;
 	max-width: 250px;
 }
@@ -461,7 +734,7 @@ main {
 	}
 
 	.decklist-modal-deck-image-cards {
-		grid-template-columns: repeat(10, 1fr);
+		grid-template-columns: repeat(9, 1fr);
 	}
 }
 
@@ -511,14 +784,12 @@ main {
 	}
 
 	.decklist-modal-deck-image-leader img {
-		width: 160px;
-		height: 224px;
+		max-height: 240px;
 	}
 
 	.decklist-modal-deck-image-cards {
 		grid-template-columns: repeat(8, 1fr);
 		gap: 0.4rem;
-		padding: 1rem;
 	}
 }
 
@@ -549,21 +820,19 @@ main {
 	}
 
 	.decklist-modal-deck-image-leader img {
-		width: 160px;
-		height: 224px;
+		max-height: 200px;
 	}
 
 	.decklist-modal-deck-image-cards {
 		grid-template-columns: repeat(5, 1fr);
 		gap: 0.3rem;
-		padding: 0.8rem;
 	}
-	
+
 	.decklist-modal-deck-change {
 		flex-direction: column;
 		gap: 1rem;
 	}
-	
+
 	.decklist-modal-deck-change form {
 		max-width: 100%;
 	}

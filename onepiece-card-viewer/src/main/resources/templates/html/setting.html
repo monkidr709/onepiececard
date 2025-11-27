@@ -192,6 +192,35 @@
 				});
 			}
 			
+			// パスワード送信
+			function handlePasswordSubmit(e) {
+				e.preventDefault();
+				const newPassword = document.getElementById('newPassword').value;
+				const confirmPassword = document.getElementById('confirmPassword').value;
+				
+				if (newPassword !== confirmPassword) {
+					showMessage('パスワードが一致しません', 'error');
+					return;
+				}
+				
+				const formData = new FormData(e.target);
+				
+				fetch('/setting/security/password', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => {
+					showMessage(data.message, data.status);
+					if (data.status === 'success') {
+					    e.target.reset();
+					}
+				})
+				.catch(error => {
+					showMessage('更新に失敗しました', 'error');
+				});
+			}
+			
 			// メッセージ表示
 			function showMessage(text, type) {
 				messageArea.innerHTML = `<div class="message ${type}">${text}</div>`;

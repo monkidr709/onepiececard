@@ -51,7 +51,30 @@
 				    お使いのブラウザは動画タグをサポートしていません。
 				</video>
 			</div>
-			<div class="background-section section-4"></div>
+			<div class="background-section section-4">
+				<div class="news-container">
+					<h2 class="section-title">NEWS<span class="section-subtitle">最新情報</span></h2>
+					<div class="news-grid">
+						<div th:each="news : ${latestNews}" class="news-card">
+							<a th:href="@{/news/detail/{id}(id=${news.id})}" class="news-link">
+								<div class="news-image">
+									<img th:src="@{${news.imagePath}}" th:alt="NoImage">
+								</div>
+								<div class="news-content">
+									<div class="news-meta">
+										<span class="news-date" th:text="${#temporals.format(news.publishedDate, 'yyyy.MM.dd[金]')}"></span>
+										<span class="news-category" th:text="${news.category}"></span>
+									</div>
+									<h3 class="news-card-title" th:text="${news.title}"></h3>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="news-more">
+						<a th:href="@{/news/list}" class="news-more-btn">お知らせ一覧へ</a>
+					</div>
+				</div>
+			</div>
 		</section>
 	</main>
 	

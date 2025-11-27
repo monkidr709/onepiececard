@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.sss.onepiececardviewer.DTO.ResponseMessage;
@@ -64,6 +65,19 @@ public class SettingController {
 	@GetMapping("/security")
 	public String getSecurity() {
 		return "html/settings/security :: content";
+	}
+	
+	// パスワード変更
+	@PostMapping("/security/password")
+	@ResponseBody
+	public ResponseMessage changePassword(HttpSession session, @RequestParam String currentPassword, @RequestParam String newPassword) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		try {
+			settingService.changePassword(userId, currentPassword, newPassword);
+			return new ResponseMessage("success", "パスワードを更新しました");
+		} catch (Exception e) {
+			return new ResponseMessage("error", "パスワードの更新に失敗しました");
+		}
 	}
 
 }

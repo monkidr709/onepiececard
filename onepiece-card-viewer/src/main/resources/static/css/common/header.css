@@ -62,9 +62,52 @@ header a:focus {
 	margin: 0;
 	font-size: 1.8rem;
 	font-weight: bold;
-	letter-spacing: 1px;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-	color: white;
+}
+
+/* ネオン風ロゴスタイル */
+.logo-link {
+	font-family: 'Arial', sans-serif;
+	font-weight: 700;
+	color: #00f3ff;
+	text-shadow:
+		0 0 5px #00f3ff,
+		0 0 10px #00f3ff,
+		0 0 20px #00f3ff,
+		0 0 40px #ff00de,
+		0 0 80px #ff00de;
+	letter-spacing: 3px;
+	animation: neon-glow 1.5s ease-in-out infinite alternate;
+	transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+	color: #00f3ff;
+	text-shadow:
+		0 0 10px #00f3ff,
+		0 0 20px #00f3ff,
+		0 0 40px #00f3ff,
+		0 0 60px #ff00de,
+		0 0 100px #ff00de;
+}
+
+@keyframes neon-glow {
+	from {
+		text-shadow:
+			0 0 5px #00f3ff,
+			0 0 10px #00f3ff,
+			0 0 20px #00f3ff,
+			0 0 40px #ff00de,
+			0 0 80px #ff00de;
+	}
+
+	to {
+		text-shadow:
+			0 0 10px #00f3ff,
+			0 0 20px #00f3ff,
+			0 0 40px #00f3ff,
+			0 0 80px #ff00de,
+			0 0 160px #ff00de;
+	}
 }
 
 /* ナビゲーションメニュー */
@@ -175,6 +218,11 @@ header a:focus {
 
 	.header-title h1 {
 		font-size: 1.5rem;
+	}
+
+	.logo-link {
+		font-size: 1.5rem;
+		letter-spacing: 2px;
 	}
 
 	.nav-link {
