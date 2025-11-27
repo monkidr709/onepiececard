@@ -1,8 +1,13 @@
-create table users (
-    id INTEGER primary key,
-    username VARCHAR(50) not null,
-    password VARCHAR(50) not null,
-    role VARCHAR(50) not null
+create table public.users (
+  id integer not null
+  , username character varying(255) not null
+  , password character varying(255) not null
+  , role character varying(255) not null
+  , email_address character varying(255)
+  , telephone_number character varying(255)
+  , deleted boolean default false
+  , deleted_at date
+  , primary key (id)
 );
 
 create sequence seq_user CACHE 1 no maxvalue;
@@ -63,6 +68,19 @@ create table public.decks (
   , created_date date default CURRENT_DATE not null
   , deleted boolean
   , deleted_date date
+  , primary key (id)
+);
+
+create table public.news (
+  id bigint not null
+  , title character varying(200) not null
+  , category character varying(50) not null
+  , image_path character varying(255)
+  , content text not null
+  , created_at date default CURRENT_DATE not null
+  , updated_at date
+  , published_date date not null
+  , is_published boolean default true
   , primary key (id)
 );
 
