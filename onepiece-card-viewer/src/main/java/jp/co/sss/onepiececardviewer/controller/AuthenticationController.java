@@ -56,8 +56,9 @@ public class AuthenticationController {
 				session.setAttribute("userId", user.getId());
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("role", user.getRole());
-				//セッションタイムアウトを設定 (3600秒)
-				session.setMaxInactiveInterval(3600);
+				session.setAttribute("showSplash", true);
+				//セッションタイムアウトを設定 (86400秒)
+				session.setMaxInactiveInterval(86400);
 				return "redirect:/home";
 			} else {
 				//認証失敗

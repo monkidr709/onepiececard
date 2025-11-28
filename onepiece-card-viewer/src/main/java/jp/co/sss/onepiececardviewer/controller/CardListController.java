@@ -1,17 +1,11 @@
 package jp.co.sss.onepiececardviewer.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +19,7 @@ import jp.co.sss.onepiececardviewer.DTO.CardListSearchCriteria;
 import jp.co.sss.onepiececardviewer.entity.CardList;
 import jp.co.sss.onepiececardviewer.form.CardListForm;
 import jp.co.sss.onepiececardviewer.service.CardListService;
+import jp.co.sss.onepiececardviewer.service.ImagePathService;
 
 @Controller
 @RequestMapping("/card/list")
@@ -32,6 +27,9 @@ public class CardListController {
 	
 	@Autowired
 	private CardListService cardListService;
+	
+	@Autowired
+	private ImagePathService imagePathService;
 	
 	// カードリスト画面へ遷移
 	@GetMapping
@@ -51,37 +49,11 @@ public class CardListController {
 	@GetMapping("/file/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> getImageFile(@PathVariable Integer id) {
-		try {
-			// ID検索
-			Optional<CardList> getCardListById = cardListService.getCardListById(id);
-			CardList image = getCardListById.get();
+		// ID検索
+		Optional<CardList> getCardListById = cardListService.getCardListById(id);
+		CardList image = getCardListById.get();
 			
-			// IDに対応するimageFilePathをファイルパスに変換し、読み込む
-//			Path filePath = Paths.get(image.getImageFilePath());
-//			Resource resource = new UrlResource(filePath.toUri());
-			
-			// クラスパスからの相対パスで読み込む
-			Resource resource = new ClassPathResource(image.getImageFilePath());
-			
-			// ファイルの存在と読み込み権限の確認
-			if (!resource.exists() || !resource.isReadable()) {
-				throw new RuntimeException("ファイルが読み込めません");
-			}
-			
-			// ファイルのContent-Typeを判定
-			String contentType = Files.probeContentType(Paths.get(resource.getURI()));
-			if (contentType == null) {
-				contentType = "application/octet-stream";
-			}
-			
-			return ResponseEntity.ok()
-								 .contentType(MediaType.parseMediaType(contentType))
-								 .header(HttpHeaders.CONTENT_DISPOSITION, 
-										 "inline; filename=\"" + resource.getFilename() + "\"")
-								 .body(resource);
-		} catch (IOException e) {
-			throw new RuntimeException("ファイルの読み込みエラー", e);
-		}
+		return imagePathService.loadImageAsResponse(image.getImageFilePath());
 	}
 	
 	// 動的な複数の列による条件検索

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>お知らせ一覧</title>
+	<link rel="stylesheet" th:href="@{/css/newsList.css}">
+	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+</head>
+
+<body>
+	<header class="hidden" th:replace="~{html/common/header :: layout-header}"></header>
+	
+	<main>
+		<div class="news-container">
+			<h1 class="news-title">NEWS<span class="news-subtitle">情報</span></h1>
+			
+			<!-- カテゴリフィルター -->
+			<div class="category-filter">
+				<a th:href="@{/news/list}" 
+				   th:classappend="${selectedCategory == null} ? 'active' : ''" 
+				   class="category-btn">すべて</a>
+				<a th:href="@{/news/list(category='お知らせ')}" 
+				   th:classappend="${selectedCategory == 'お知らせ'} ? 'active' : ''" 
+				   class="category-btn">お知らせ</a>
+				<a th:href="@{/news/list(category='カード・デッキ')}" 
+				   th:classappend="${selectedCategory == 'カード・デッキ'} ? 'active' : ''" 
+				   class="category-btn">カード・デッキ</a>
+				<a th:href="@{/news/list(category='機能紹介')}" 
+				   th:classappend="${selectedCategory == '機能紹介'} ? 'active' : ''" 
+				   class="category-btn">商品情報</a>
+			</div>
+			
+			<!-- ニュース一覧 -->
+			<div class="news-grid">
+				<div th:each="news : ${newsList}" class="news-card">
+					<a th:href="@{/news/detail/{id}(id=${news.id})}" class="news-link">
+						<div class="news-image">
+							<img th:src="@{/file/news/{id}(id=${news.id})}" th:alt="NoImage">
+						</div>
+						<div class="news-content">
+							<div class="news-meta">
+								<span class="news-date" th:text="${#temporals.format(news.publishedDate, 'yyyy.MM.dd[金]')}"></span>
+								<span class="news-category" th:text="${news.category}"></span>
+							</div>
+							<h2 class="news-card-title" th:text="${news.title}"></h2>
+						</div>
+					</a>
+				</div>
+			</div>
+			
+			<!-- ニュースが0件の場合 -->
+			<div th:if="${#lists.isEmpty(newsList)}" class="no-news">
+				<p>現在、表示できるニュースはありません。</p>
+			</div>
+		</div>>
+	</main>
+</body>
+
+</html>

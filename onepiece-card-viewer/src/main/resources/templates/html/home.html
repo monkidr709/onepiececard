@@ -20,16 +20,16 @@
 		<a th:if="${session.role} == 'admin'" th:href="@{/admin/config}" class="fixed-nav-link admin-link">管理者設定</a>
 	</nav>
 	
-	<!-- スプラッシュ -->
-	<section id="splash-section">
+	<!-- スプラッシュ（初回ログイン時のみ表示） -->
+	<section id="splash-section" th:classappend="${showSplash} ? '' : 'hidden'">
 		<div id="splash-content">
 			<img th:src="@{/img/onepiececard_logo.png}" id="splash-logo">
 		</div>
 	</section>
 	
 	<main>
-		<!-- ホーム画面（最初は非表示） -->
-		<section id="home-section" class="hidden">
+		<!-- ホーム画面 -->
+		<section id="home-section" th:classappend="${showSplash} ? 'hidden' : ''">
 			<div class="background-section section-1"></div>
 			<div class="background-section section-2">
 				<h2>我々は、挑み続ける。</h2>
@@ -58,11 +58,11 @@
 						<div th:each="news : ${latestNews}" class="news-card">
 							<a th:href="@{/news/detail/{id}(id=${news.id})}" class="news-link">
 								<div class="news-image">
-									<img th:src="@{${news.imagePath}}" th:alt="NoImage">
+									<img th:src="@{/file/news/{id}(id=${news.id})}" th:alt="NoImage">
 								</div>
 								<div class="news-content">
 									<div class="news-meta">
-										<span class="news-date" th:text="${#temporals.format(news.publishedDate, 'yyyy.MM.dd[金]')}"></span>
+										<span class="news-date" th:text="${#temporals.format(news.publishedDate, 'yyyy.MM.dd')}"></span>
 										<span class="news-category" th:text="${news.category}"></span>
 									</div>
 									<h3 class="news-card-title" th:text="${news.title}"></h3>
@@ -75,53 +75,75 @@
 					</div>
 				</div>
 			</div>
+			<div class="background-section section-5">
+				
+			</div>
 		</section>
 	</main>
 	
-	<script>
+	<script th:inline="javascript">
 		document.addEventListener("DOMContentLoaded", () => {
 			const header = document.querySelector("header");
 			const fixedNav = document.getElementById("fixed-nav");
 			const scrollThreshold = 50;
+			const showSplash = /*[[${showSplash}]]*/ false;
 			
-			// スプラッシュ表示中はスクロールを無効化
-			document.body.style.overflow = "hidden";
-			
-			// ロゴのアニメーションが終わるころに実行（3秒に延長）
-			setTimeout(() => {
-				const splash = document.getElementById("splash-section");
-				const home = document.getElementById("home-section");
+			if (showSplash) {
+				// スプラッシュ表示中はスクロールを無効化
+				document.body.style.overflow = "hidden";
 				
-				// スプラッシュ画面をフェードアウト
-				splash.style.opacity = "0";
-				splash.style.transition = "opacity 0.5s ease";
-				
-				// スプラッシュ画面を完全に非表示にしてからホーム画面を表示
+				// ロゴのアニメーションが終わるころに実行（3秒）
 				setTimeout(() => {
-					splash.style.display = "none";
+					const splash = document.getElementById("splash-section");
+					const home = document.getElementById("home-section");
 					
-					// スクロールを再度有効化
-					document.body.style.overflow = "auto";
+					// スプラッシュ画面をフェードアウト
+					splash.style.opacity = "0";
+					splash.style.transition = "opacity 0.5s ease";
 					
-					// ヘッダーを表示可能にする（最初は非表示状態）
-					if (header) {
-						header.classList.remove("hidden");
-						header.classList.add("header-hidden");
-					}
-					home.classList.remove("hidden");
-					
-					// 固定ナビゲーションを表示
-					if (fixedNav) {
-						fixedNav.classList.add("show");
-					}
-					
-					// 次のタイミングでホーム画面をフェードイン
+					// スプラッシュ画面を完全に非表示にしてからホーム画面を表示
 					setTimeout(() => {
-						home.classList.add("show");
-					}, 10);
-				}, 500);
+						splash.style.display = "none";
+						
+						// スクロールを再度有効化
+						document.body.style.overflow = "auto";
+						
+						// ヘッダーを表示可能にする（最初は非表示状態）
+						if (header) {
+							header.classList.remove("hidden");
+							header.classList.add("header-hidden");
+						}
+						home.classList.remove("hidden");
+						
+						// 固定ナビゲーションを表示
+						if (fixedNav) {
+							fixedNav.classList.add("show");
+						}
+						
+						// 次のタイミングでホーム画面をフェードイン
+						setTimeout(() => {
+							home.classList.add("show");
+						}, 10);
+					}, 500);
+					
+				}, 3000);
+			} else {
+				// スプラッシュなしの場合は即座に表示
+				const home = document.getElementById("home-section");
+				document.body.style.overflow = "auto";
 				
-			}, 3000);
+				if (header) {
+					header.classList.remove("hidden");
+					header.classList.add("header-hidden");
+				}
+				
+				home.classList.remove("hidden");
+				home.classList.add("show");
+				
+				if (fixedNav) {
+					fixedNav.classList.add("show");
+				}
+			}
 			
 			// スクロールに応じてヘッダーと固定ナビゲーションの表示/非表示を切り替え
 			window.addEventListener("scroll", () => {

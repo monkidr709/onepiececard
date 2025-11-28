@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${news.title}">ニュース詳細</title>
+	<link rel="stylesheet" th:href="@{/css/newsDetail.css}">
+	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+</head>
+
+<body>
+	<header th:replace="~{html/common/header :: layout-header}"></header>
+	
+	<main>
+		<div class="detail-container">
+			<div class="detail-header">
+				<div class="detail-meta">
+					<span class="detail-date" th:text="${#temporals.format(news.publishedDate, 'yyyy.MM.dd')}"></span>
+					<span class="detail-category" th:text="${news.category}"></span>
+				</div>
+				<h1 class="detail-title" th:text="${news.title}"></h1>
+			</div>
+			
+			<div class="detail-image" th:if="${news.imagePath}">
+				<img th:src="@{/file/news/{id}(id=${news.id})}" th:alt="NoImage">
+			</div>
+			
+			<div class="detail-content">
+				<div th:utext="${#strings.replace(#strings.replace(news.content, '&#10;', '&lt;br&gt;'), '&#13;', '')}"></div>
+			</div>
+			
+			<div class="detail-actions">
+				<a th:href="@{/news/list}" class="back-btn">一覧に戻る</a>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>>
