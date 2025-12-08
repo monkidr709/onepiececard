@@ -48,7 +48,7 @@ public class CardList {
 	@Column (name = "card_features")
 	private String cardFeatures;
 	
-	@Column (name = "card_attribute")
+	@Column (name = "card_attribute_1")
 	private String cardAttribute;
 	
 	@Column (name = "card_counter")

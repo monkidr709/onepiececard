@@ -1,7 +1,6 @@
 package jp.co.sss.onepiececardviewer.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,17 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import jp.co.sss.onepiececardviewer.DTO.CardListSearchCriteria;
 import jp.co.sss.onepiececardviewer.entity.CardList;
 import jp.co.sss.onepiececardviewer.form.CardListForm;
 import jp.co.sss.onepiececardviewer.service.CardListService;
-import jp.co.sss.onepiececardviewer.service.CreateDeckService;
+//import jp.co.sss.onepiececardviewer.service.CreateDeckService;
 
 @Controller
 public class CreateDeckController {
 	
-	@Autowired
-	private CreateDeckService createDeckService;
+//	@Autowired
+//	private CreateDeckService createDeckService;
 	
 	@Autowired
 	private CardListService cardListService;
@@ -63,14 +61,14 @@ public class CreateDeckController {
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList leaderCard = getCardListById.orElse(null);
 		
-		CardListSearchCriteria criteria = new CardListSearchCriteria();
-		List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
-		criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
-		criteria.setCardType(cardTypeForCreateDeck);
+//		CardListSearchCriteria criteria = new CardListSearchCriteria();
+//		List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
+//		criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
+//		criteria.setCardType(cardTypeForCreateDeck);
 		
 		model.addAttribute("cardListForm", new CardListForm());
 		model.addAttribute("leaderCard", leaderCard);
-		model.addAttribute("cardListForCreateDecks", cardListService.cardListSearch(criteria));
+		model.addAttribute("cardListForCreateDecks", cardListService.cardListSearch(new CardListForm(), leaderCard));
 		return "html/createDeck";
 	}
 	
@@ -100,51 +98,51 @@ public class CreateDeckController {
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList leaderCard = getCardListById.orElse(null);
 		
-		CardListSearchCriteria criteria = new CardListSearchCriteria();
-		criteria.setCardName(form.getCardName());
-		if (form.getCardColor().isEmpty()) {
-			criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
-		} else {
-			criteria.setCardColor(form.getCardColor());
-		}
-		if (form.getCardType().isEmpty()) {
-			List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
-			criteria.setCardType(cardTypeForCreateDeck);
-		} else {
-			criteria.setCardType(form.getCardType());
-		}
-		criteria.setCardPack(form.getCardPack());
-		criteria.setMinCardBlockIcon(form.getMinCardBlockIcon());
-		criteria.setMaxCardBlockIcon(form.getMaxCardBlockIcon());
-		criteria.setCardRarity(form.getCardRarity());
-		criteria.setMinCardCostOrLife(form.getMinCardCostOrLife());
-		criteria.setMaxCardCostOrLife(form.getMaxCardCostOrLife());
-		criteria.setMinCardPower(form.getMinCardPower());
-		criteria.setMaxCardPower(form.getMaxCardPower());
-		criteria.setCardFeatures(form.getCardFeatures());
-		criteria.setCardAttribute(form.getCardAttribute());
-		criteria.setCardCounter(form.getCardCounter());
-		criteria.setCardText(form.getCardText());
-		criteria.setCardTrigger(form.isCardTrigger());
-		criteria.setCardTriggerText(form.getCardTriggerText());
-		criteria.setCardAppearance(form.isCardAppearance());
-		criteria.setCardLaunchMain(form.isCardLaunchMain());
-		criteria.setCardAttack(form.isCardAttack());
-		criteria.setCardKO(form.isCardKO());
-		criteria.setCardBlock(form.isCardBlock());
-		criteria.setCardDuringYourTurn(form.isCardDuringYourTurn());
-		criteria.setCardDuringOpponentTurn(form.isCardDuringOpponentTurn());
-		criteria.setCardYourTurnEnd(form.isCardYourTurnEnd());
-		criteria.setCardMain(form.isCardMain());
-		criteria.setCardEventCounter(form.isCardEventCounter());
-		criteria.setCardOneTurn(form.isCardOneTurn());
-		criteria.setCardDonHang(form.isCardDonHang());
-		criteria.setCardDonUse(form.isCardDonUse());
-		criteria.setCardDonMinus(form.isCardDonMinus());
-		criteria.setCardBlocker(form.isCardBlocker());
-		criteria.setCardHaste(form.isCardHaste());
-		criteria.setCardDoubleAttack(form.isCardDoubleAttack());
-		criteria.setCardVanish(form.isCardVanish());
+//		CardListSearchCriteria criteria = new CardListSearchCriteria();
+//		criteria.setCardName(form.getCardName());
+//		if (form.getCardColor().isEmpty()) {
+//			criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
+//		} else {
+//			criteria.setCardColor(form.getCardColor());
+//		}
+//		if (form.getCardType().isEmpty()) {
+//			List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
+//			criteria.setCardType(cardTypeForCreateDeck);
+//		} else {
+//			criteria.setCardType(form.getCardType());
+//		}
+//		criteria.setCardPack(form.getCardPack());
+//		criteria.setMinCardBlockIcon(form.getMinCardBlockIcon());
+//		criteria.setMaxCardBlockIcon(form.getMaxCardBlockIcon());
+//		criteria.setCardRarity(form.getCardRarity());
+//		criteria.setMinCardCostOrLife(form.getMinCardCostOrLife());
+//		criteria.setMaxCardCostOrLife(form.getMaxCardCostOrLife());
+//		criteria.setMinCardPower(form.getMinCardPower());
+//		criteria.setMaxCardPower(form.getMaxCardPower());
+//		criteria.setCardFeatures(form.getCardFeatures());
+//		criteria.setCardAttribute(form.getCardAttribute());
+//		criteria.setCardCounter(form.getCardCounter());
+//		criteria.setCardText(form.getCardText());
+//		criteria.setCardTrigger(form.isCardTrigger());
+//		criteria.setCardTriggerText(form.getCardTriggerText());
+//		criteria.setCardAppearance(form.isCardAppearance());
+//		criteria.setCardLaunchMain(form.isCardLaunchMain());
+//		criteria.setCardAttack(form.isCardAttack());
+//		criteria.setCardKO(form.isCardKO());
+//		criteria.setCardBlock(form.isCardBlock());
+//		criteria.setCardDuringYourTurn(form.isCardDuringYourTurn());
+//		criteria.setCardDuringOpponentTurn(form.isCardDuringOpponentTurn());
+//		criteria.setCardYourTurnEnd(form.isCardYourTurnEnd());
+//		criteria.setCardMain(form.isCardMain());
+//		criteria.setCardEventCounter(form.isCardEventCounter());
+//		criteria.setCardOneTurn(form.isCardOneTurn());
+//		criteria.setCardDonHang(form.isCardDonHang());
+//		criteria.setCardDonUse(form.isCardDonUse());
+//		criteria.setCardDonMinus(form.isCardDonMinus());
+//		criteria.setCardBlocker(form.isCardBlocker());
+//		criteria.setCardHaste(form.isCardHaste());
+//		criteria.setCardDoubleAttack(form.isCardDoubleAttack());
+//		criteria.setCardVanish(form.isCardVanish());
 		
 		// デッキ情報をセッションから取得
 		@SuppressWarnings("unchecked")
@@ -155,7 +153,7 @@ public class CreateDeckController {
 		
 		model.addAttribute("cardListForm", form);
 		model.addAttribute("leaderCard", leaderCard);
-		model.addAttribute("cardListForCreateDecks", cardListService.cardListSearch(criteria));
+		model.addAttribute("cardListForCreateDecks", cardListService.cardListSearch(form, leaderCard));
 		model.addAttribute("deckCards", deckCards);
 		return "html/createDeck";
 	}
