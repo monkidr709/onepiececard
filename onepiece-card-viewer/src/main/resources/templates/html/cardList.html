@@ -37,30 +37,12 @@
 								<div class="search-field">
 									<label class="field-label">色</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="赤" />
-											<span class="checkbox-text">赤</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="緑" />
-											<span class="checkbox-text">緑</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="青" />
-											<span class="checkbox-text">青</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="紫" />
-											<span class="checkbox-text">紫</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="黒" />
-											<span class="checkbox-text">黒</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardColor}" th:value="黄" />
-											<span class="checkbox-text">黄</span>
-										</label>
+										<th:block th:each="color : ${T(jp.co.sss.onepiececardviewer.enums.CardColor).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardColor}" th:value="${color}" />
+												<span class="checkbox-text" th:text="${color}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -69,22 +51,12 @@
 								<div class="search-field">
 									<label class="field-label">種類</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="リーダー" />
-											<span class="checkbox-text">リーダー</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="キャラ" />
-											<span class="checkbox-text">キャラ</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="イベント" />
-											<span class="checkbox-text">イベント</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="ステージ" />
-											<span class="checkbox-text">ステージ</span>
-										</label>
+										<th:block th:each="type : ${T(jp.co.sss.onepiececardviewer.enums.CardType).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardType}" th:value="${type}" />
+												<span class="checkbox-text" th:text="${type}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -93,30 +65,12 @@
 								<div class="search-field">
 									<label class="field-label">レアリティ</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="L" />
-											<span class="checkbox-text">L</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="C" />
-											<span class="checkbox-text">C</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />
-											<span class="checkbox-text">UC</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="R" />
-											<span class="checkbox-text">R</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />
-											<span class="checkbox-text">SR</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />
-											<span class="checkbox-text">SEC</span>
-										</label>
+										<th:block th:each="rarity : ${T(jp.co.sss.onepiececardviewer.enums.CardRarity).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardRarity}" th:value="${rarity}" />
+												<span class="checkbox-text" th:text="${rarity}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -126,17 +80,10 @@
 									<label class="field-label">収録パック</label>
 									<select th:field="*{cardPack}">
 										<option value="">すべて</option>
-										<option th:value="ST01">ST01</option>
-										<option th:value="ST02">ST02</option>
-										<option th:value="ST03">ST03</option>
-										<option th:value="ST04">ST04</option>
-										<option th:value="ST05">ST05</option>
-										<option th:value="ST06">ST06</option>
-										<option th:value="ST07">ST07</option>
-										<option th:value="OP01">OP01</option>
-										<option th:value="OP02">OP02</option>
-										<option th:value="OP03">OP03</option>
-										<option th:value="OP04">OP04</option>
+										<option th:each="pack : ${T(jp.co.sss.onepiececardviewer.enums.CardPack).values()}"
+												th:value="${pack}"
+												th:text="${pack.displayName}">
+										</option>
 									</select>
 								</div>
 							</div>

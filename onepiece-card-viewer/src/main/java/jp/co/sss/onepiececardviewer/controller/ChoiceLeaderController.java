@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import jp.co.sss.onepiececardviewer.form.CardListForm;
-import jp.co.sss.onepiececardviewer.service.CreateDeckService;
+import jp.co.sss.onepiececardviewer.service.CardListService;
 
 @Controller
 public class ChoiceLeaderController {
 	
 	@Autowired
-	private CreateDeckService createDeckService;
+	private CardListService cardListService;
 	
 	//リーダー選択画面へ遷移
 	@GetMapping("/choice/leader")
@@ -25,7 +25,7 @@ public class ChoiceLeaderController {
 		if (username == null) {
 			return "redirect:/login";
 		}
-		model.addAttribute("leaderImages", createDeckService.getCardListByCardTypeLeader());
+		model.addAttribute("leaderImages", cardListService.getCardListByCardTypeLeader());
 		model.addAttribute("cardListForm", new CardListForm());
 		return "html/choiceLeader";
 	}

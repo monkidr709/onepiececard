@@ -27,6 +27,11 @@ public class CardListService {
 		return cardListRepository.findAllByOrderByIdAsc();
 	}
 	
+	// cardTypeがリーダーであるものの抽出
+	public List<CardList> getCardListByCardTypeLeader() {
+		return cardListRepository.findByCardTypeOrderByIdAsc("リーダー");
+	}
+	
 	// 主キー検索
 	public Optional<CardList> getCardListById(Integer id){
 		return cardListRepository.findById(id);
@@ -52,6 +57,7 @@ public class CardListService {
 		return leaderCardColors;
 	}
 	
+	// CardListFormをCardListSearchCriteriaにマッピング
 	private CardListSearchCriteria mapFormToCriteria(CardListForm form, CardList leaderCard) {
 		CardListSearchCriteria criteria = new CardListSearchCriteria();
 		

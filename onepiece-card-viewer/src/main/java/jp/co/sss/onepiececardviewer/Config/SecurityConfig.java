@@ -1,4 +1,4 @@
-package jp.co.sss.onepiececardviewer.Config;
+package jp.co.sss.onepiececardviewer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

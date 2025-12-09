@@ -1,11 +1,15 @@
 package jp.co.sss.onepiececardviewer.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import jp.co.sss.onepiececardviewer.converter.CardPackConverter;
+import jp.co.sss.onepiececardviewer.enums.CardPack;
 
 @Entity
 @Table(name = "cards")
@@ -30,8 +34,9 @@ public class CardList {
 	@Column (name = "card_type")
 	private String cardType;
 	
+	@Convert(converter = CardPackConverter.class)
 	@Column (name = "card_pack")
-	private String cardPack;
+	private CardPack cardPack;
 	
 	@Column (name = "card_block_icon")
 	private Integer cardBlockIcon;
@@ -167,12 +172,12 @@ public class CardList {
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
-
-	public String getCardPack() {
+	
+	public CardPack getCardPack() {
 		return cardPack;
 	}
 
-	public void setCardPack(String cardPack) {
+	public void setCardPack(CardPack cardPack) {
 		this.cardPack = cardPack;
 	}
 
