@@ -119,32 +119,16 @@
 									<div class="range-inputs">
 										<select th:field="*{minCardCostOrLife}">
 											<option value="">下限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
-											<option th:value="5">5</option>
-											<option th:value="6">6</option>
-											<option th:value="7">7</option>
-											<option th:value="8">8</option>
-											<option th:value="9">9</option>
-											<option th:value="10">10</option>
+											<option th:each="num : ${#numbers.sequence(0,10)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 										<span class="range-separator">〜</span>
 										<select th:field="*{maxCardCostOrLife}">
 											<option value="">上限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
-											<option th:value="5">5</option>
-											<option th:value="6">6</option>
-											<option th:value="7">7</option>
-											<option th:value="8">8</option>
-											<option th:value="9">9</option>
-											<option th:value="10">10</option>
+											<option th:each="num : ${#numbers.sequence(0,10)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 									</div>
 								</div>
@@ -379,13 +363,13 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="search-actions">
 							<button type="submit" class="search-submit-btn">検索する</button>
 						</div>
 					</div>
 				</form>
 			</div>
+			
 			<div class="cardlist-image-grid">
 				<div class="cardlist-image-card" th:each="image : ${images}">
 					<a href="javascript:void(0);" th:attr="data-id=${image.id}" onclick="openCardModal(this.dataset.id)">
