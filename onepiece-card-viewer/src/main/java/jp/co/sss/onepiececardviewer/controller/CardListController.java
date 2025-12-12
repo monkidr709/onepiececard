@@ -30,7 +30,12 @@ public class CardListController {
 	@Autowired
 	private ImagePathService imagePathService;
 	
-	// カードリスト画面へ遷移
+	/**
+	 * カードリスト表示
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping
 	public String cardList(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
@@ -44,18 +49,28 @@ public class CardListController {
 		return "html/cardList";
 	}
 	
-	// 画像ファイルを返すエンドファイル
+	/**
+	 * 画像ファイルの取得
+	 * @param id
+	 * @return　画像ファイルをレスポンスとして返す
+	 */
 	@GetMapping("/file/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> getImageFile(@PathVariable Integer id) {
 		// ID検索
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList image = getCardListById.get();
-			
+		
 		return imagePathService.loadImageAsResponse(image.getImageFilePath());
 	}
 	
-	// 動的な複数の列による条件検索
+	/**
+	 * 動的な複数の列による条件検索
+	 * @param session
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/search")
 	public String searchCards(HttpSession session, CardListForm form, Model model) {
 		String username = (String) session.getAttribute("username");
@@ -64,50 +79,16 @@ public class CardListController {
 			return "redirect:/login";
 		}
 		
-//		CardListSearchCriteria criteria = new CardListSearchCriteria();
-//		criteria.setCardName(form.getCardName());
-//		criteria.setCardColor(form.getCardColor());
-//		criteria.setCardType(form.getCardType());
-//		criteria.setCardPack(form.getCardPack());
-//		criteria.setMinCardBlockIcon(form.getMinCardBlockIcon());
-//		criteria.setMaxCardBlockIcon(form.getMaxCardBlockIcon());
-//		criteria.setCardRarity(form.getCardRarity());
-//		criteria.setMinCardCostOrLife(form.getMinCardCostOrLife());
-//		criteria.setMaxCardCostOrLife(form.getMaxCardCostOrLife());
-//		criteria.setMinCardPower(form.getMinCardPower());
-//		criteria.setMaxCardPower(form.getMaxCardPower());
-//		criteria.setCardFeatures(form.getCardFeatures());
-//		criteria.setCardAttribute(form.getCardAttribute());
-//		criteria.setCardCounter(form.getCardCounter());
-//		criteria.setCardText(form.getCardText());
-//		criteria.setCardTrigger(form.isCardTrigger());
-//		criteria.setCardTriggerText(form.getCardTriggerText());
-//		criteria.setCardAppearance(form.isCardAppearance());
-//		criteria.setCardLaunchMain(form.isCardLaunchMain());
-//		criteria.setCardAttack(form.isCardAttack());
-//		criteria.setCardKO(form.isCardKO());
-//		criteria.setCardBlock(form.isCardBlock());
-//		criteria.setCardDuringYourTurn(form.isCardDuringYourTurn());
-//		criteria.setCardDuringOpponentTurn(form.isCardDuringOpponentTurn());
-//		criteria.setCardYourTurnEnd(form.isCardYourTurnEnd());
-//		criteria.setCardOpponentAttack(form.isCardOpponentAttack());
-//		criteria.setCardMain(form.isCardMain());
-//		criteria.setCardEventCounter(form.isCardEventCounter());
-//		criteria.setCardOneTurn(form.isCardOneTurn());
-//		criteria.setCardDonHang(form.isCardDonHang());
-//		criteria.setCardDonUse(form.isCardDonUse());
-//		criteria.setCardDonMinus(form.isCardDonMinus());
-//		criteria.setCardBlocker(form.isCardBlocker());
-//		criteria.setCardHaste(form.isCardHaste());
-//		criteria.setCardDoubleAttack(form.isCardDoubleAttack());
-//		criteria.setCardVanish(form.isCardVanish());
-		
 		model.addAttribute("images", cardListService.cardListSearch(form, new CardList()));
 		model.addAttribute("cardListForm", form);
 		return "html/cardList";
 	}
 	
-	// カード詳細の取得
+	/**
+	 * カード詳細の取得
+	 * @param id
+	 * @return データが存在するならば、カードデータを返す
+	 */
 	@GetMapping("/detail/{id}")
 	@ResponseBody
 	public ResponseEntity<CardList> CardDatail(@PathVariable Integer id) {

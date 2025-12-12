@@ -19,6 +19,12 @@ public class DeckListController {
 	@Autowired
 	DeckListService deckListService;
 	
+	/**
+	 * デッキ一覧表示
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/deck/list")
 	public String deckList(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
@@ -32,6 +38,16 @@ public class DeckListController {
 		return "html/deckList";
 	}
 	
+	/**
+	 * デッキ内容の変更
+	 * @param session
+	 * @param model
+	 * @param id
+	 * @param deckData
+	 * @param deckId
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping("/change/deck/{id}")
 	public String changeDeck(HttpSession session, Model model, @PathVariable Integer id, 
 							 @RequestParam(required = false) String deckData, 
@@ -53,6 +69,12 @@ public class DeckListController {
 		return "redirect:/create/deck/" + id;
 	}
 	
+	/**
+	 * デッキ削除
+	 * @param session
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/deleted/deck/{id}")
 	public String deletedDeck(HttpSession session, @PathVariable Integer id) {
 		String username = (String) session.getAttribute("username");

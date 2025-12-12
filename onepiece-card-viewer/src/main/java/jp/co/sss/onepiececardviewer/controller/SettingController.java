@@ -24,7 +24,11 @@ public class SettingController {
 	@Autowired
 	SettingService settingService;
 	
-	// 設定画面の表示
+	/**
+	 * 設定画面表示
+	 * @param session
+	 * @return
+	 */
 	@GetMapping
 	public String setting(HttpSession session) {
 		String username = (String) session.getAttribute("username");
@@ -36,7 +40,12 @@ public class SettingController {
 		return "html/setting";
 	}
 	
-	// プロフィール設定の表示
+	/**
+	 * プロフィール設定の表示
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/profile")
 	public String getProfile(HttpSession session, Model model) {
 		Integer userId = (Integer) session.getAttribute("userId");
@@ -45,7 +54,12 @@ public class SettingController {
 		return "html/settings/profile :: content";
 	}
 	
-	// プロフィール設定の保存
+	/**
+	 * プロフィール設定の保存
+	 * @param session
+	 * @param userForm
+	 * @return
+	 */
 	@PostMapping("/profile")
 	@ResponseBody
 	public ResponseMessage saveProfile(HttpSession session, @ModelAttribute UserForm userForm) {
@@ -61,13 +75,22 @@ public class SettingController {
 		return new ResponseMessage("success", "プロフィールを更新しました");
 	}
 	
-	// セキュリティ設定の表示
+	/**
+	 * セキュリティ設定の表示
+	 * @return
+	 */
 	@GetMapping("/security")
 	public String getSecurity() {
 		return "html/settings/security :: content";
 	}
 	
-	// パスワード変更
+	/**
+	 * パスワード変更
+	 * @param session
+	 * @param currentPassword
+	 * @param newPassword
+	 * @return
+	 */
 	@PostMapping("/security/password")
 	@ResponseBody
 	public ResponseMessage changePassword(HttpSession session, @RequestParam String currentPassword, @RequestParam String newPassword) {

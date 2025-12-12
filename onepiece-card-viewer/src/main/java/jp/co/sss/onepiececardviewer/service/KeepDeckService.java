@@ -16,7 +16,14 @@ public class KeepDeckService {
 	@Autowired
 	DeckListRepository deckListRepository;
 	
-	//デッキデータを登録
+	/**
+	 * デッキ保存
+	 * @param userId
+	 * @param deckName
+	 * @param publishDeck
+	 * @param leaderId
+	 * @param deckCardId
+	 */
 	@Transactional
 	public void keepDeck(Integer userId, String deckName, boolean publishDeck, Integer leaderId, List<Integer> deckCardId) {
 		Integer[] deckCardIds = deckCardId.toArray(new Integer[0]);
@@ -35,13 +42,23 @@ public class KeepDeckService {
 		deckListRepository.save(keepDeck);
 	}
 	
-	// ID指定で取得
+	/**
+	 * デッキIDからデッキ情報を取得
+	 * @param deckId
+	 * @return
+	 */
 	public DeckList getProductByDeckId(Integer deckId) {
 		return deckListRepository.findById(deckId)
 				.orElseThrow(() -> new RuntimeException("デッキが見つかりません: " + deckId));
 	}
 	
-	//デッキデータを更新
+	/**
+	 * デッキ更新
+	 * @param deckId
+	 * @param deckName
+	 * @param publishDeck
+	 * @param deckCardId
+	 */
 	@Transactional
 	public void changeDeck(Integer deckId, String deckName, boolean publishDeck, List<Integer> deckCardId) {
 		Integer[] deckCardIds = deckCardId.toArray(new Integer[0]);

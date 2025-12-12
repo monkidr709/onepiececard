@@ -119,19 +119,10 @@
 		// デッキモーダルを開く関数
 		async function openDeckModal(leaderCardId, deckCardIds, deckName, createdDate, deckId) {
 			try {
-				// デバッグ情報
-				console.log('=== デッキモーダルを開く ===');
-				console.log('leaderCardId:', leaderCardId);
-				console.log('deckCardIds:', deckCardIds);
-				console.log('deckCardIds type:', typeof deckCardIds);
-				
 				// 配列かどうかチェックして適切に処理
 				const deckCardIdsArray = Array.isArray(deckCardIds) 
 					? deckCardIds 
 					: deckCardIds.split(',').map(id => id.trim());
-				
-				console.log('deckCardIdsArray:', deckCardIdsArray);
-				console.log('配列の長さ:', deckCardIdsArray.length);
 				
 				// リーダーカードの詳細を取得
 				const leaderResponse = await fetch('/card/list/detail/' + leaderCardId);

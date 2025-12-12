@@ -35,6 +35,14 @@ public class KeepDeckController {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	/**
+	 * デッキ確認画面表示
+	 * @param session
+	 * @param model
+	 * @param id
+	 * @param deckData
+	 * @return
+	 */
 	@PostMapping("/confirm/deck/{id}")
 	public String confirmDeck(HttpSession session, Model model, @PathVariable Integer id, 
 							  @RequestParam(required = false) String deckData) {
@@ -69,6 +77,15 @@ public class KeepDeckController {
 		return "html/keepDeck";
 	}
 	
+	/**
+	 * デッキ保存処理
+	 * @param session
+	 * @param form
+	 * @param id
+	 * @param deckData
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping("/keep/deck/{id}")
 	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id, 
 						   @RequestParam(required = false) String deckData, 

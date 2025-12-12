@@ -64,18 +64,12 @@
 								<div class="search-field full-width">
 									<label class="field-label">種類</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="キャラ" />
-											<span class="checkbox-text">キャラ</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="イベント" />
-											<span class="checkbox-text">イベント</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardType}" th:value="ステージ" />
-											<span class="checkbox-text">ステージ</span>
-										</label>
+										<th:block th:each="type : ${T(jp.co.sss.onepiececardviewer.enums.CardType2).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardType}" th:value="${type}" />
+												<span class="checkbox-text" th:text="${type}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -84,26 +78,12 @@
 								<div class="search-field full-width">
 									<label class="field-label">レアリティ</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="C" />
-											<span class="checkbox-text">C</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="UC" />
-											<span class="checkbox-text">UC</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="R" />
-											<span class="checkbox-text">R</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="SR" />
-											<span class="checkbox-text">SR</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardRarity}" th:value="SEC" />
-											<span class="checkbox-text">SEC</span>
-										</label>
+										<th:block th:each="rarity : ${T(jp.co.sss.onepiececardviewer.enums.CardRarity2).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardRarity}" th:value="${rarity}" />
+												<span class="checkbox-text" th:text="${rarity}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -113,17 +93,10 @@
 									<label class="field-label">収録パック</label>
 									<select th:field="*{cardPack}">
 										<option value="">すべて</option>
-										<option th:value="ST01">ST01</option>
-										<option th:value="ST02">ST02</option>
-										<option th:value="ST03">ST03</option>
-										<option th:value="ST04">ST04</option>
-										<option th:value="ST05">ST05</option>
-										<option th:value="ST06">ST06</option>
-										<option th:value="ST07">ST07</option>
-										<option th:value="OP01">OP01</option>
-										<option th:value="OP02">OP02</option>
-										<option th:value="OP03">OP03</option>
-										<option th:value="OP04">OP04</option>
+										<option th:each="pack : ${T(jp.co.sss.onepiececardviewer.enums.CardPack).values()}"
+												th:value="${pack}"
+												th:text="${pack.displayName}">
+										</option>
 									</select>
 								</div>
 							</div>
@@ -136,18 +109,16 @@
 									<div class="range-inputs">
 										<select th:field="*{minCardBlockIcon}">
 											<option value="">下限なし</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
+											<option th:each="num : ${#numbers.sequence(1,4)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 										<span class="range-separator">〜</span>
 										<select th:field="*{maxCardBlockIcon}">
 											<option value="">上限なし</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
+											<option th:each="num : ${#numbers.sequence(1,4)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 									</div>
 								</div>
@@ -159,32 +130,16 @@
 									<div class="range-inputs">
 										<select th:field="*{minCardCostOrLife}">
 											<option value="">下限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
-											<option th:value="5">5</option>
-											<option th:value="6">6</option>
-											<option th:value="7">7</option>
-											<option th:value="8">8</option>
-											<option th:value="9">9</option>
-											<option th:value="10">10</option>
+											<option th:each="num : ${#numbers.sequence(0,10)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 										<span class="range-separator">〜</span>
 										<select th:field="*{maxCardCostOrLife}">
 											<option value="">上限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1">1</option>
-											<option th:value="2">2</option>
-											<option th:value="3">3</option>
-											<option th:value="4">4</option>
-											<option th:value="5">5</option>
-											<option th:value="6">6</option>
-											<option th:value="7">7</option>
-											<option th:value="8">8</option>
-											<option th:value="9">9</option>
-											<option th:value="10">10</option>
+											<option th:each="num : ${#numbers.sequence(0,10)}"
+													th:value="${num}" th:text="${num}">
+											</option>
 										</select>
 									</div>
 								</div>
@@ -196,38 +151,16 @@
 									<div class="range-inputs">
 										<select th:field="*{minCardPower}">
 											<option value="">下限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1000">1000</option>
-											<option th:value="2000">2000</option>
-											<option th:value="3000">3000</option>
-											<option th:value="4000">4000</option>
-											<option th:value="5000">5000</option>
-											<option th:value="6000">6000</option>
-											<option th:value="7000">7000</option>
-											<option th:value="8000">8000</option>
-											<option th:value="9000">9000</option>
-											<option th:value="10000">10000</option>
-											<option th:value="11000">11000</option>
-											<option th:value="12000">12000</option>
-											<option th:value="13000">13000</option>
+											<option th:each="p : ${#numbers.sequence(0,13000,1000)}"
+													th:value="${p}" th:text="${p}">
+											</option>
 										</select>
 										<span class="range-separator">〜</span>
 										<select th:field="*{maxCardPower}">
 											<option value="">上限なし</option>
-											<option th:value="0">0</option>
-											<option th:value="1000">1000</option>
-											<option th:value="2000">2000</option>
-											<option th:value="3000">3000</option>
-											<option th:value="4000">4000</option>
-											<option th:value="5000">5000</option>
-											<option th:value="6000">6000</option>
-											<option th:value="7000">7000</option>
-											<option th:value="8000">8000</option>
-											<option th:value="9000">9000</option>
-											<option th:value="10000">10000</option>
-											<option th:value="11000">11000</option>
-											<option th:value="12000">12000</option>
-											<option th:value="13000">13000</option>
+											<option th:each="p : ${#numbers.sequence(0,13000,1000)}"
+													th:value="${p}" th:text="${p}">
+											</option>
 										</select>
 									</div>
 								</div>
@@ -237,18 +170,14 @@
 								<div class="search-field full-width">
 									<label class="field-label">カウンター値</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardCounter}" th:value="0" />
-											<span class="checkbox-text">なし</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardCounter}" th:value="1000" />
-											<span class="checkbox-text">1000</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardCounter}" th:value="2000" />
-											<span class="checkbox-text">2000</span>
-										</label>
+										<th:block th:each="counter : ${T(jp.co.sss.onepiececardviewer.enums.CardCounter).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox"
+														th:field="*{cardCounter}" 
+														th:value="${counter.dbValue}" />
+												<span class="checkbox-text" th:text="${counter.displayName}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -259,26 +188,12 @@
 								<div class="search-field full-width">
 									<label class="field-label">属性</label>
 									<div class="checkbox-group">
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardFeatures}" th:value="打" />
-											<span class="checkbox-text">打</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardFeatures}" th:value="射" />
-											<span class="checkbox-text">射</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardFeatures}" th:value="特" />
-											<span class="checkbox-text">特</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardFeatures}" th:value="知" />
-											<span class="checkbox-text">知</span>
-										</label>
-										<label class="checkbox-label">
-											<input type="checkbox" th:field="*{cardFeatures}" th:value="斬" />
-											<span class="checkbox-text">斬</span>
-										</label>
+										<th:block th:each="feature : ${T(jp.co.sss.onepiececardviewer.enums.CardFeatures).values()}">
+											<label class="checkbox-label">
+												<input type="checkbox" th:field="*{cardFeatures}" th:value="${feature}" />
+												<span class="checkbox-text" th:text="${feature}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 							</div>
@@ -288,33 +203,9 @@
 									<label class="field-label">特徴</label>
 									<select th:field="*{cardAttribute}">
 										<option value="">すべて</option>
-										<option th:value="超新星">超新星</option>
-										<option th:value="麦わらの一味">麦わらの一味</option>
-										<option th:value="動物">動物</option>
-										<option th:value="アラバスタ王国">アラバスタ王国</option>
-										<option th:value="魚人族">魚人族</option>
-										<option th:value="キッド海賊団">キッド海賊団</option>
-										<option th:value="ファイアタンク海賊団">ファイアタンク海賊団</option>
-										<option th:value="破戒僧海賊団">破戒僧海賊団</option>
-										<option th:value="海軍">海軍</option>
-										<option th:value="ボニー海賊団">ボニー海賊団</option>
-										<option th:value="オンエア海賊団">オンエア海賊団</option>
-										<option th:value="ハートの海賊団">ハートの海賊団</option>
-										<option th:value="ホーキンス海賊団">ホーキンス海賊団</option>
-										<option th:value="ミンク族">ミンク族</option>
-										<option th:value="ドレーク海賊団">ドレーク海賊団</option>
-										<option th:value="王下七武海">王下七武海</option>
-										<option th:value="B・W">B・W</option>
-										<option th:value="スリラーバーク海賊団">スリラーバーク海賊団</option>
-										<option th:value="タイヨウの海賊団">タイヨウの海賊団</option>
-										<option th:value="ドンキホーテ海賊団">ドンキホーテ海賊団</option>
-										<option th:value="革命軍">革命軍</option>
-										<option th:value="バギーズ・デリバリー">バギーズ・デリバリー</option>
-										<option th:value="九蛇海賊団">九蛇海賊団</option>
-										<option th:value="黒ひげ海賊団">黒ひげ海賊団</option>
-										<option th:value="四皇">四皇</option>
-										<option th:value="百獣海賊団">百獣海賊団</option>
-										<option th:value="SMILE">SMILE</option>
+										<option th:each="attribute : ${T(jp.co.sss.onepiececardviewer.enums.CardAttributes).values()}"
+												th:value="${attribute}"
+												th:text="${attribute.label}">
 									</select>
 								</div>
 							</div>
@@ -849,6 +740,66 @@
 			const images = Array.from(container.querySelectorAll('img'));
 			sortDeckImage(container, images);
 		}
+		
+		// 右クリックメニュー関連（右クリックで即座に追加・削除）
+		document.addEventListener('DOMContentLoaded', function() {
+			// カードリスト側の右クリック - 即座にデッキに追加
+			document.querySelector('.createDeck-image-grid').addEventListener('contextmenu', async function(e) {
+				const card = e.target.closest('.createDeck-image-card');
+				if (card) {
+					e.preventDefault();
+					const link = card.querySelector('a');
+					const cardId = link.dataset.cardId;
+					
+					const currentTotal = document.querySelectorAll(`#displayDeck img[data-id="${cardId}"]`).length;
+					
+					if (currentTotal >= 4) {
+						alert('このカードは既に4枚デッキに入っています');
+						return;
+					}
+					
+					try {
+						const response = await fetch('/card/list/detail/' + cardId);
+						if (!response.ok) throw new Error('カード情報の取得に失敗しました');
+						const cardData = await response.json();
+						
+						let dataType;
+						if (cardData.cardType === 'キャラ') {
+							dataType = '1';
+						} else if (cardData.cardType === 'イベント') {
+							dataType = '2';
+						} else if (cardData.cardType === 'ステージ') {
+							dataType = '3';
+						} else {
+							dataType = '4';
+						}
+						
+						additionImage(1, cardData.id, dataType, cardData.cardCostOrLife);
+						
+						const container = document.querySelector('#displayDeck');
+						const images = Array.from(container.querySelectorAll('img'));
+						sortDeckImage(container, images);
+						
+						updateDeckCounts();
+					} catch (error) {
+						console.error('エラー:', error);
+						alert('カード情報の取得に失敗しました');
+					}
+				}
+			});
+			
+			// デッキ表示側の右クリック - 即座に削除
+			document.getElementById('displayDeck').addEventListener('contextmenu', function(e) {
+				const link = e.target.closest('a[data-id]');
+				if (link) {
+					e.preventDefault();
+					const cardId = link.dataset.id;
+					
+					link.remove();
+					updateDeckCounts();
+				}
+			});
+		});
 		
 		// カードモーダルを開く関数
 		function openCardModal(cardId, number) {

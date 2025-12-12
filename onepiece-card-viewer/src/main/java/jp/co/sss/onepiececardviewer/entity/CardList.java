@@ -8,7 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import jp.co.sss.onepiececardviewer.converter.CardCounterConverter;
 import jp.co.sss.onepiececardviewer.converter.CardPackConverter;
+import jp.co.sss.onepiececardviewer.enums.CardCounter;
 import jp.co.sss.onepiececardviewer.enums.CardPack;
 
 @Entity
@@ -54,10 +56,23 @@ public class CardList {
 	private String cardFeatures;
 	
 	@Column (name = "card_attribute_1")
-	private String cardAttribute;
+	private String cardAttribute1;
 	
+	@Column (name = "card_attribute_2")
+	private String cardAttribute2;
+	
+	@Column (name = "card_attribute_3")
+	private String cardAttribute3;
+	
+	@Column (name = "card_attribute_4")
+	private String cardAttribute4;
+	
+	@Column (name = "card_attribute_5")
+	private String cardAttribute5;
+	
+	@Convert(converter = CardCounterConverter.class)
 	@Column (name = "card_counter")
-	private String cardCounter;
+	private CardCounter cardCounter;
 	
 	@Column (name = "card_text")
 	private String cardText;
@@ -221,19 +236,51 @@ public class CardList {
 		this.cardFeatures = cardFeatures;
 	}
 
-	public String getCardAttribute() {
-		return cardAttribute;
+	public String getCardAttribute1() {
+		return cardAttribute1;
 	}
 
-	public void setCardAttribute(String cardAttribute) {
-		this.cardAttribute = cardAttribute;
+	public void setCardAttribute1(String cardAttribute1) {
+		this.cardAttribute1 = cardAttribute1;
 	}
 
-	public String getCardCounter() {
+	public String getCardAttribute2() {
+		return cardAttribute2;
+	}
+
+	public void setCardAttribute2(String cardAttribute2) {
+		this.cardAttribute2 = cardAttribute2;
+	}
+
+	public String getCardAttribute3() {
+		return cardAttribute3;
+	}
+
+	public void setCardAttribute3(String cardAttribute3) {
+		this.cardAttribute3 = cardAttribute3;
+	}
+
+	public String getCardAttribute4() {
+		return cardAttribute4;
+	}
+
+	public void setCardAttribute4(String cardAttribute4) {
+		this.cardAttribute4 = cardAttribute4;
+	}
+
+	public String getCardAttribute5() {
+		return cardAttribute5;
+	}
+
+	public void setCardAttribute5(String cardAttribute5) {
+		this.cardAttribute5 = cardAttribute5;
+	}
+
+	public CardCounter getCardCounter() {
 		return cardCounter;
 	}
 
-	public void setCardCounter(String cardCounter) {
+	public void setCardCounter(CardCounter cardCounter) {
 		this.cardCounter = cardCounter;
 	}
 

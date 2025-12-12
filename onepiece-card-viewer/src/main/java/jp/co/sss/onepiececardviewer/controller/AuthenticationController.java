@@ -1,7 +1,5 @@
 package jp.co.sss.onepiececardviewer.controller;
 
-import java.util.Optional;
-
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,67 +10,60 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.onepiececardviewer.entity.User;
 import jp.co.sss.onepiececardviewer.form.UserForm;
-import jp.co.sss.onepiececardviewer.service.UserService;
+import jp.co.sss.onepiececardviewer.service.AuthenticationService;
+import jp.co.sss.onepiececardviewer.service.AuthenticationService.AuthenticationResult;
 
 @Controller
 public class AuthenticationController {
 	
 	@Autowired
-	private UserService userService;
+	private AuthenticationService authenticationService;
 	
-	// ログイン画面へ遷移
+	/**
+	 * ログイン画面表示
+	 * @return
+	 */
 	@GetMapping("/login")
 	public String loginForm() {
 		return "html/login";
 	}
 	
+	/**
+	 * ログイン処理
+	 * @param form
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/login")
 	public String login(UserForm form, HttpSession session, Model model) {
-		// ユーザー情報が未入力
-		if (form.getUsername().isEmpty() || form.getPassword().isEmpty()) {
-			model.addAttribute("error", "ユーザー名またはパスワードを入力してください");
+		// 認証処理
+		AuthenticationResult result = authenticationService.authenticate(form);
+		
+		if (!result.isSuccess()) {
+			// 認証失敗
+			model.addAttribute("error", result.getErrorMessage());
+			model.addAttribute("userForm", new UserForm());
 			return "html/login";
 		}
 		
-		// ユーザー検索
-		Optional<User> getFindByUsername = userService.getFindByUsername(form.getUsername());
+		// 認証成功 - セッションに情報を設定
+		User user = result.getUser();
+		session.setAttribute("userId", user.getId());
+		session.setAttribute("username", user.getUsername());
+		session.setAttribute("role", user.getRole());
+		session.setAttribute("showSplash", true);
+		//セッションタイムアウトを設定 (86400秒)
+		session.setMaxInactiveInterval(86400);
 		
-		model.addAttribute("userForm", new UserForm());
-		
-		// ユーザー認証
-		if (getFindByUsername.isPresent()) {
-			// 認証成功
-			User user = getFindByUsername.get();
-			
-			// 削除済みユーザーのチェック
-			if (user.isDeleted()) {
-				// 認証失敗
-				model.addAttribute("error", "ユーザー名またはパスワードが正しくありません");
-				return "html/login";
-			}
-			
-			// パスワードの検証
-			if (userService.verifyPassword(form.getPassword(), user.getPassword())) {
-				session.setAttribute("userId", user.getId());
-				session.setAttribute("username", user.getUsername());
-				session.setAttribute("role", user.getRole());
-				session.setAttribute("showSplash", true);
-				//セッションタイムアウトを設定 (86400秒)
-				session.setMaxInactiveInterval(86400);
-				return "redirect:/home";
-			} else {
-				//認証失敗
-				model.addAttribute("error", "ユーザー名またはパスワードが正しくありません");
-				return "html/login";
-			}
-		} else {
-			//認証失敗
-			model.addAttribute("error", "ユーザー名またはパスワードが正しくありません");
-			return "html/login";
-		}
+		return "redirect:/home";
 	}
 	
-	//ログアウト
+	/**
+	 * ログアウト
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

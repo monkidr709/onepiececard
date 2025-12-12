@@ -22,7 +22,12 @@ public class NewsController {
 	@Autowired
 	private NewsService newsService;
 	
-	// ニュース一覧画面へ遷移
+	/**
+	 * ニュース一覧画面表示
+	 * @param category
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/list")
 	public String newsList(@RequestParam(required = false) String category, Model model) {
 		List<News> newsList;
@@ -38,7 +43,12 @@ public class NewsController {
 		return "html/newsList";
 	}
 	
-	// ニュース詳細画面へ遷移
+	/**
+	 * ニュース詳細画面表示
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/detail/{id}")
 	public String newsDetail(@PathVariable Integer id, Model model) {
 		return newsService.getNewsById(id)

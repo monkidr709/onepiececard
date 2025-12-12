@@ -17,7 +17,12 @@ public class ChoiceLeaderController {
 	@Autowired
 	private CardListService cardListService;
 	
-	//リーダー選択画面へ遷移
+	/**
+	 * リーダー選択画面表示
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/choice/leader")
 	public String deckCreate(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
@@ -30,7 +35,12 @@ public class ChoiceLeaderController {
 		return "html/choiceLeader";
 	}
 	
-	//デッキ作成のキャンセル
+	/**
+	 * デッキ作成のキャンセル
+	 * @param session
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/cancel/deck/creation/{id}")
 	public String cancelDeckCreation(HttpSession session, @PathVariable Integer id) {
 		//セッションに保存したデッキデータを削除

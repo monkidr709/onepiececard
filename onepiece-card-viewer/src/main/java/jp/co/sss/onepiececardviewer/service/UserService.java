@@ -17,17 +17,21 @@ public class UserService {
 	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
-	//ユーザー検索
+	/**
+	 * ユーザー検索
+	 * @param username
+	 * @return
+	 */
 	public Optional<User> getFindByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 	
-	// パスワードの検証
-//	public boolean verifyPassword(String rawPassword, String encodedPassword) {
-//		return passwordEncoder.matches(rawPassword, encodedPassword);
-//	}
-	
-	// パスワードの検証 (ハッシュ化されていない場合)
+	/**
+	 * パスワードの検証 (ハッシュ化されていない場合)
+	 * @param rawPassword
+	 * @param encodedPassword
+	 * @return
+	 */
 	public boolean verifyPassword(String rawPassword, String encodedPassword) {
 		// まずBCryptでの検証を試みる
 		try {

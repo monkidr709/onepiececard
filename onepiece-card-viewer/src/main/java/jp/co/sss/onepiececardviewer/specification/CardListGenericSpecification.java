@@ -74,12 +74,24 @@ public class CardListGenericSpecification {
 			predicates.add(root.get("cardFeatures").in(criteria.getCardFeatures()));
 		}
 		
-		//cardAttributeのOR検索
+		//cardAttribute1のOR検索
 		if (criteria.getCardAttribute() != null && !criteria.getCardAttribute().isEmpty()) {
-			List<Predicate> attributePredicates = criteria.getCardAttribute().stream()
-					.map(attribute -> cb.like(root.get("cardAttribute"), "%" + attribute + "%"))
-					.collect(Collectors.toList());
+			List<Predicate> attributePredicates = new ArrayList<>();
+			
+			// 各attributeカラムで検索
+			attributePredicates.add(root.get("cardAttribute1").in(criteria.getCardAttribute()));
+			attributePredicates.add(root.get("cardAttribute2").in(criteria.getCardAttribute()));
+			attributePredicates.add(root.get("cardAttribute3").in(criteria.getCardAttribute()));
+			attributePredicates.add(root.get("cardAttribute4").in(criteria.getCardAttribute()));
+			attributePredicates.add(root.get("cardAttribute5").in(criteria.getCardAttribute()));
+			
+			// OR条件で結合
 			predicates.add(cb.or(attributePredicates.toArray(new Predicate[0])));
+			
+//			List<Predicate> attributePredicates = criteria.getCardAttribute().stream()
+//					.map(attribute -> cb.like(root.get("cardAttribute"), "%" + attribute + "%"))
+//					.collect(Collectors.toList());
+//			predicates.add(cb.or(attributePredicates.toArray(new Predicate[0])));
 		}
 		
 		//cardCounterのOR検索

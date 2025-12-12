@@ -22,13 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jp.co.sss.onepiececardviewer.entity.CardList;
 import jp.co.sss.onepiececardviewer.form.CardListForm;
 import jp.co.sss.onepiececardviewer.service.CardListService;
-//import jp.co.sss.onepiececardviewer.service.CreateDeckService;
 
 @Controller
 public class CreateDeckController {
-	
-//	@Autowired
-//	private CreateDeckService createDeckService;
 	
 	@Autowired
 	private CardListService cardListService;
@@ -36,6 +32,14 @@ public class CreateDeckController {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	/**
+	 * デッキ作成画面表示
+	 * @param session
+	 * @param model
+	 * @param id
+	 * @param deckData
+	 * @return
+	 */
 	@RequestMapping(value = "/create/deck/{id}", method = {RequestMethod.GET, RequestMethod.POST})
 	public String createDeck(HttpSession session, Model model, @PathVariable Integer id, 
 							 @RequestParam(required = false) String deckData) {
@@ -61,17 +65,21 @@ public class CreateDeckController {
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList leaderCard = getCardListById.orElse(null);
 		
-//		CardListSearchCriteria criteria = new CardListSearchCriteria();
-//		List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
-//		criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
-//		criteria.setCardType(cardTypeForCreateDeck);
-		
 		model.addAttribute("cardListForm", new CardListForm());
 		model.addAttribute("leaderCard", leaderCard);
 		model.addAttribute("cardListForCreateDecks", cardListService.cardListSearch(new CardListForm(), leaderCard));
 		return "html/createDeck";
 	}
 	
+	/**
+	 * デッキ作成画面でのカード検索
+	 * @param session
+	 * @param form
+	 * @param model
+	 * @param id
+	 * @param deckData
+	 * @return
+	 */
 	@PostMapping("/create/deck/search/{id}")
 	public String searchCardListForCreatedDeck(HttpSession session, CardListForm form, 
 											   Model model, @PathVariable Integer id, 
@@ -97,52 +105,6 @@ public class CreateDeckController {
 		
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList leaderCard = getCardListById.orElse(null);
-		
-//		CardListSearchCriteria criteria = new CardListSearchCriteria();
-//		criteria.setCardName(form.getCardName());
-//		if (form.getCardColor().isEmpty()) {
-//			criteria.setCardColor(createDeckService.getLeaderCardColor(leaderCard));
-//		} else {
-//			criteria.setCardColor(form.getCardColor());
-//		}
-//		if (form.getCardType().isEmpty()) {
-//			List<String> cardTypeForCreateDeck = Arrays.asList("キャラ", "イベント", "ステージ");
-//			criteria.setCardType(cardTypeForCreateDeck);
-//		} else {
-//			criteria.setCardType(form.getCardType());
-//		}
-//		criteria.setCardPack(form.getCardPack());
-//		criteria.setMinCardBlockIcon(form.getMinCardBlockIcon());
-//		criteria.setMaxCardBlockIcon(form.getMaxCardBlockIcon());
-//		criteria.setCardRarity(form.getCardRarity());
-//		criteria.setMinCardCostOrLife(form.getMinCardCostOrLife());
-//		criteria.setMaxCardCostOrLife(form.getMaxCardCostOrLife());
-//		criteria.setMinCardPower(form.getMinCardPower());
-//		criteria.setMaxCardPower(form.getMaxCardPower());
-//		criteria.setCardFeatures(form.getCardFeatures());
-//		criteria.setCardAttribute(form.getCardAttribute());
-//		criteria.setCardCounter(form.getCardCounter());
-//		criteria.setCardText(form.getCardText());
-//		criteria.setCardTrigger(form.isCardTrigger());
-//		criteria.setCardTriggerText(form.getCardTriggerText());
-//		criteria.setCardAppearance(form.isCardAppearance());
-//		criteria.setCardLaunchMain(form.isCardLaunchMain());
-//		criteria.setCardAttack(form.isCardAttack());
-//		criteria.setCardKO(form.isCardKO());
-//		criteria.setCardBlock(form.isCardBlock());
-//		criteria.setCardDuringYourTurn(form.isCardDuringYourTurn());
-//		criteria.setCardDuringOpponentTurn(form.isCardDuringOpponentTurn());
-//		criteria.setCardYourTurnEnd(form.isCardYourTurnEnd());
-//		criteria.setCardMain(form.isCardMain());
-//		criteria.setCardEventCounter(form.isCardEventCounter());
-//		criteria.setCardOneTurn(form.isCardOneTurn());
-//		criteria.setCardDonHang(form.isCardDonHang());
-//		criteria.setCardDonUse(form.isCardDonUse());
-//		criteria.setCardDonMinus(form.isCardDonMinus());
-//		criteria.setCardBlocker(form.isCardBlocker());
-//		criteria.setCardHaste(form.isCardHaste());
-//		criteria.setCardDoubleAttack(form.isCardDoubleAttack());
-//		criteria.setCardVanish(form.isCardVanish());
 		
 		// デッキ情報をセッションから取得
 		@SuppressWarnings("unchecked")

@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminConfigController {
 	
+	/**
+	 * 管理者設定画面表示
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/admin/config")
 	public String adminConfig(HttpSession session) {
 		String username = (String) session.getAttribute("username");

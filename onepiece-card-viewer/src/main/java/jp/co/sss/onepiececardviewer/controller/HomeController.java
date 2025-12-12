@@ -27,7 +27,12 @@ public class HomeController {
 	@Autowired
 	private ImagePathService imagePathService;
 	
-	//ホーム画面へ遷移
+	/**
+	 * ホーム画面表示
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/home")
 	public String home(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
@@ -53,14 +58,18 @@ public class HomeController {
 		return "html/home";
 	}
 	
-	// 画像ファイルを返すエンドファイル
+	/**
+	 * ニュース画像取得
+	 * @param id
+	 * @return　画像ファイルをレスポンスとして返す
+	 */
 	@GetMapping("/file/news/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> getNewsImageFile(@PathVariable Integer id) {
 		// ID検索
 		Optional<News> getNewsById = newsService.getNewsById(id);
 		News image = getNewsById.get();
-	
+		
 		return imagePathService.loadImageAsResponse(image.getImagePath());
 	}
 
