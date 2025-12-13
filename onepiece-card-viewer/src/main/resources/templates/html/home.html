@@ -75,7 +75,128 @@
 				</div>
 			</div>
 			<div class="background-section section-5">
-				
+				<div class="character-container">
+					<h2 class="section-title">CHARACTER<span class="section-subtitle">キャラクター紹介</span></h2>
+					
+					<div class="character-carousel">
+						<!-- 左矢印ボタン -->
+						<button class="carousel-btn prev-btn" id="prevBtn">
+							<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="15 18 9 12 15 6"></polyline>
+							</svg>
+						</button>
+						
+						<!-- キャラクター表示エリア -->
+						<div class="character-display">
+							<div class="character-card active" data-character="0">
+								<div class="character-image">
+									<img th:src="@{/img/character_borsalino.jpg}" alt="ボルサリーノ">
+								</div>
+								<div class="character-info">
+									<h3 class="character-name">ボルサリーノ</h3>
+									<p class="character-description">
+										海軍大将。ピカピカの実の能力者で、<br>
+										光速の動きと飄々とした口調が特徴。<br>
+										"どっちつかずの正義"を掲げており、<br>
+										任務は淡々と遂行する冷静な人物。
+									</p>
+									<button class="voice-btn" data-audio="Borsalino">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+											<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+											<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+										</svg>
+										ボイスを聴く
+									</button>
+								</div>
+							</div>
+							
+							<div class="character-card" data-character="1">
+								<div class="character-image">
+									<img th:src="@{/img/character_urouge.png}" alt="ウルージ">
+								</div>
+								<div class="character-info">
+									<h3 class="character-name">ウルージ</h3>
+									<p class="character-description">
+										麦わらの一味戦闘員。三刀流の剣士。<br>
+										世界最強の剣豪を目指している。<br>
+										クールで寡黙だが、仲間への信頼は厚い。<br>
+										方向音痴という意外な一面も持つ。
+									</p>
+									<button class="voice-btn" data-audio="Urouge">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+											<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+											<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+										</svg>
+										ボイスを聴く
+									</button>
+								</div>
+							</div>
+							
+							<div class="character-card" data-character="2">
+								<div class="character-image">
+									<img th:src="@{/img/character_higuma.png}" alt="緋熊">
+								</div>
+								<div class="character-info">
+									<h3 class="character-name">緋熊</h3>
+									<p class="character-description">
+										麦わらの一味航海士。天候を読む天才的な才能を持つ。<br>
+										世界中の海図を描くことが夢。<br>
+										お金が大好きで、金銭感覚にはシビア。<br>
+										仲間を守るためには命を賭ける覚悟がある。
+									</p>
+									<button class="voice-btn" data-audio="Higuma">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+											<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+											<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+										</svg>
+										ボイスを聴く
+									</button>
+								</div>
+							</div>
+							
+							<div class="character-card" data-character="3">
+								<div class="character-image">
+									<img th:src="@{/img/character_shirohige.png}" alt="白ひげ">
+								</div>
+								<div class="character-info">
+									<h3 class="character-name">白ひげ</h3>
+									<p class="character-description">
+										麦わらの一味航海士。天候を読む天才的な才能を持つ。<br>
+										世界中の海図を描くことが夢。<br>
+										お金が大好きで、金銭感覚にはシビア。<br>
+										仲間を守るためには命を賭ける覚悟がある。
+									</p>
+									<button class="voice-btn" data-audio="Shirohige">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+											<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+											<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+										</svg>
+										ボイスを聴く
+									</button>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 右矢印ボタン -->
+						<button class="carousel-btn next-btn" id="nextBtn">
+							<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="9 18 15 12 9 6"></polyline>
+							</svg>
+						</button>
+					</div>
+					
+					<!-- インジケーター -->
+					<div class="carousel-indicators">
+						<span class="indicator active" data-index="0"></span>
+						<span class="indicator" data-index="1"></span>
+						<span class="indicator" data-index="2"></span>
+						<span class="indicator" data-index="3"></span>
+					</div>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -181,6 +302,104 @@
 						});
 					}
 				}
+			});
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			let currentIndex = 0;
+			const cards = document.querySelectorAll('.character-card');
+			const indicators = document.querySelectorAll('.indicator');
+			const totalCards = cards.length;
+			
+			// 音声データのマップ（各キャラクターに複数のボイス）
+			const audioFiles = {
+				Borsalino: [
+					'/audio/borsalino_voice_1.mp3',
+					'/audio/borsalino_voice_2.mp3',
+					'/audio/borsalino_voice_3.mp3',
+					'/audio/borsalino_voice_4.mp3'
+				],
+				Urouge: [
+					'/audio/urouge_voice_1.mp3',
+					'/audio/urouge_voice_2.mp3',
+					'/audio/urouge_voice_3.mp3',
+					'/audio/urouge_voice_4.mp3'
+				],
+				Higuma: [
+					'/audio/higuma_voice_1.mp3',
+					'/audio/higuma_voice_2.mp3',
+					'/audio/higuma_voice_3.mp3',
+					'/audio/higuma_voice_4.mp3'
+				],
+				Shirohige: [
+					'/audio/shirohige_voice_1.mp3',
+					'/audio/shirohige_voice_2.mp3',
+					'/audio/shirohige_voice_3.mp3',
+					'/audio/shirohige_voice_4.mp3'
+				]
+			};
+			
+			// 各キャラクターの現在のボイスインデックスを管理
+			const voiceIndexes = {
+				Borsalino: 0,
+				Urouge: 0,
+				Higuma: 0,
+				Shirohige: 0
+			};
+			
+			function showCard(index) {
+				cards.forEach(card => card.classList.remove('active'));
+				indicators.forEach(indicator => indicator.classList.remove('active'));
+				
+				cards[index].classList.add('active');
+				indicators[index].classList.add('active');
+			}
+			
+			document.getElementById('nextBtn').addEventListener('click', () => {
+				currentIndex = (currentIndex + 1) % totalCards;
+				showCard(currentIndex);
+			});
+			
+			document.getElementById('prevBtn').addEventListener('click', () => {
+				currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+				showCard(currentIndex);
+			});
+			
+			indicators.forEach(indicator => {
+				indicator.addEventListener('click', () => {
+					currentIndex = parseInt(indicator.dataset.index);
+					showCard(currentIndex);
+				});
+			});
+			
+			// ボイスボタンのクリックイベント
+			document.querySelectorAll('.voice-btn').forEach(btn => {
+				btn.addEventListener('click', () => {
+					const audioKey = btn.dataset.audio;
+					const voiceList = audioFiles[audioKey];
+					
+					// 既存の音声を停止
+					const existingAudio = document.querySelector('audio.character-voice');
+					if (existingAudio) {
+						existingAudio.pause();
+						existingAudio.remove();
+					}
+					
+					// 現在のボイスインデックスを取得
+					const currentVoiceIndex = voiceIndexes[audioKey];
+					const audioPath = voiceList[currentVoiceIndex];
+					
+					// 次のボイスに進める（ループ）
+					voiceIndexes[audioKey] = (currentVoiceIndex + 1) % voiceList.length;
+					
+					// 新しい音声を再生
+					const audio = new Audio(audioPath);
+					audio.className = 'character-voice';
+					audio.play().catch(err => {
+						console.log('音声の再生に失敗しました:', err);
+						alert('音声ファイルが見つかりません');
+					});
+				});
 			});
 		});
 	</script>
