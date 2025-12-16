@@ -40,17 +40,30 @@ public class CardListGenericSpecification {
 										CardListSearchCriteria criteria) {
 		//cardNameのOR検索
 		if (criteria.getCardName() != null && !criteria.getCardName().isEmpty()) {
-			List<Predicate> namePredicates = criteria.getCardName().stream()
+			List<Predicate> namePredicates = new ArrayList<>();
+			
+			List<Predicate> cardName = criteria.getCardName().stream()
 					.map(name -> cb.like(root.get("cardName"), "%" + name + "%"))
 					.collect(Collectors.toList());
+			namePredicates.add(cb.or(cardName.toArray(new Predicate[0])));
+			List<Predicate> cardNameFurigana = criteria.getCardName().stream()
+					.map(name -> cb.like(root.get("cardNameFurigana"), "%" + name + "%"))
+					.collect(Collectors.toList());
+			namePredicates.add(cb.or(cardNameFurigana.toArray(new Predicate[0])));
+			
+			// OR条件で結合
 			predicates.add(cb.or(namePredicates.toArray(new Predicate[0])));
 		}
 		
 		//cardColorのOR検索
 		if (criteria.getCardColor() != null && !criteria.getCardColor().isEmpty()) {
-			List<Predicate> colorPredicates = criteria.getCardColor().stream()
-					.map(color -> cb.like(root.get("cardColor"), "%" + color + "%"))
-					.collect(Collectors.toList());
+			List<Predicate> colorPredicates = new ArrayList<>();
+			
+			// 各colorカラムで検索
+			colorPredicates.add(root.get("cardColor").in(criteria.getCardColor()));
+			colorPredicates.add(root.get("cardColor2").in(criteria.getCardColor()));
+			
+			// OR条件で結合
 			predicates.add(cb.or(colorPredicates.toArray(new Predicate[0])));
 		}
 		
@@ -87,11 +100,6 @@ public class CardListGenericSpecification {
 			
 			// OR条件で結合
 			predicates.add(cb.or(attributePredicates.toArray(new Predicate[0])));
-			
-//			List<Predicate> attributePredicates = criteria.getCardAttribute().stream()
-//					.map(attribute -> cb.like(root.get("cardAttribute"), "%" + attribute + "%"))
-//					.collect(Collectors.toList());
-//			predicates.add(cb.or(attributePredicates.toArray(new Predicate[0])));
 		}
 		
 		//cardCounterのOR検索

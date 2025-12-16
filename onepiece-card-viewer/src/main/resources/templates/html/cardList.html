@@ -373,7 +373,11 @@
 					document.getElementById('modalImage').src = '/card/list/file/' + card.id;
 					document.getElementById('modalCardName').textContent = card.cardName || '';
 					document.getElementById('modalCardNumber').textContent = card.cardNumber || '';
-					document.getElementById('modalCardColor').textContent = card.cardColor || '';
+					if (card.cardColor2 === null) {
+						document.getElementById('modalCardColor').textContent = card.cardColor || '';
+                    } else {
+                        document.getElementById('modalCardColor').textContent = card.cardColor + ', ' + card.cardColor2 || '';
+					}
 					document.getElementById('modalCardType').textContent = card.cardType || '';
 					document.getElementById('modalCardCostOrLife').textContent = card.cardCostOrLife || '';
 					document.getElementById('modalCardPower').textContent = card.cardPower || '';

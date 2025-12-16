@@ -27,11 +27,17 @@ public class CardList {
 	@Column (name = "card_name")
 	private String cardName;
 	
+	@Column (name = "card_name_furigana")
+	private String cardNameFurigana;
+	
 	@Column (name = "image_file_path")
 	private String imageFilePath;
 	
 	@Column (name = "card_color")
 	private String cardColor;
+	
+	@Column (name = "card_color_2")
+	private String cardColor2;
 	
 	@Column (name = "card_type")
 	private String cardType;
@@ -164,6 +170,14 @@ public class CardList {
 		this.cardName = cardName;
 	}
 
+	public String getCardNameFurigana() {
+		return cardNameFurigana;
+	}
+
+	public void setCardNameFurigana(String cardNameFurigana) {
+		this.cardNameFurigana = cardNameFurigana;
+	}
+
 	public String getImageFilePath() {
 		return imageFilePath;
 	}
@@ -180,6 +194,14 @@ public class CardList {
 		this.cardColor = cardColor;
 	}
 	
+	public String getCardColor2() {
+		return cardColor2;
+	}
+
+	public void setCardColor2(String cardColor2) {
+		this.cardColor2 = cardColor2;
+	}
+
 	public String getCardType() {
 		return cardType;
 	}
