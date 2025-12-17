@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<footer th:fragment="layout-footer">
+		<div class="footer-inner">
+			<div class="footer-content">
+				<div class="footer-brand">
+					<p><a th:href="@{/home}" class="site-name">OnePiece Card Lab</a></p>
+					<p class="site-description">
+						ワンピースカードゲームの最新情報とデッキ構築をサポートするプラットフォーム
+					</p>
+				</div>
+				
+				<div class="footer-section">
+					<h3 class="footer-section-title">サイト情報</h3>
+					<nav class="footer-nav">
+						<ul>
+							<li><a href="/contact">お問い合わせ</a></li>
+							<li><a href="/terms" target="_blank">利用規約</a></li>
+							<li><a href="/privacy" target="_blank">プライバシーポリシー</a></li>
+						</ul>
+					</nav>
+				</div>
+				
+				<div class="footer-section">
+					<h3 class="footer-section-title">公式リンク</h3>
+					<nav class="footer-nav external">
+						<ul>
+							<li>
+								<a href="https://www.onepiece-cardgame.com/" target="_blank" rel="noopener noreferrer">
+									ワンピースカード公式サイト
+									<span class="external-icon">↗</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://x.com/ONEPIECE_tcg" target="_blank" rel="noopener noreferrer">
+									ワンピースカード公式X
+									<span class="external-icon">↗</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://www.youtube.com/@ONEPIECE-mt6ui" target="_blank" rel="noopener noreferrer">
+									ワンピースカード公式YouTube
+									<span class="external-icon">↗</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			
+			<div class="footer-bottom">
+				<p class="copyright">
+					&copy; 2024 OnePiece Card Lab. All rights reserved.
+				</p>
+				<div class="footer-social">
+					<a href="https://x.com/ONEPIECE_tcg" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+						</svg>
+					</a>
+					<a href="https://www.youtube.com/@ONEPIECE-mt6ui"  class="youtube-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+					    <svg class="youtube-logo" viewBox="0 0 159 110" xmlns="http://www.w3.org/2000/svg">
+					        <path d="M154 17.5c-1.82-6.73-7.07-12-13.8-13.8C128.2 0 79.5 0 79.5 0S30.8 0 18.8 3.7C12.07 5.5 6.82 10.77 5 17.5 1.45 29.5 1.45 55 1.45 55s0 25.5 3.55 37.5c1.82 6.73 7.07 12 13.8 13.8C30.8 110 79.5 110 79.5 110s48.7 0 60.7-3.7c6.73-1.8 11.98-7.07 13.8-13.8 3.55-12 3.55-37.5 3.55-37.5s0-25.5-3.55-37.5z" fill="#FF0000"/>
+					        <path d="M64 78.3V31.7L104.2 55 64 78.3z" fill="#FFFFFF"/>
+					    </svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>

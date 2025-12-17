@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImagePathService {
 	
+	/**
+	 * 画像ファイルをResponseEntityとして返す
+	 * @param image
+	 * @return
+	 */
 	public ResponseEntity<Resource> loadImageAsResponse(String image) {
 		
 		// クラスパスからの相対パスで読み込む

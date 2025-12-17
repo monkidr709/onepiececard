@@ -339,7 +339,7 @@ h1 {
 	accent-color: #8e2639;
 }
 
-.trigger-text-input {
+.text-input {
 	flex: 1;
 	padding: 8px 12px;
 	border: 2px solid #d0d0d0;
@@ -348,7 +348,7 @@ h1 {
 	transition: all 0.3s ease;
 }
 
-.trigger-text-input:focus {
+.text-input:focus {
 	outline: none;
 	border-color: #8e2639;
 	box-shadow: 0 0 0 3px rgba(142, 38, 57, 0.15);

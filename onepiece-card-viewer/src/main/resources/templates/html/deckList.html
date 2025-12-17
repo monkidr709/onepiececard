@@ -3,9 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>デッキ一覧</title>
+	<title>デッキ一覧 | OnePiece Card Lab</title>
 	<link rel="stylesheet" th:href="@{/css/deckList.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
 <body>
@@ -79,6 +80,8 @@
 			</div>
 		</div>
 	</main>
+	
+	<footer th:replace="~{html/common/footer :: layout-footer}"></footer>
 	
 	<script>
 		// 1枚のカード画像を追加する関数

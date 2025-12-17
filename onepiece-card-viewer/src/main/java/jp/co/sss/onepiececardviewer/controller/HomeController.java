@@ -72,5 +72,23 @@ public class HomeController {
 		
 		return imagePathService.loadImageAsResponse(image.getImagePath());
 	}
+	
+	/**
+	 * 利用規約画面表示
+	 * @return
+	 */
+	@GetMapping("/terms")
+	public String terms() {
+		return "html/terms";
+	}
+	
+	/**
+	 * プライバシーポリシー画面表示
+	 * @return
+	 */
+	@GetMapping("/privacy")
+	public String privacy() {
+		return "html/privacy";
+	}
 
 }

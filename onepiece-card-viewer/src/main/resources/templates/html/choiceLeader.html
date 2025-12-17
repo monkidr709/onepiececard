@@ -3,9 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>デッキ作成</title>
+	<title>デッキ作成 | OnePiece Card Lab</title>
 	<link rel="stylesheet" th:href="@{/css/choiceLeader.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
 <body>
@@ -25,7 +26,8 @@
 				</div>
 			</div>
 			<div class="choiceleader-image-grid">
-				<div class="choiceleader-image-card" th:each="leaderImage : ${leaderImages}" th:data-color="${leaderImage.cardColor}">
+				<div class="choiceleader-image-card" th:each="leaderImage : ${leaderImages}"
+						th:data-color="${leaderImage.cardColor}" th:data-color2="${leaderImage.cardColor2}">
 					<a href="javascript:void(0);" th:onclick="'openLeaderCardModal(' + ${leaderImage.id} + ')'">
 						<img th:src="@{/card/list/file/{id}(id=${leaderImage.id})}" th:alt="${leaderImage.cardName}">
 					</a>
@@ -54,13 +56,16 @@
 		</div>
 	</main>
 	
+	<footer th:replace="~{html/common/footer :: layout-footer}"></footer>
+	
 	<script>
 		//色でリーダーを検索する関数
 		function searchLeader(color) {
 			const leaderCards = document.querySelectorAll('.choiceleader-image-card');
 			leaderCards.forEach(card => {
 				const leaderCardColor = card.dataset.color;
-				if (color === '' || leaderCardColor.includes(color)) {
+				const leaderCardColor2 = card.dataset.color2 || '';
+				if (color === '' || leaderCardColor === color || leaderCardColor2 === color) {
 					card.style.display = 'block';
 				} else {
 					card.style.display = 'none';

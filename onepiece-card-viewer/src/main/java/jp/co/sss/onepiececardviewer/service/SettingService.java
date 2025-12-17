@@ -18,12 +18,22 @@ public class SettingService {
     @Autowired
     PasswordEncoder passwordEncoder; 
 	
-	// id検索
+	/**
+	 * IDでプロフィール情報を取得
+	 * @param id
+	 * @return
+	 */
 	public Optional<User> getUserProfile(Integer id) {
 		return userRepository.findById(id);
 	}
 	
-	// Userデータ更新
+	/**
+	 * プロフィール情報更新
+	 * @param userId
+	 * @param username
+	 * @param emailAddress
+	 * @param telephoneNumber
+	 */
 	public void updateProfile(Integer userId, String username, String emailAddress, String telephoneNumber) {
 		User user = userRepository.findById(userId)
 		        .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
@@ -34,7 +44,12 @@ public class SettingService {
 		userRepository.save(user);
 	}
 	
-	// password更新
+	/**
+	 * パスワード変更
+	 * @param userId
+	 * @param currentPassword
+	 * @param newPassword
+	 */
 	public void changePassword(Integer userId, String currentPassword, String newPassword) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));

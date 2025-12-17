@@ -22,29 +22,48 @@ public class CardListService {
 	@Autowired
 	private CardListRepository cardListRepository;
 	
-	// 全件検索 (Id昇順)
+	/**
+	 * すべてのカードリストを取得 (Id昇順)
+	 * @return
+	 */
 	public List<CardList> getAllCardList(){
 		return cardListRepository.findAllByOrderByIdAsc();
 	}
 	
-	// cardTypeがリーダーであるものの抽出
+	/**
+	 * cardTypeがリーダーであるものを取得
+	 * @return
+	 */
 	public List<CardList> getCardListByCardTypeLeader() {
 		return cardListRepository.findByCardTypeOrderByIdAsc("リーダー");
 	}
 	
-	// 主キー検索
+	/**
+	 * IDでカードリストを取得
+	 * @param id
+	 * @return
+	 */
 	public Optional<CardList> getCardListById(Integer id){
 		return cardListRepository.findById(id);
 	}
 	
-	// 動的な複数の列による条件検索
+	/**
+	 * 動的な複数の列による条件検索
+	 * @param form
+	 * @param leaderCard
+	 * @return
+	 */
 	public List<CardList> cardListSearch(CardListForm form, CardList leaderCard) {
 		CardListSearchCriteria criteria = mapFormToCriteria(form, leaderCard);
 		Specification<CardList> spec = CardListGenericSpecification.buildSpecification(criteria);
 		return cardListRepository.findAll(spec, Sort.by("id").ascending());
 	}
 	
-	// リーダーの色を返す
+	/**
+	 * リーダーカードの色を返す
+	 * @param leaderCard
+	 * @return
+	 */
 	public List<String> getLeaderCardColor(CardList leaderCard) {
 		String[] colors = {"赤", "緑", "青", "紫", "黒", "黄"};
 		List<String> leaderCardColors = new ArrayList<>();
@@ -57,7 +76,12 @@ public class CardListService {
 		return leaderCardColors;
 	}
 	
-	// CardListFormをCardListSearchCriteriaにマッピング
+	/**
+	 * フォームを検索条件にマッピング
+	 * @param form
+	 * @param leaderCard
+	 * @return
+	 */
 	private CardListSearchCriteria mapFormToCriteria(CardListForm form, CardList leaderCard) {
 		CardListSearchCriteria criteria = new CardListSearchCriteria();
 		

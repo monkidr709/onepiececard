@@ -15,12 +15,19 @@ public class DeckListService {
 	@Autowired
 	DeckListRepository deckListRepository;
 	
-	// userNameIdによる検索 (Id昇順)
+	/**
+	 * Idでデッキリストを取得 (Id昇順)
+	 * @param userId
+	 * @return
+	 */
 	public List<DeckList> getDeckList(Integer userId) {
 		return deckListRepository.findByUserNameIdOrderByIdAsc(userId);
 	}
 	
-	// デッキ削除 (deletedをtrueに変更する)
+	/**
+	 * デッキ削除
+	 * @param deckId
+	 */
 	public void deletedDeck(Integer deckId) {
 		DeckList deck = deckListRepository.findById(deckId).orElseThrow();
 		LocalDate deletedDate = LocalDate.now();

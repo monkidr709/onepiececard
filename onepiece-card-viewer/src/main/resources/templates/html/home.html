@@ -3,9 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>ホーム画面</title>
+	<title>ホーム画面 | OnePiece Card Lab</title>
 	<link rel="stylesheet" th:href="@{/css/home.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
 				<h2>ワンピースカードを楽しもう</h2>
 				<p>
 					本サイトはワンピースカードプレイヤーがより快適に、<br>
-					そして自分らしい戦い方を追求できるようサポートすることを目指しています。<br><br>
+					そして自分らしい戦い方を追求できるようサポートいたします。<br><br>
 					デッキ構築やカード検索を素早く行える環境を整え、<br>
 					対戦準備の負担を減らし、<br>
 					プレイに集中できる時間を増やすことに努めています。<br><br>
@@ -118,7 +119,7 @@
 								<div class="character-info">
 									<h3 class="character-name">ウルージ</h3>
 									<p class="character-description">
-										最強の怪僧。空島出身。能力は不明だが、<br>
+										最恐の怪僧。空島出身。能力は不明だが、<br>
 										驚異的な身体能力と戦闘技術を持つ。<br>
 										巨漢で、巨大な金棒を持つ姿が特徴的。<br>
 									    ワンピース屈指の人気キャラ。(ネット上で)
@@ -136,12 +137,15 @@
 							
 							<div class="character-card" data-character="2">
 								<div class="character-image">
-									<img th:src="@{/img/character_higuma.jpg}" alt="緋熊">
+									<img th:src="@{/img/character_higuma.jpg}" alt="ヒグマ">
 								</div>
 								<div class="character-info">
-									<h3 class="character-name">緋熊</h3>
+									<h3 class="character-name">ヒグマ</h3>
 									<p class="character-description">
-										
+										史上最強の山賊。ルフィを売り飛ばそうとし、<br>
+										シャンクスに制止されるが、煙幕のみで逃げ切る。<br>
+										シャンクスに対して「56人殺したのさてめェのように<br>
+										生意気な奴をな」と言い放つ豪傑な人物。
 									</p>
 									<button class="voice-btn" data-audio="Higuma">
 										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -159,9 +163,12 @@
 									<img th:src="@{/img/character_shirohige.jpg}" alt="白ひげ">
 								</div>
 								<div class="character-info">
-									<h3 class="character-name">白ひげ</h3>
+									<h3 class="character-name">エドワード・ニューゲート</h3>
 									<p class="character-description">
-										
+										四皇。グラグラの実を食べた地震人間。<br>
+										エースの単独行動やスクアードの裏切りなどを<br>
+										許す器も体もでかい男。元海軍大将で現元帥の<br>
+										サカズキに「先の時代の敗北者」と評される。<br>
 									</p>
 									<button class="voice-btn" data-audio="Shirohige">
 										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -194,6 +201,8 @@
 			</div>
 		</section>
 	</main>
+	
+	<footer th:replace="~{html/common/footer :: layout-footer}"></footer>
 	
 	<script th:inline="javascript">
 		document.addEventListener("DOMContentLoaded", () => {

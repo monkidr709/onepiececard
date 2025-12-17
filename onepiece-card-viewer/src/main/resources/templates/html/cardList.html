@@ -3,9 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>カードリスト</title>
+	<title>カード一覧 | OnePiece Card Lab</title>
 	<link rel="stylesheet" th:href="@{/css/cardList.css}">
 	<link rel="stylesheet" th:href="@{/css/common/header.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
 <body>
@@ -202,7 +203,7 @@
 							<div class="search-row">
 								<div class="search-field full-width">
 									<label class="field-label">テキスト効果</label>
-									<input type="text" th:field="*{cardText}" placeholder="テキスト効果を入力" />
+									<input type="text" th:field="*{cardText}" placeholder="テキスト効果を入力" class="text-input" />
 								</div>
 							</div>
 							
@@ -212,7 +213,7 @@
 										<input type="checkbox" th:field="*{cardTrigger}" th:value="1" />
 										<span class="checkbox-text">トリガー</span>
 									</label>
-									<input type="text" th:field="*{cardTriggerText}" placeholder="トリガーテキストを入力" class="trigger-text-input" />
+									<input type="text" th:field="*{cardTriggerText}" placeholder="トリガーテキストを入力" class="text-input" />
 								</div>
 							</div>
 						</div>
@@ -345,6 +346,8 @@
 			</div>
 		</div>
 	</main>
+	
+	<footer th:replace="~{html/common/footer :: layout-footer}"></footer>
 	
 	<script>
 		function toggleDetailSearch() {

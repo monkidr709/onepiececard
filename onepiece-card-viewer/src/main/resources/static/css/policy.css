@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	background-color: #f7f7f7;
+	color: #333;
+}
+
+.container {
+	max-width: 900px;
+	margin: 40px auto;
+	padding: 32px;
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+h1 {
+	font-size: 28px;
+	border-bottom: 2px solid #000;
+	padding-bottom: 8px;
+}
+
+h2 {
+	margin-top: 32px;
+	font-size: 20px;
+}
+
+p,
+li {
+	line-height: 1.8;
+	font-size: 15px;
+}
+
+ul {
+	padding-left: 20px;
+}
+
+.date {
+	margin-top: 40px;
+	font-size: 13px;
+	color: #666;
+}
