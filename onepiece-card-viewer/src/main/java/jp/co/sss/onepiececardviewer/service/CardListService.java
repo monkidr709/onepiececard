@@ -68,7 +68,10 @@ public class CardListService {
 		String[] colors = {"赤", "緑", "青", "紫", "黒", "黄"};
 		List<String> leaderCardColors = new ArrayList<>();
 		for (String color : colors) {
-			if (leaderCard.getCardColor().contains(color)) {
+			if (color.equals(leaderCard.getCardColor())) {
+				leaderCardColors.add(color);
+			}
+			if (color.equals(leaderCard.getCardColor2())) {
 				leaderCardColors.add(color);
 			}
 		}

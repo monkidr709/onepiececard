@@ -2,6 +2,7 @@ package jp.co.sss.onepiececardviewer.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,21 @@ public class DeckListService {
 	DeckListRepository deckListRepository;
 	
 	/**
-	 * Idでデッキリストを取得 (Id昇順)
+	 * userIdでデッキリストを取得 (Id昇順)
 	 * @param userId
 	 * @return
 	 */
 	public List<DeckList> getDeckList(Integer userId) {
 		return deckListRepository.findByUserNameIdOrderByIdAsc(userId);
+	}
+	
+	/**
+	 * deckIdでデッキリストを取得
+	 * @param deckId
+	 * @return
+	 */
+	public Optional<DeckList> getDeckListByDeckId(Integer deckId) {
+		return deckListRepository.findById(deckId);
 	}
 	
 	/**

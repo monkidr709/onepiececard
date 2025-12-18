@@ -572,7 +572,9 @@ main {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* カード選択モーダル */
+/* ========================================
+   カード選択モーダル（改善版）
+   ======================================== */
 .createDeck-modal {
 	display: none;
 	position: fixed;
@@ -581,109 +583,193 @@ main {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	backdrop-filter: blur(4px);
+	background-color: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(5px);
 }
 
 .createDeck-modal.active {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	animation: modalFadeIn 0.2s ease;
 }
 
-.createDeck-modal-content {
-	background: white;
-	border-radius: 12px;
-	padding: 2rem;
-	max-width: 500px;
-	width: 90%;
-	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-	position: relative;
-	animation: modalSlideIn 0.3s ease;
-}
-
-@keyframes modalSlideIn {
+@keyframes modalFadeIn {
 	from {
-		transform: translateY(-50px);
 		opacity: 0;
 	}
 
 	to {
-		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.createDeck-modal-content {
+	background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+	border-radius: 20px;
+	padding: 1.8rem;
+	max-width: 520px;
+	width: 90%;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+	position: relative;
+	animation: modalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	border: 2px solid rgba(142, 38, 57, 0.1);
+}
+
+@keyframes modalSlideIn {
+	from {
+		transform: translateY(-30px) scale(0.95);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0) scale(1);
 		opacity: 1;
 	}
 }
 
 .createDeck-modal-close {
 	position: absolute;
-	top: 0.8rem;
-	right: 0.8rem;
-	font-size: 1.8rem;
+	top: 1rem;
+	right: 1rem;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
 	font-weight: bold;
 	color: #999;
 	cursor: pointer;
-	transition: color 0.2s ease;
+	transition: all 0.2s ease;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.05);
+	line-height: 1;
 }
 
 .createDeck-modal-close:hover {
-	color: #333;
+	color: #8e2639;
+	background: rgba(142, 38, 57, 0.1);
+	transform: rotate(90deg);
 }
 
 .createDeck-modal-body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1.5rem;
+	gap: 1rem;
+}
+
+.createDeck-modal-text {
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	padding: 0.6rem 1.2rem;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(142, 38, 57, 0.25);
 }
 
 .createDeck-modal-text p {
-	font-size: 1.4rem;
-	font-weight: bold;
-	color: #333;
+	font-size: 1rem;
+	font-weight: 700;
+	color: white;
 	margin: 0;
+	letter-spacing: 0.5px;
+}
+
+.createDeck-modal-image {
+	position: relative;
+}
+
+.createDeck-modal-image::before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	right: -10px;
+	bottom: -10px;
+	background: linear-gradient(145deg, rgba(142, 38, 57, 0.1), rgba(168, 52, 77, 0.1));
+	border-radius: 16px;
+	z-index: -1;
 }
 
 .createDeck-modal-image img {
 	max-width: 350px;
 	width: 100%;
 	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.createDeck-modal-cardName {
+	background: white;
+	padding: 0.6rem 1.2rem;
 	border-radius: 10px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	border: 2px solid #8e2639;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	text-align: center;
 }
 
 .createDeck-modal-cardName p {
-	font-size: 1.2rem;
-	font-weight: bold;
+	font-size: 1.1rem;
+	font-weight: 700;
 	color: #8e2639;
 	margin: 0;
-	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .createDeck-modal-numberOfCards {
 	display: flex;
 	align-items: center;
 	gap: 1.5rem;
+	background: white;
+	padding: 1rem 1.5rem;
+	border-radius: 15px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	border: 2px solid rgba(142, 38, 57, 0.1);
 }
 
 .createDeck-counter {
 	font-size: 2.5rem;
-	font-weight: bold;
+	font-weight: 900;
 	color: #8e2639;
 	min-width: 60px;
 	text-align: center;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .createDeck-button-down,
 .createDeck-button-up {
-	width: 50px;
-	height: 50px;
-	font-size: 1.6rem;
+	width: 55px;
+	height: 55px;
+	font-size: 1.8rem;
 	font-weight: bold;
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	position: relative;
+	overflow: hidden;
+}
+
+.createDeck-button-down::before,
+.createDeck-button-up::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition: width 0.3s, height 0.3s;
+}
+
+.createDeck-button-down:active::before,
+.createDeck-button-up:active::before {
+	width: 100px;
+	height: 100px;
 }
 
 .createDeck-button-down {
@@ -698,8 +784,13 @@ main {
 
 .createDeck-button-down:hover,
 .createDeck-button-up:hover {
-	transform: scale(1.1);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	transform: scale(1.1) translateY(-2px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.createDeck-button-down:active,
+.createDeck-button-up:active {
+	transform: scale(1.05);
 }
 
 .createDeck-button-addition {
@@ -707,20 +798,48 @@ main {
 	color: white;
 	border: none;
 	padding: 1rem 2.5rem;
-	font-size: 1.2rem;
-	font-weight: bold;
-	border-radius: 6px;
+	font-size: 1.1rem;
+	font-weight: 700;
+	border-radius: 12px;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.3);
+	letter-spacing: 1px;
+	position: relative;
+	overflow: hidden;
+}
+
+.createDeck-button-addition::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.2);
+	transform: translate(-50%, -50%);
+	transition: width 0.4s, height 0.4s;
+}
+
+.createDeck-button-addition:active::before {
+	width: 300px;
+	height: 300px;
 }
 
 .createDeck-button-addition:hover {
-	transform: translateY(-1px);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(142, 38, 57, 0.4);
+	background: linear-gradient(135deg, #a8344d 0%, #c8405a 100%);
 }
 
-/* デッキ保存確認モーダル */
+.createDeck-button-addition:active {
+	transform: translateY(-1px);
+}
+
+/* ========================================
+   デッキ保存確認モーダル（改善版）
+   ======================================== */
 .createDeck-keep-deck-modal {
 	display: none;
 	position: fixed;
@@ -729,51 +848,63 @@ main {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	backdrop-filter: blur(4px);
+	background-color: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(5px);
 }
 
 .createDeck-keep-deck-modal.active {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	animation: modalFadeIn 0.2s ease;
 }
 
 .createDeck-keep-deck-modal-content {
-	background: white;
-	border-radius: 12px;
-	padding: 1.5rem;
-	max-width: 900px;
+	background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+	border-radius: 20px;
+	padding: 2rem;
+	max-width: 950px;
 	width: 90%;
-	max-height: 85vh;
+	max-height: 90vh;
 	overflow: hidden;
-	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 	position: relative;
-	animation: modalSlideIn 0.3s ease;
+	animation: modalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 	display: flex;
 	flex-direction: column;
+	border: 2px solid rgba(142, 38, 57, 0.1);
 }
 
 .createDeck-keep-deck-modal-close {
 	position: absolute;
-	top: 0.8rem;
-	right: 0.8rem;
-	font-size: 1.8rem;
+	top: 1rem;
+	right: 1rem;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
 	font-weight: bold;
 	color: #999;
 	cursor: pointer;
-	transition: color 0.2s ease;
+	transition: all 0.2s ease;
 	z-index: 10;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.05);
+	line-height: 1;
 }
 
 .createDeck-keep-deck-modal-close:hover {
-	color: #333;
+	color: #8e2639;
+	background: rgba(142, 38, 57, 0.1);
+	transform: rotate(90deg);
 }
 
 .createDeck-keep-deck-modal-body {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 1.2rem;
 	flex: 1;
 	overflow: hidden;
 }
@@ -781,23 +912,29 @@ main {
 .createDeck-keep-deck-modal-text {
 	text-align: center;
 	margin-bottom: 0;
+	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
+	padding: 1rem 2rem;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(142, 38, 57, 0.25);
 }
 
 .createDeck-keep-deck-modal-text p {
-	font-size: 1.2rem;
-	font-weight: bold;
-	color: #333;
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: white;
 	margin: 0;
+	letter-spacing: 0.5px;
 }
 
 .createDeck-keep-deck-modal-warning-text {
-	background: #fff3cd;
+	background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
 	border: 2px solid #ffc107;
-	border-radius: 6px;
-	padding: 0.7rem;
+	border-radius: 10px;
+	padding: 0.9rem 1.2rem;
 	text-align: center;
 	margin: 0;
 	min-height: auto;
+	box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
 }
 
 .createDeck-keep-deck-modal-warning-text:empty {
@@ -809,18 +946,22 @@ main {
 
 .createDeck-keep-deck-modal-warning-text p {
 	color: #856404;
-	font-weight: bold;
-	font-size: 0.95rem;
+	font-weight: 700;
+	font-size: 1rem;
 	margin: 0;
 }
 
 /* リーダーとデッキカードのコンテナ */
 .createDeck-keep-deck-modal-cards-container {
 	display: flex;
-	gap: 1rem;
+	gap: 1.2rem;
 	flex: 1;
 	overflow: hidden;
 	min-height: 0;
+	background: white;
+	padding: 1.2rem;
+	border-radius: 12px;
+	box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .createDeck-keep-deck-modal-leader-image {
@@ -843,10 +984,11 @@ main {
 	grid-template-rows: repeat(5, 1fr);
 	gap: 0.4rem;
 	padding: 0.8rem;
-	background: #f9f9f9;
-	border-radius: 6px;
+	background: linear-gradient(145deg, #f9f9f9 0%, #ffffff 100%);
+	border-radius: 8px;
 	overflow: hidden;
 	align-content: start;
+	box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .createDeck-keep-deck-modal-image img {
@@ -860,25 +1002,51 @@ main {
 .createDeck-keep-deck-modal-button {
 	display: flex;
 	justify-content: center;
-	padding-top: 0.8rem;
+	padding-top: 1rem;
 }
 
 .createDeck-keep-deck-modal-button button {
 	background: linear-gradient(135deg, #8e2639 0%, #a8344d 100%);
 	color: white;
 	border: none;
-	padding: 0.9rem 2.5rem;
-	font-size: 1.1rem;
-	font-weight: bold;
-	border-radius: 6px;
+	padding: 1.1rem 3.5rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+	border-radius: 12px;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 6px 20px rgba(142, 38, 57, 0.3);
+	letter-spacing: 1px;
+	position: relative;
+	overflow: hidden;
+}
+
+.createDeck-keep-deck-modal-button button::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.2);
+	transform: translate(-50%, -50%);
+	transition: width 0.4s, height 0.4s;
+}
+
+.createDeck-keep-deck-modal-button button:active::before {
+	width: 300px;
+	height: 300px;
 }
 
 .createDeck-keep-deck-modal-button button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(142, 38, 57, 0.4);
+	background: linear-gradient(135deg, #a8344d 0%, #c8405a 100%);
+}
+
+.createDeck-keep-deck-modal-button button:active {
 	transform: translateY(-1px);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* スクロールバーのスタイル */

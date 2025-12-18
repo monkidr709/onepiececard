@@ -19,8 +19,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.sss.onepiececardviewer.entity.CardList;
+import jp.co.sss.onepiececardviewer.entity.DeckList;
 import jp.co.sss.onepiececardviewer.form.KeepDeckForm;
 import jp.co.sss.onepiececardviewer.service.CardListService;
+import jp.co.sss.onepiececardviewer.service.DeckListService;
 import jp.co.sss.onepiececardviewer.service.KeepDeckService;
 
 @Controller
@@ -31,6 +33,9 @@ public class KeepDeckController {
 	
 	@Autowired
 	CardListService cardListService;
+	
+	@Autowired
+	DeckListService deckListService;
 	
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -47,6 +52,7 @@ public class KeepDeckController {
 	public String confirmDeck(HttpSession session, Model model, @PathVariable Integer id, 
 							  @RequestParam(required = false) String deckData) {
 		String username = (String) session.getAttribute("username");
+		Integer deckId = (Integer) session.getAttribute("deckId");
 		// セッションタイムアウト
 		if (username == null) {
 			return "redirect:/login";
@@ -69,11 +75,21 @@ public class KeepDeckController {
 			System.err.println("デッキデータのパースに失敗しました: " + e.getMessage());
 		}
 		
+		// 既存デッキの編集の場合、デッキ名と公開設定を表示
+		if (deckId != null) {
+			DeckList deck = deckListService.getDeckListByDeckId(deckId).orElse(null);
+			KeepDeckForm form = new KeepDeckForm();
+			form.setDeckName(deck.getDeckName());
+			form.setPublishDeck(deck.isPublishDeck());
+			model.addAttribute("keepDeckForm", form);
+		} else {
+			model.addAttribute("keepDeckForm", new KeepDeckForm());
+		}
+		
 		Optional<CardList> getCardListById = cardListService.getCardListById(id);
 		CardList leaderCard = getCardListById.orElse(null);
 		
 		model.addAttribute("leaderCard", leaderCard);
-		model.addAttribute("keepDeckForm", new KeepDeckForm());
 		return "html/keepDeck";
 	}
 	
@@ -87,8 +103,8 @@ public class KeepDeckController {
 	 * @return
 	 */
 	@PostMapping("/keep/deck/{id}")
-	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id, 
-						   @RequestParam(required = false) String deckData, 
+	public String keepDeck(HttpSession session, KeepDeckForm form, @PathVariable Integer id,
+						   @RequestParam(required = false) String deckData,
 						   RedirectAttributes redirectAttributes) {
 		String username = (String) session.getAttribute("username");
 		Integer userId = (Integer) session.getAttribute("userId");
