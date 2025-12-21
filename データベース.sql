@@ -17,25 +17,25 @@ insert into users values (nextval('seq_user'), 'しいたけ', '9699690rk', 'use
 
 create table public.cards (
   id integer not null
-  , card_number character varying(255) not null
-  , card_name character varying(255) not null
-  , card_name_furigana character varying(255)
-  , image_file_path character varying(255) not null
-  , card_color character varying(255) not null
-  , card_color_2 character varying(255)
-  , card_type character varying(255) not null
-  , card_pack character varying(255) not null
+  , card_number character varying(10) not null
+  , card_name character varying(50) not null
+  , card_name_furigana character varying(50)
+  , image_file_path character varying(100) not null
+  , card_color character varying(5) not null
+  , card_color_2 character varying(5)
+  , card_type character varying(10) not null
+  , card_pack character varying(10) not null
   , card_block_icon integer not null
-  , card_rarity character varying(255) not null
+  , card_rarity character varying(10) not null
   , card_cost_or_life integer not null
   , card_power integer
-  , card_features character varying(255)
-  , card_attribute_1 character varying(255) not null
-  , card_attribute_2 character varying(255)
-  , card_attribute_3 character varying(255)
-  , card_attribute_4 character varying(255)
-  , card_attribute_5 character varying(255)
-  , card_counter character varying(255)
+  , card_features character varying(5)
+  , card_attribute_1 character varying(10) not null
+  , card_attribute_2 character varying(10)
+  , card_attribute_3 character varying(10)
+  , card_attribute_4 character varying(10)
+  , card_attribute_5 character varying(10)
+  , card_counter character varying(5)
   , card_text character varying(255)
   , card_trigger boolean
   , card_trigger_text character varying(255)
