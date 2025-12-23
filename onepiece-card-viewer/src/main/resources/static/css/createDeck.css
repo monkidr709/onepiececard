@@ -573,7 +573,7 @@ main {
 }
 
 /* ========================================
-   カード選択モーダル（改善版）
+   カード選択モーダル
    ======================================== */
 .createDeck-modal {
 	display: none;
@@ -838,7 +838,7 @@ main {
 }
 
 /* ========================================
-   デッキ保存確認モーダル（改善版）
+   デッキ保存確認モーダル
    ======================================== */
 .createDeck-keep-deck-modal {
 	display: none;
@@ -1103,16 +1103,46 @@ main {
 
 @media screen and (max-width: 768px) {
 	.createDeck-container {
-		grid-template-columns: 1fr;
-		grid-template-rows: 35px auto auto 1fr;
+		display: flex;
+		flex-direction: column;
 	}
 
-	.createDeck-field {
-		grid-column: 1;
-		grid-row: 3 / 4;
+	.createDeck-search {
+		flex-shrink: 0;
 	}
 
 	.createDeck-image-grid {
-		grid-row: 4;
+		flex: 1;
+		min-height: 200px;
+	}
+
+	.createDeck-field {
+		flex: 1;
+		min-height: 300px;
+	}
+}
+
+/* スマホ用の追加調整 */
+@media screen and (max-width: 480px) {
+	.createDeck-container {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+	}
+
+	.createDeck-search {
+		flex-shrink: 0;
+	}
+
+	.createDeck-image-grid {
+		flex: 1;
+		min-height: 200px;
+		overflow-y: auto;
+	}
+
+	.createDeck-field {
+		flex: 1;
+		min-height: 250px;
+		overflow: hidden;
 	}
 }
