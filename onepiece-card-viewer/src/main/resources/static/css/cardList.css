@@ -5,7 +5,6 @@ body {
 	margin: 0;
 	background-color: #f5f5f5;
 	min-height: 100vh;
-	min-width: 900px;
 	position: relative;
 }
 
@@ -676,6 +675,12 @@ h1 {
 }
 
 /* ===== レスポンシブ対応 ===== */
+@media (min-width: 769px) {
+	body {
+		min-width: 900px;
+	}
+}
+
 @media (max-width: 1024px) {
 	.cardlist-container {
 		padding: 25px 30px;
@@ -694,9 +699,48 @@ h1 {
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 890px) {
+
+	/* ページネーションのスマホ対応 */
+	.pagination {
+		width: 100%;
+		min-width: 100%;
+		max-width: 100%;
+		padding: 15px 10px;
+		gap: 5px;
+		flex-wrap: wrap;
+		border-radius: 15px;
+		margin: 30px auto;
+	}
+
+	.pagination-btn,
+	.pagination-number {
+		min-width: 30px;
+		max-width: 30px;
+		width: 30px;
+		height: 30px;
+		min-height: 30px;
+		font-size: 0.9rem;
+		border-radius: 8px;
+	}
+
+	.pagination-btn {
+		min-width: 35px;
+		max-width: 35px;
+		width: 35px;
+		font-size: 1rem;
+	}
+
+	.pagination-ellipsis {
+		min-width: 25px;
+		min-height: 35px;
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 450px) {
 	main {
-		padding-top: 200px;
+		padding-top: 50px;
 	}
 
 	.cardlist-container {
@@ -755,8 +799,10 @@ h1 {
 	}
 
 	.cardlist-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-		gap: 15px;
+		grid-template-columns: repeat(3, 1fr);
+		/* 2列から3列に変更 */
+		gap: 10px;
+		/* 15px から 10px に縮小 */
 	}
 
 	/* モーダルのレスポンシブ対応 */
@@ -779,5 +825,295 @@ h1 {
 
 	.cardlist-overlay-others p {
 		font-size: 0.95rem;
+	}
+
+	/* ページネーションのスマホ対応 */
+	.pagination {
+		width: 100%;
+		min-width: 100%;
+		max-width: 100%;
+		padding: 15px 10px;
+		gap: 5px;
+		flex-wrap: wrap;
+		border-radius: 15px;
+		margin: 30px auto;
+	}
+
+	.pagination-btn,
+	.pagination-number {
+		min-width: 30px;
+		max-width: 30px;
+		width: 30px;
+		height: 30px;
+		min-height: 30px;
+		font-size: 0.9rem;
+		border-radius: 8px;
+	}
+
+	.pagination-btn {
+		min-width: 30px;
+		max-width: 30px;
+		width: 30px;
+		font-size: 1rem;
+	}
+
+	.pagination-ellipsis {
+		min-width: 25px;
+		min-height: 35px;
+		font-size: 1rem;
+	}
+}
+
+/* スマホ対応の検索フォーム修正のみ */
+/* スマホ対応の検索フォーム修正（コンパクト版） */
+@media (max-width: 450px) {
+	
+	/* 検索セクション全体 */
+	.cardlist-search {
+		padding: 12px;
+	}
+
+	.cardlist-search h2 {
+		font-size: 1.1rem;
+		margin-bottom: 12px;
+		padding-bottom: 6px;
+	}
+
+	/* 詳細検索トグルボタン */
+	.cardlist-search-toggle {
+		margin-bottom: 12px;
+	}
+
+	.cardlist-search-toggle-btn {
+		padding: 8px 20px;
+		font-size: 0.85rem;
+		width: 100%;
+		max-width: 200px;
+	}
+
+	/* 検索セクション */
+	.search-section {
+		padding: 8px;
+		margin-bottom: 8px;
+	}
+
+	/* 検索行 */
+	.search-row {
+		gap: 6px;
+		margin-bottom: 6px;
+		flex-direction: column;
+	}
+
+	/* 検索フィールド - 全て横並び */
+	.search-field {
+		min-width: 100%;
+		flex: 1 1 100%;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 6px;
+	}
+
+	.search-field.half-width {
+		min-width: 100%;
+		flex: 1 1 100%;
+	}
+
+	/* ラベル */
+	.field-label {
+		font-size: 0.8rem;
+		min-width: 80px;
+		width: 100%;
+		margin-bottom: 0;
+		flex-shrink: 0;
+		display: block;
+	}
+
+	/* テキスト入力 */
+	.search-field input[type="text"],
+	.text-input {
+		flex: 1;
+		padding: 8px 10px;
+		font-size: 0.85rem;
+		box-sizing: border-box;
+	}
+
+	/* セレクトボックス */
+	.search-field select {
+		flex: 1;
+		padding: 8px 10px;
+		font-size: 0.85rem;
+		box-sizing: border-box;
+	}
+
+	/* 範囲入力フィールドは縦並び */
+	.search-field.range-field {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.search-field.range-field .field-label {
+		width: 100%;
+		margin-bottom: 4px;
+	}
+
+	/* 範囲入力 */
+	.range-inputs {
+		flex-direction: row;
+		align-items: center;
+		gap: 6px;
+		width: 100%;
+	}
+
+	.range-inputs select {
+		flex: 1;
+		min-width: 0;
+		font-size: 0.8rem;
+		padding: 7px 8px;
+	}
+
+	.range-separator {
+		font-size: 0.85rem;
+		padding: 0 3px;
+	}
+
+	/* チェックボックスグループ - 横並びでラベルの右端より右に配置 */
+	.checkbox-group {
+		gap: 4px;
+		width: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin-left: 0;
+	}
+
+	.checkbox-grid {
+		gap: 4px;
+		width: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin-left: 0;
+	}
+
+	.checkbox-label {
+		padding: 6px 8px;
+		font-size: 0.8rem;
+		flex: 0 1 auto;
+		min-width: auto;
+		max-width: none;
+	}
+
+	.checkbox-label input[type="checkbox"] {
+		width: 13px;
+		height: 13px;
+		margin-right: 4px;
+	}
+
+	.checkbox-text {
+		font-size: 0.75rem;
+	}
+
+	/* 色・種類・レアリティなどのチェックボックスがあるフィールドも縦並び */
+	.search-field:has(.checkbox-group) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.search-field:has(.checkbox-group) .field-label {
+		width: 100%;
+		margin-bottom: 4px;
+	}
+
+	.search-field:has(.checkbox-grid) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.search-field:has(.checkbox-grid) .field-label {
+		width: 100%;
+		margin-bottom: 4px;
+	}
+
+	/* トリガーフィールド - 横並び維持 */
+	.trigger-field {
+		flex-direction: row;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.trigger-field .field-label {
+		width: auto;
+		min-width: auto;
+		font-size: 0.8rem;
+		padding: 6px 8px;
+		flex-shrink: 0;
+	}
+
+	.trigger-field input[type="checkbox"] {
+		width: 13px;
+		height: 13px;
+		margin-right: 4px;
+	}
+
+	.trigger-field .text-input {
+		flex: 1;
+		padding: 8px 10px;
+		font-size: 0.85rem;
+	}
+
+	/* 検索ボタン */
+	.search-actions {
+		margin-top: 12px;
+		padding-top: 10px;
+	}
+
+	.search-submit-btn {
+		width: 100%;
+		padding: 10px 25px;
+		font-size: 0.95rem;
+		max-width: 250px;
+	}
+}
+
+/* 少し大きめのスマホ対応 (450px-768px) */
+@media (min-width: 451px) and (max-width: 768px) {
+	
+	.search-field {
+		min-width: 100%;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.field-label {
+		min-width: 100px;
+		width: 100px;
+		font-size: 0.9rem;
+	}
+
+	.search-field:has(.checkbox-group) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.search-field:has(.checkbox-group) .field-label {
+		width: 100%;
+	}
+
+	.checkbox-label {
+		min-width: calc(33.333% - 4px);
+		max-width: calc(33.333% - 4px);
+	}
+
+	.search-field input[type="text"],
+	.search-field select,
+	.text-input {
+		flex: 1;
+		box-sizing: border-box;
+	}
+
+	.range-inputs {
+		width: 100%;
+	}
+
+	.range-inputs select {
+		flex: 1;
 	}
 }

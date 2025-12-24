@@ -305,6 +305,33 @@ header a:focus {
 	}
 }
 
+/* 600px以下でユーザー名もメニュー内に */
+@media (max-width: 600px) {
+	.header-name {
+		display: none;
+	}
+	
+	.mobile-menu .header-user-mobile {
+		display: block;
+		text-align: center;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		background-color: rgba(255, 255, 255, 0.1);
+		border-radius: 10px;
+	}
+	
+	.mobile-menu .header-user-mobile p {
+		margin: 0;
+		font-size: 0.95rem;
+		color: white;
+	}
+	
+	.mobile-menu .header-user-mobile p span {
+		font-weight: bold;
+		color: #ffd700;
+	}
+}
+
 @media (max-width: 768px) {
 	header {
 		padding: 1rem;

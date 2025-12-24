@@ -183,6 +183,7 @@ main {
 		transform: translateY(-80px) scale(0.9);
 		opacity: 0;
 	}
+
 	to {
 		transform: translateY(0) scale(1);
 		opacity: 1;
@@ -325,87 +326,47 @@ main {
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 450px) {
 	main {
-		padding-top: 200px;
+		padding-top: 50px;
 	}
 
 	.choiceleader-container {
-		padding: 20px;
+		padding: 25px 15px;
 	}
 
-	.choiceleader-container h1 {
-		font-size: 2rem;
-	}
-
-	.choiceleader-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-		gap: 15px;
-	}
-
-	.choiceleader-search-leader {
-		padding: 20px 25px;
-		gap: 12px;
-	}
-
-	.choiceleader-search-leader button {
-		padding: 10px 22px;
-		font-size: 1rem;
-		min-width: 75px;
-	}
-
-	.choiceleader-modal-content {
-		padding: 30px;
-		width: 95%;
-	}
-
-	.choiceleader-modal-confirmation p {
-		font-size: 1.2rem;
-	}
-
-	.choiceleader-modal-button button {
-		padding: 14px 40px;
-		font-size: 1.1rem;
-	}
-}
-
-@media (max-width: 480px) {
 	.choiceleader-container h1 {
 		font-size: 1.8rem;
+		/* 2.5rem から縮小 */
 		margin-bottom: 2rem;
 	}
 
 	.choiceleader-image-grid {
-		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-		gap: 12px;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+		/* 20px から縮小 */
 		padding: 10px;
-	}
-
-	.choiceleader-search-leader {
-		padding: 15px 20px;
-		gap: 10px;
+		/* 15px から縮小 */
 	}
 
 	.choiceleader-search-leader button {
-		padding: 8px 18px;
-		font-size: 0.95rem;
-		min-width: 65px;
-	}
-
-	.choiceleader-modal-content {
-		padding: 25px;
+		padding: 10px 20px;
+		/* 14px 28px から縮小 */
+		font-size: 1rem;
+		/* 1.2rem から縮小 */
+		min-width: 70px;
+		/* 85px から縮小 */
 	}
 
 	.choiceleader-modal-confirmation p {
 		font-size: 1.1rem;
-	}
-
-	.choiceleader-modal-image img {
-		width: 280px;
+		/* 1.4rem から縮小 */
 	}
 
 	.choiceleader-modal-button button {
-		padding: 12px 35px;
-		font-size: 1rem;
+		padding: 14px 40px;
+		/* 16px 50px から縮小 */
+		font-size: 1.1rem;
+		/* 1.3rem から縮小 */
 	}
 }

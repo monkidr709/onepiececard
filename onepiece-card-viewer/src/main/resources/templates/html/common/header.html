@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" th:href="@{/css/header.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -44,6 +44,11 @@
 		<!-- モバイルメニュー -->
 		<div class="mobile-menu" id="mobileMenu">
 			<div class="mobile-menu-content">
+				<!-- 600px以下でのみ表示されるユーザー情報 -->
+				<div class="header-user-mobile">
+					<p>ようこそ、<span th:text="${session.username}"></span>さん</p>
+				</div>
+
 				<nav class="mobile-menu-links">
 					<a th:href="@{/card/list}" class="nav-link">カードリスト</a>
 					<a th:href="@{/choice/leader}" class="nav-link">デッキ作成</a>

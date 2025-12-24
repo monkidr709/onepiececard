@@ -16,7 +16,7 @@ body {
 
 main {
 	width: 100%;
-	height: 100vh;
+	height: auto;
 	padding: 0;
 }
 
@@ -49,9 +49,10 @@ main {
 	border-radius: 6px;
 	padding: 0.5rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	overflow: visible;
+	overflow-y: auto;
 	margin: 0;
 	max-height: fit-content;
+	min-height: 0;
 }
 
 .createDeck-search h2 {
@@ -1123,26 +1124,31 @@ main {
 }
 
 /* スマホ用の追加調整 */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1000px) {
 	.createDeck-container {
 		display: flex;
 		flex-direction: column;
-		height: auto;
+	}
+
+	.createDeck-container>h1 {
+		order: 1;
 	}
 
 	.createDeck-search {
 		flex-shrink: 0;
+		order: 2;
 	}
 
 	.createDeck-image-grid {
 		flex: 1;
 		min-height: 200px;
-		overflow-y: auto;
+		order: 3;
 	}
 
 	.createDeck-field {
 		flex: 1;
-		min-height: 250px;
-		overflow: hidden;
+		min-height: 300px;
+		order: 4;
+		/* 一番下に配置 */
 	}
 }
