@@ -326,6 +326,7 @@ main {
 	}
 }
 
+
 @media (max-width: 450px) {
 	main {
 		padding-top: 50px;
@@ -337,36 +338,66 @@ main {
 
 	.choiceleader-container h1 {
 		font-size: 1.8rem;
-		/* 2.5rem から縮小 */
 		margin-bottom: 2rem;
 	}
 
+	/* 3列グリッドに変更 */
 	.choiceleader-image-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 15px;
-		/* 20px から縮小 */
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
 		padding: 10px;
-		/* 15px から縮小 */
+	}
+
+	/* カード画像のサイズ調整 */
+	.choiceleader-image-card {
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.choiceleader-image-card:hover {
+		transform: translateY(-5px) scale(1.02);
+		box-shadow: 0 8px 20px rgba(142, 38, 57, 0.4);
 	}
 
 	.choiceleader-search-leader button {
 		padding: 10px 20px;
-		/* 14px 28px から縮小 */
 		font-size: 1rem;
-		/* 1.2rem から縮小 */
 		min-width: 70px;
-		/* 85px から縮小 */
+	}
+
+	/* モーダルのコンパクト化 */
+	.choiceleader-modal-content {
+		padding: 20px;
+		max-height: 85vh;
+	}
+
+	.choiceleader-modal-body {
+		gap: 15px;
+		padding-top: 10px;
+	}
+
+	.choiceleader-modal-confirmation {
+		padding: 12px;
 	}
 
 	.choiceleader-modal-confirmation p {
-		font-size: 1.1rem;
-		/* 1.4rem から縮小 */
+		font-size: 1rem;
+	}
+
+	.choiceleader-modal-image {
+		padding: 10px 0;
+	}
+
+	.choiceleader-modal-image img {
+		width: 250px;
+		border: 2px solid rgba(142, 38, 57, 0.2);
+	}
+
+	.choiceleader-modal-button {
+		padding-top: 5px;
 	}
 
 	.choiceleader-modal-button button {
-		padding: 14px 40px;
-		/* 16px 50px から縮小 */
-		font-size: 1.1rem;
-		/* 1.3rem から縮小 */
+		padding: 12px 35px;
+		font-size: 1rem;
 	}
 }

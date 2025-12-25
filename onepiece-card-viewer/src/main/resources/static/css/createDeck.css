@@ -59,10 +59,13 @@ main {
 	font-size: 0.85rem;
 	color: #8e2639;
 	margin-bottom: 0.3rem;
+	display: inline-block;
+	margin-right: 0.5rem;
 }
 
 /* 詳細検索トグル */
 .createDeck-search-toggle {
+	display: inline-block;
 	margin-bottom: 0.3rem;
 }
 
@@ -1149,6 +1152,150 @@ main {
 		flex: 1;
 		min-height: 300px;
 		order: 4;
-		/* 一番下に配置 */
+	}
+}
+
+@media screen and (max-width: 450px) {
+	/* スマホ用：field-overを小さく */
+	.createDeck-field-over {
+		grid-template-columns: 70px 1fr auto;
+		gap: 0.3rem;
+		padding-bottom: 0.3rem;
+		margin-bottom: 0.3rem;
+	}
+	
+	/* リーダーカードを小さく */
+	.createDeck-image-leaderCard {
+		max-width: 70px;
+	}
+	
+	/* デッキ枚数表示を小さく */
+	.createDeck-image-detail {
+		padding: 0.25rem;
+		gap: 0.1rem;
+	}
+	
+	.createDeck-image-detail p {
+		font-size: 0.6rem;
+		margin: 0.08rem 0;
+	}
+	
+	.createDeck-image-detail span {
+		font-size: 0.64rem;
+		margin-left: 0.2rem;
+	}
+	
+	/* 警告文を小さく */
+	#numberOfCardWarning {
+		padding: 0.2rem;
+		margin-bottom: 0.25rem;
+	}
+	
+	#numberOfCardWarning p {
+		font-size: 0.58rem;
+	}
+	
+	/* ボタンを小さく */
+	.createDeck-keep-deck-button {
+		padding: 0.35rem 0.6rem;
+		font-size: 0.65rem;
+	}
+	
+	.createDeck-keep-deck form button {
+		padding: 0.35rem 0.6rem;
+		font-size: 0.65rem;
+	}
+	
+	/* カードリストを5列に */
+	.createDeck-image-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.3rem;
+		padding: 0.3rem;
+	}
+	
+	/* デッキ内のカード表示を5列に */
+	.createDeck-display-image-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.3rem;
+	}
+	
+	/* 詳細検索エリアをスクロール可能に */
+	.createDeck-search {
+		max-height: 40vh;
+		overflow-y: auto;
+	}
+	
+	.createDeck-search-details.active {
+		max-height: none;
+	}
+	
+	/* カードモーダルのスマホ対応 */
+	.createDeck-modal-content {
+		padding: 1rem;
+		max-width: 95%;
+		width: 95%;
+	}
+	
+	.createDeck-modal-close {
+		width: 28px;
+		height: 28px;
+		font-size: 1.2rem;
+		top: 0.5rem;
+		right: 0.5rem;
+	}
+	
+	.createDeck-modal-body {
+		gap: 0.5rem;
+	}
+	
+	.createDeck-modal-text {
+		padding: 0.4rem 0.8rem;
+		border-radius: 8px;
+	}
+	
+	.createDeck-modal-text p {
+		font-size: 0.75rem;
+		letter-spacing: 0.3px;
+	}
+	
+	.createDeck-modal-image img {
+		max-width: 220px;
+		border-radius: 8px;
+	}
+	
+	.createDeck-modal-cardName {
+		padding: 0.4rem 0.8rem;
+		border-radius: 6px;
+		border-width: 1.5px;
+	}
+	
+	.createDeck-modal-cardName p {
+		font-size: 0.85rem;
+	}
+	
+	.createDeck-modal-numberOfCards {
+		gap: 1rem;
+		padding: 0.6rem 1rem;
+		border-radius: 10px;
+		border-width: 1.5px;
+	}
+	
+	.createDeck-counter {
+		font-size: 1.8rem;
+		min-width: 45px;
+	}
+	
+	.createDeck-button-down,
+	.createDeck-button-up {
+		width: 42px;
+		height: 42px;
+		font-size: 1.4rem;
+	}
+	
+	.createDeck-button-addition {
+		padding: 0.7rem 1.8rem;
+		font-size: 0.9rem;
+		border-radius: 8px;
+		letter-spacing: 0.5px;
 	}
 }
